@@ -1,0 +1,30 @@
+input {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  text-align: center;
+  max-width: 100%;
+}
+button {
+  padding: 1ch;
+  border-radius: 10%;
+  border: none;
+  background-color: grey;
+  color: white;
+}
+.header {
+  color: (12, 12, 12);
+  background-color: aqua;
+  padding: 30px;
+}
+.calculator {
+  width: 100%;
+  margin-inline: auto;
+}
+.calc-buttons {
+  margin-top: 1vh;
+}
+#answer {
+  border-style: dashed;
+  font-weight: bolder;
+}
+  
