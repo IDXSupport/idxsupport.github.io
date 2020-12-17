@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mikey's website | Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/test.css" />
+    <script src="/assets/js/calc-app.js"></script>
+  </head>
+  <body style="margin: auto; max-width: 60%; padding: 1vw">
+    <div class="header">
+      <div class="row"><h2>website header</h2></div>
+      <nav class="row">
+        <a href="/calculator.html">calculator</a>
+      </nav>
+    </div>
+    <p>Collect names and do the math equation that they choose</p>
+    <p>
+      <a href="https://www.w3schools.com/js/js_validation.asp"
+        >w3Schools where we left off</a
+      >
+    </p>
+    <p>
+      <a href="https://www.w3schools.com/bootstrap4/default.asp"
+        >Built on Bootstrap 4</a
+      >
+    </p>
+
+    <div class="calculator">
+      <div class="row" align="center">
+        <label class="badge-dark col-4">first number</label>
+        <label class="badge-dark col-4">second number</label>
+        <label class="badge-dark col-4">answer</label>
+      </div>
+      <div class="row" align="center">
+        <div class="col-4"><input type="number" name="num1" id="num1" /></div>
+        <div class="col-4"><input type="number" name="num2" id="num2" /></div>
+        <div class="col-4">
+          <input type="number" name="answer" id="answer" readonly />
+        </div>
+      </div>
+      <div class="row calc-buttons">
+        <div class="col">
+          <button style="width: 10%" onclick="doMath('1')">+</button>
+          <button style="width: 10%" onclick="doMath('2')">-</button>
+          <button style="width: 10%" onclick="doMath('3')">*</button>
+          <button style="width: 10%" onclick="doMath('4')">/</button>
+          <button style="float: right" onclick="cleary()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
