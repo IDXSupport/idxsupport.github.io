@@ -35,8 +35,14 @@
         <label class="badge-dark col-4">answer</label>
       </div>
       <div class="row" align="center">
-        <div class="col-4"><input type="number" name="num1" id="num1" /></div>
-        <div class="col-4"><input type="number" name="num2" id="num2" /></div>
+        <div class="col-3"><input type="number" name="num1" id="num1" />
+        </div>
+        <div class="col-1" id="symb">
+        </div>
+        <div class="col-3"><input type="number" name="num2" id="num2" />
+        </div>
+        <div class="col-1"> = 
+        </div>
         <div class="col-4">
           <input type="number" name="answer" id="answer" readonly />
         </div>
@@ -50,6 +56,8 @@
           <button style="float: right" onclick="cleary()">Clear</button>
         </div>
       </div>
+      </div>
+      <div id="log"></div>
     </div>
   </body>
 </html>
