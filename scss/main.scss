@@ -1,0 +1,96 @@
+@import './resets';
+@import './variables';
+
+@function weight ($weight-name){
+    @return map-get($font-weights, $weight-name);
+}
+
+
+
+body {
+    background: $background-color;
+    color: $text-color;
+}
+main {
+    #{&}__paragraph {
+        font-weight: weight(regular);
+    }
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    color: white;
+    background-color: $primary-color;
+    padding: 30px;
+    ul{
+        font-size: 1.2em;
+        list-style-type: none;
+    }
+}
+
+a {
+    color: $blue;
+    &:hover{
+        color:$accent-color;
+    }
+}
+
+.app {
+    background-color: white;
+    max-width: 600px;
+    border: $border;
+    border-radius: $radius;
+    padding: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    h1{
+        color:$black;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+    h2{
+        color:$black;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+}
+section{
+    margin-top: 10px;
+}
+
+
+.calc-buttons {
+    margin-top: 1vh;
+    text-align: left;
+}
+
+button {
+    padding: 1ch;
+    border-radius: $radius;
+    border: $border;
+    background-color: $blue;
+    color: $white;
+    &:hover{
+        background-color: $accent-color;
+    }
+}
+
+input {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    text-align: center;
+    max-width: 100%;
+}
+
+#answer {
+    border-style: dashed;
+    font-weight: bolder;
+}
+#equation {
+    color: $black;
+}
+.input-fields{
+    span{
+        color: $black;
+    }
+}

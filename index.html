@@ -6,50 +6,117 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="/assets/css/test.css" />
+    <link rel="stylesheet" href="/dist/css/main.css" class="rel">
     <script src="/assets/js/calc-app.js"></script>
   </head>
-  <body style="margin: auto; max-width: 60%; padding: 1vw">
-    <div class="header">
-      <div class="row"><h2>website header</h2></div>
-      <nav class="row">
-        <a href="/calculator.html">calculator</a>
-      </nav>
-    </div>
-    <p>Collect names and do the math equation that they choose</p>
-    <p>
-      <a href="https://www.w3schools.com/js/js_validation.asp"
-        >w3Schools where we left off</a
-      >
-    </p>
-    <p>
-      <a href="https://www.w3schools.com/bootstrap4/default.asp"
-        >Built on Bootstrap 4</a
-      >
-    </p>
+  
+  <body style="margin: auto; max-width: 1400px; padding: 1vw">
+    <header>
+      <span class="menu-btn__burger"></span>
+      <div class="row"><h2>Learning stuff site</h2></div>
+      <ul class="row">
+        <li class="menu-nav__item active">
+          <a href="/index.html">home</a>
+        </li>       
+        <li class="menu-nav__item">
+          <a href="#calculator"><i class="fas fa-calculator fa-lg fa-fw"></i>   calculator</a>
+        </li>
+      </ul>
+    </header>
 
-    <div class="calculator">
-      <div class="row" align="center">
-        <label class="badge-dark col-4">first number</label>
-        <label class="badge-dark col-4">second number</label>
-        <label class="badge-dark col-4">answer</label>
-      </div>
-      <div class="row" align="center">
-        <div class="col-4"><input type="number" name="num1" id="num1" /></div>
-        <div class="col-4"><input type="number" name="num2" id="num2" /></div>
-        <div class="col-4">
-          <input type="number" name="answer" id="answer" readonly />
+    <main>
+      <section class="home">
+        <h2>Hi! My Name Is</h2>
+        <h1 class="home__name">
+          Mikey <span class="home__name--last">Villavicencio</span>
+        </h1>
+        <h2>web...er</h2>
+      </section>
+      <hr>
+      <section>
+        <div class="main">
+          <p class="main__paragraph">
+            this is just a plain paragraph where content is placed
+          </p>
+          <p class="main__paragraph">
+            this is just a plain paragraph where content is placed
+          </p>
         </div>
-      </div>
-      <div class="row calc-buttons">
-        <div class="col">
-          <button style="width: 10%" onclick="doMath('1')">+</button>
-          <button style="width: 10%" onclick="doMath('2')">-</button>
-          <button style="width: 10%" onclick="doMath('3')">*</button>
-          <button style="width: 10%" onclick="doMath('4')">/</button>
-          <button style="float: right" onclick="cleary()">Clear</button>
+        <hr>
+        <div>
+          <a href="https://www.w3schools.com/js/js_validation.asp"
+            >w3Schools where we left off</a
+          >
+        <br>
+          <a href="https://www.w3schools.com/bootstrap4/default.asp"
+            >Built on Bootstrap 4</a
+          >
         </div>
-      </div>
-    </div>
+      </section>
+
+
+      <section id="calculator">
+        <div class="app calculator">
+          <h1>Calculator</h1>
+          <div class="row" align="center">
+            <label class="badge-dark col-4">first number</label>
+            <label class="badge-dark col-4">second number</label>
+            <label class="badge-dark col-4">answer</label>
+          </div>
+          <div class="row input-fields" align="center">
+            <span class="col-3"><input type="number" name="num1" id="num1"/></span>
+            <span class="col-1" id="asymbol"></span>
+            <span class="col-3"><input type="number" name="num2" id="num2"/></span>
+            <span class="col-1">=</span>
+            <span class="col-4">
+              <input type="number" name="answer" id="answer" readonly />
+            </span>
+          </div>
+          <div class="row calc-buttons">
+            <div class="col">
+              <button style="width: 4em" onclick="doMath('1')">+</button>
+              <button style="width: 4em" onclick="doMath('2')">-</button>
+              <button style="width: 4em" onclick="doMath('3')">*</button>
+              <button style="width: 4em" onclick="doMath('4')">/</button>
+              <button style="float: right" onclick="cleary()">Clear</button>
+            </div>
+          </div>
+          <div id="equation" style="float:left"></div>
+        </div>
+      </section>
+
+
+      <section id="date">
+        <div class="app date">
+          <h2>Date Measurer</h2>
+          <button id="time" onclick="logTime"></button>
+        </div>
+      </section>
+
+
+      <section id="footer">
+        <div class="social-icons">
+          <a href="https://www.facebook.com/mykeev">
+            <i class="fab fa-facebook fa-2x" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.instagram.com/mikikiv/">
+            <i class="fab fa-instagram fa-2x" aria-hidden="true"></i>
+          </a>
+          <a href="https://github.com/mikikiv/">
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+          <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/">
+            <i class="fab fa-bootstrap fa-2x" aria-hidden="true"></i>
+          </a>
+          <a href="https://cloudappreciationsociety.org/">
+            <i class="fa fa-cloud fa-2x" aria-hidden="true"></i>
+          </a>
+        </div>
+        <footer>$copy; Copyright 2021</footer>
+      </section>
+
+    </main>
+    <script src="https://kit.fontawesome.com/08fc1ca827.js" crossorigin="anonymous"></script>   
+
   </body>
 </html>
