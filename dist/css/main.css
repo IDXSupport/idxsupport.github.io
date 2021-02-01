@@ -13,6 +13,7 @@ main {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 10vh;
 }
 
 main main__paragraph {
@@ -28,6 +29,16 @@ header {
 header ul {
   font-size: 1.2em;
   list-style-type: none;
+}
+
+footer {
+  width: 100%;
+  align-content: center;
+  float: none;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  margin-top: 100px;
 }
 
 a {
@@ -74,10 +85,16 @@ button {
   border: 1px solid #222;
   background-color: #3389B0;
   color: #fff;
+  width: auto;
 }
 
 button:hover {
   background-color: orange;
+}
+
+.half {
+  width: 50%;
+  float: left;
 }
 
 input {
@@ -97,5 +114,34 @@ input {
 }
 
 .input-fields span {
+  color: #222;
+}
+
+.petinfo {
+  color: black;
+  vertical-align: middle;
+}
+
+.petinfo p {
+  vertical-align: middle;
+}
+
+secret {
+  background-color: black;
+}
+
+secret:hover {
+  background-color: unset;
+}
+
+#content {
+  width: 99%;
+}
+
+.card {
+  height: 100%;
+}
+
+.card h2 {
   color: #222;
 }
