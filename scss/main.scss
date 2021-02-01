@@ -11,6 +11,7 @@ body {
     background: $background-color;
     color: $text-color;
 }
+
 main {
     #{&}__paragraph {
         font-weight: weight(regular);
@@ -18,6 +19,8 @@ main {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 10vh;
+
 }
 
 header {
@@ -28,6 +31,15 @@ header {
         font-size: 1.2em;
         list-style-type: none;
     }
+}
+footer {   
+    width: 100%;
+    align-content: center;
+    float:none;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    margin-top: 100px;
 }
 
 a {
@@ -70,9 +82,15 @@ button {
     border: $border;
     background-color: $blue;
     color: $white;
+    width: auto;
     &:hover{
         background-color: $accent-color;
     }
+
+}
+.half{
+    width: 50%;
+    float: left;
 }
 
 input {
@@ -94,3 +112,32 @@ input {
         color: $black;
     }
 }
+.petinfo{
+    color:black;
+    vertical-align: middle;
+p{
+    vertical-align: middle;
+}
+}
+
+
+
+secret{
+background-color: black;
+    &:hover{
+        background-color: unset;
+    }
+}
+
+#content{
+
+    width: 99%;
+}
+
+.card{
+    height: 100%;
+    h2{
+        color:$black;
+    }
+}
+

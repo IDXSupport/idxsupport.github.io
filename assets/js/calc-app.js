@@ -42,8 +42,6 @@ function doMath(choise) {
   }
   document.getElementById("equation").innerHTML=(n1)+(s)+(n2)+"="+(r); //write equation below buttons
   document.getElementById("asymbol").innerHTML=(s); //write symbol between fields
-
-
 }
 
 function cleary() {
@@ -53,9 +51,7 @@ function cleary() {
   document.getElementById("equation").innerHTML="";
 }
 
-
-
-
 function logTime(){
-  console.log(Date);
+  now=(Date());
+  console.log(now);
 }
