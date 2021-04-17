@@ -51,7 +51,7 @@ a:hover {
 
 .app {
   background-color: white;
-  max-width: 600px;
+  max-width: 90%;
   border: 1px solid #222;
   border-radius: 10px;
   padding: 4em;
@@ -95,6 +95,11 @@ button:hover {
 .half {
   width: 50%;
   float: left;
+}
+
+.answer {
+  background: silver;
+  border-radius: 10px;
 }
 
 input {
@@ -144,4 +149,16 @@ secret:hover {
 
 .card h2 {
   color: #222;
+}
+
+label {
+  color: black;
+}
+
+.classname {
+  -webkit-animation-name: cssAnimation;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
 }
