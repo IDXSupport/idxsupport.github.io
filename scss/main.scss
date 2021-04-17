@@ -51,7 +51,7 @@ a {
 
 .app {
     background-color: white;
-    max-width: 600px;
+    max-width: 90%;
     border: $border;
     border-radius: $radius;
     padding: 4em;
@@ -92,7 +92,10 @@ button {
     width: 50%;
     float: left;
 }
-
+.answer{
+    background: silver;
+    border-radius: 10px;
+}
 input {
     -moz-appearance: textfield;
     -webkit-appearance: textfield;
@@ -141,3 +144,22 @@ background-color: black;
     }
 }
 
+label{
+    color:black;
+}
+
+.classname {
+    -webkit-animation-name: cssAnimation;
+    -webkit-animation-duration:3s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+  }
+  @-webkit-keyframes cssAnimation {
+    from {
+      -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
+    }
+    to {
+      -webkit-transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
+    }
+  }
