@@ -18,7 +18,7 @@
     <section id="calculator">
         <div class="app calculator">
           <h1>Wrapper</h1>
-          <div class="">
+          <div class="inputs">
             <div class="row input-fields">
                 <label class="badge-dark col-1">URL</label>
                 <input class="col-11" type="url" name="url" id="url" placeholder="http://"/>
@@ -44,6 +44,15 @@
                 <input class="text-black-50 answer" type="text" value="" name="output" id="output" onclick="copy(this)">
                 </input>
             </div>
+        </div>
+      </section>
+      <section>
+        <div id="toast">
+          <h4>
+            Copied
+          </h4>
+          <code id="copyUrl"></code>
+          <p>to your clipboard</p>
         </div>
       </section>
     </main>
