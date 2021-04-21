@@ -1,12 +1,31 @@
+function toasterNoti() {
+  //popup alert unhidden with CSS
+  document.getElementById("copyUrl").innerHTML = output.value;
+  toaster = document.getElementById("toast");
+  toaster.className = "show";
+  setTimeout(function () {
+    toaster.className = toast.className.replace("show", "");
+  }, 3000);
+}
+
+function copy() {
+  //add output field to clipboard +
+  //display toast notification
+  copyText = document.getElementById("output");
+  copyText.select();
+  document.execCommand("copy");
+  toasterNoti();
+}
+
 function doMath(choise) {
-  var urlSelector, classSelector, idSelector, aSelector, c, copyText, toaster;
+  var urlSelector, classSelector, idSelector, aSelector, c;
   urlSelector = document.getElementById("url").value;
   classSelector = document.getElementById("className").value;
   idSelector = document.getElementById("idName").value;
 
   c = choise;
 
-  // Switch for selecting ID or Class input
+  // switch call for selecting ID or Class input
   switch (c) {
     case "1":
       aSelector = "&target=class&class=" + classSelector;
@@ -24,23 +43,12 @@ function doMath(choise) {
     aSelector +
     "&title=Search&h1Ignore=Y";
 
-  //copies endpoint url when selecting ID or Class button
-  copyText = document.getElementById("output");
-  copyText.select();
-  document.execCommand("copy");
-
-  //popup alert unhidden with CSS
-  document.getElementById("copyUrl").innerHTML = output.value;
-  toaster = document.getElementById("toast");
-  toaster.className = "show";
-  setTimeout(function () {
-    toaster.className = toast.className.replace("show", "");
-  }, 3000);
-
+  copy();
+  toasterNoti();
 }
 
-//Clears out the page values
 function cleary() {
+  //Clears out the page values
   document.getElementById("url").value = "";
   document.getElementById("className").value = "";
   document.getElementById("idName").value = "";
