@@ -1,41 +1,56 @@
-function copy(that){
-    var inp =document.createElement('input');
-    document.body.appendChild(inp)
-    inp.value =that.textContent
-    inp.select();
-    document.execCommand('copy',false);
-    inp.remove();
-    document.getElementById("output").classname='classname';
-    }
+function toasterNoti() {
+  //popup alert unhidden with CSS
+  document.getElementById("copyUrl").innerHTML = output.value;
+  toaster = document.getElementById("toast");
+  toaster.className = "show";
+  setTimeout(function () {
+    toaster.className = toast.className.replace("show", "");
+  }, 3000);
+}
 
-
-
+function copy() {
+  //add output field to clipboard +
+  //display toast notification
+  copyText = document.getElementById("output");
+  copyText.select();
+  document.execCommand("copy");
+  toasterNoti();
+}
 
 function doMath(choise) {
-    var n1, n2, n3, r, c;
-    n1 = document.getElementById("url").value;
-    n2 = document.getElementById("className").value;
-    n3 = document.getElementById("idName").value;
+  var urlSelector, classSelector, idSelector, aSelector, c;
+  urlSelector = document.getElementById("url").value;
+  classSelector = document.getElementById("className").value;
+  idSelector = document.getElementById("idName").value;
 
-    c = choise;
+  c = choise;
 
-  
-switch (c) {
+  // switch call for selecting ID or Class input
+  switch (c) {
     case "1":
-        r = "&target=class&class="+n2;
-    break;
+      aSelector = "&target=class&class=" + classSelector;
+      break;
     case "2":
-        r = "&target=id&id="+n3;
-    break;
+      aSelector = "&target=id&id=" + idSelector;
+      break;
     default:
-    break;
-    }
-    document.getElementById("output").innerHTML="https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site="+(n1)+(r)+"&title=Search&h1Ignore=Y";
+      break;
   }
-  
-  function cleary() {
-    document.getElementById("url").value = "";
-    document.getElementById("className").value = "";
-    document.getElementById("idName").value = "";
-    document.getElementById("output").innerHTML = "";
-  }
+  //displays wrapper endpoint url
+  document.getElementById("output").value =
+    "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=" +
+    urlSelector +
+    aSelector +
+    "&title=Search&h1Ignore=Y";
+
+  copy();
+  toasterNoti();
+}
+
+function cleary() {
+  //Clears out the page values
+  document.getElementById("url").value = "";
+  document.getElementById("className").value = "";
+  document.getElementById("idName").value = "";
+  document.getElementById("output").value = "";
+}
