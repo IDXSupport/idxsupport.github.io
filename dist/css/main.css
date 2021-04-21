@@ -51,7 +51,7 @@ a:hover {
 
 .app {
   background-color: white;
-  max-width: 90%;
+  max-width: 1200px;
   border: 1px solid #222;
   border-radius: 10px;
   padding: 4em;
@@ -62,12 +62,16 @@ a:hover {
 
 .app h1 {
   color: #222;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 .app h2 {
   color: #222;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+
+.inputs {
+  line-height: 2rem;
 }
 
 section {
@@ -105,7 +109,7 @@ button:hover {
 input {
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
-  text-align: center;
+  text-align: left;
   max-width: 100%;
 }
 
@@ -116,6 +120,10 @@ input {
 
 #equation {
   color: #222;
+}
+
+.input-fields {
+  margin-bottom: 15px;
 }
 
 .input-fields span {
@@ -161,4 +169,53 @@ label {
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease;
   -webkit-animation-fill-mode: forwards;
+}
+
+/*Toast Notifications*/
+#toast {
+  visibility: hidden;
+  min-width: 10%;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  max-width: 50%;
+}
+
+#toast code {
+  color: limegreen;
+}
+
+#toast.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

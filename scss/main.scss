@@ -1,165 +1,234 @@
-@import './resets';
-@import './variables';
+@import "./resets";
+@import "./variables";
 
-@function weight ($weight-name){
-    @return map-get($font-weights, $weight-name);
+@function weight($weight-name) {
+  @return map-get($font-weights, $weight-name);
 }
 
-
-
 body {
-    background: $background-color;
-    color: $text-color;
+  background: $background-color;
+  color: $text-color;
 }
 
 main {
-    #{&}__paragraph {
-        font-weight: weight(regular);
-    }
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 10vh;
-
+  #{&}__paragraph {
+    font-weight: weight(regular);
+  }
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10vh;
 }
 
 header {
-    color: white;
-    background-color: $primary-color;
-    padding: 30px;
-    ul{
-        font-size: 1.2em;
-        list-style-type: none;
-    }
+  color: white;
+  background-color: $primary-color;
+  padding: 30px;
+  ul {
+    font-size: 1.2em;
+    list-style-type: none;
+  }
 }
-footer {   
-    width: 100%;
-    align-content: center;
-    float:none;
-    position: fixed;
-    bottom: 0;
-    text-align: center;
-    margin-top: 100px;
+footer {
+  width: 100%;
+  align-content: center;
+  float: none;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  margin-top: 100px;
 }
 
 a {
-    color: $blue;
-    &:hover{
-        color:$accent-color;
-    }
+  color: $blue;
+  &:hover {
+    color: $accent-color;
+  }
 }
 
 .app {
-    background-color: white;
-    max-width: 90%;
-    border: $border;
-    border-radius: $radius;
-    padding: 4em;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    h1{
-        color:$black;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
-    h2{
-        color:$black;
-        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
+  background-color: white;
+  max-width: 1200px;
+  border: $border;
+  border-radius: $radius;
+  padding: 4em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  h1 {
+    color: $black;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  }
+  h2 {
+    color: $black;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+  }
 }
-section{
-    margin-top: 10px;
+.inputs{
+    line-height: 2rem;
 }
-
+section {
+  margin-top: 10px;
+}
 
 .calc-buttons {
-    margin-top: 1vh;
-    text-align: left;
+  margin-top: 1vh;
+  text-align: left;
 }
 
 button {
-    padding: 1ch;
-    border-radius: $radius;
-    border: $border;
-    background-color: $blue;
-    color: $white;
-    width: auto;
-    &:hover{
-        background-color: $accent-color;
-    }
-
+  padding: 1ch;
+  border-radius: $radius;
+  border: $border;
+  background-color: $blue;
+  color: $white;
+  width: auto;
+  &:hover {
+    background-color: $accent-color;
+  }
 }
-.half{
-    width: 50%;
-    float: left;
+.half {
+  width: 50%;
+  float: left;
 }
-.answer{
-    background: silver;
-    border-radius: 10px;
+.answer {
+  background: silver;
+  border-radius: 10px;
 }
 input {
-    -moz-appearance: textfield;
-    -webkit-appearance: textfield;
-    text-align: center;
-    max-width: 100%;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  text-align: left;
+  max-width: 100%;
 }
 
 #answer {
-    border-style: dashed;
-    font-weight: bolder;
+  border-style: dashed;
+  font-weight: bolder;
 }
 #equation {
+  color: $black;
+}
+.input-fields {
+  span {
     color: $black;
+  }
+  margin-bottom: 15px;
 }
-.input-fields{
-    span{
-        color: $black;
-    }
-}
-.petinfo{
-    color:black;
+.petinfo {
+  color: black;
+  vertical-align: middle;
+  p {
     vertical-align: middle;
-p{
-    vertical-align: middle;
-}
+  }
 }
 
-
-
-secret{
-background-color: black;
-    &:hover{
-        background-color: unset;
-    }
+secret {
+  background-color: black;
+  &:hover {
+    background-color: unset;
+  }
 }
 
-#content{
-
-    width: 99%;
+#content {
+  width: 99%;
 }
 
-.card{
-    height: 100%;
-    h2{
-        color:$black;
-    }
+.card {
+  height: 100%;
+  h2 {
+    color: $black;
+  }
 }
 
-label{
-    color:black;
+label {
+  color: black;
 }
 
 .classname {
-    -webkit-animation-name: cssAnimation;
-    -webkit-animation-duration:3s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: ease;
-    -webkit-animation-fill-mode: forwards;
+  -webkit-animation-name: cssAnimation;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes cssAnimation {
+  from {
+    -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
   }
-  @-webkit-keyframes cssAnimation {
-    from {
-      -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
-    }
-    to {
-      -webkit-transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
-    }
+  to {
+    -webkit-transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
   }
+}
+
+/*Toast Notifications*/
+#toast {
+  visibility: hidden;
+  min-width: 10%;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  max-width: 50%;
+  code{
+      color:limegreen;
+  }
+}
+
+#toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
