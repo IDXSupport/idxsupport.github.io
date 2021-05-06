@@ -1,153 +1,65 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mikey's website | Home</title>
-    <link
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=100%, initial-scale=1.0">
+
+    <title>WrapperIDX endpoint generator</title>
+<link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
       crossorigin="anonymous"
     />
+
     <link rel="stylesheet" href="/dist/css/main.css" class="rel" />
-    <script src="/assets/js/calc-app.js"></script>
+    <script src="https://kit.fontawesome.com/08fc1ca827.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/Wrapper.js"></script>
   </head>
-
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark container">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">mikikiv</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="/index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/tools#calculator">
-                  <i class="fas fa-calculator fa-lg fa-fw"></i>Calculator
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/pets.html" aria-current="page"
-                  ><i class="fas fa-dog fa-lg"></i> Pets</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="/wrapper.html"
-                  tabindex="-1"
-                  aria-disabled="true" aria-current="page"
-                  ><i class="fas fa-internet-explorer" aria-hidden="true"></i> wrapper</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
+<body>
     <main>
-
-      <section>
-        <hr>
-        Built on <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/"
-            >Bootstrap 5</a
-          >
-      </section>
-
-
-      <section id="calculator">
+    <section id="calculator">
         <div class="app calculator">
-          <h1>Calculator</h1>
-          <div class="row" align="center">
-            <label class="badge-dark col-4">first number</label>
-            <label class="badge-dark col-4">second number</label>
-            <label class="badge-dark col-4">answer</label>
-          </div>
-          <div class="row input-fields" align="center">
-            <span class="col-3"><input type="number" name="num1" id="num1"/></span>
-            <span class="col-1" id="asymbol"></span>
-            <span class="col-3"><input type="number" name="num2" id="num2"/></span>
-            <span class="col-1">=</span>
-            <span class="col-4">
-              <input type="" name="answer" id="answer" readonly />
-            </span>
-          </div>
-          <div class="row calc-buttons">
-            <div class="col">
-              <button class="button cal" onclick="doMath('1')">+</button>
-              <button class="button cal" onclick="doMath('2')">-</button>
-              <button class="button cal" onclick="doMath('3')">*</button>
-              <button class="button cal" onclick="doMath('4')">/</button>
-              <button style="float: right" onclick="cleary()">Clear</button>
+          <h1>Wrapper endpoint creator</h1>
+          <div class="inputs">
+            <div class="row input-fields">
+                <label class="badge-dark col-1">URL</label>
+                <input class="col-11" type="url" name="url" id="url" placeholder="http://"/>
             </div>
-          </div>
-          <div id="equation" style="float:left"></div>
+            <div class="row input-fields">
+                <label for="className" class="badge-dark col-1">Class</label>
+                <input class="col-6" type="text" name="className" id="className" placeholder="Class Name"/>
+            </div>
+            <div class="row input-fields">
+                <label for="idName" class="badge-dark col-1">ID</label>
+                <input  class="col-6"type="text" name="idName" id="idName" placeholder="ID Name"/>
+            </div>
+            <div class="row calc-buttons">
+                <div class="col">
+                  <button class="button cal" onclick="doMath('1')">Class</button>
+                  <button class="button cal" onclick="doMath('2')">ID</button>
+    
+                  <button class="button cal" onclick="cleary()">Clear</button>
+                </div>
+            </div> 
+            <div class="row">
+                <label for="output" class="badge-dark col-4">Output</label>
+                <input class="text-black-50 answer" type="text" value="" name="output" id="output" onclick="copy()">
+                </input>
+            </div>
         </div>
       </section>
-
-
-      <section id="date">
-        <div class="app date">
-          <h2>Date Measurer</h2>
-          <div class="half">
-              <label for="dater" class="text-black-50">select a date</label><br>
-              <input type="date" name="dater" id="dateSelector" class="">
-          </div>
-          <div class="half">
-            <button id="time" onclick="logTime()" class="">Days since</button>
-          </div>
+      <section>
+        <div id="toast">
+          <h4>
+            Copied
+          </h4>
+          <code id="copyUrl"></code>
+          <p>to your clipboard</p>
         </div>
       </section>
+    </main>
+</body>
+</html>
 
-
-      <footer class="bg-dark border-0">
-        <section id="footer">
-          <div class="social-icons">
-            <a href="https://www.facebook.com/mykeev">
-              <i class="fab fa-facebook fa-2x" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/mikikiv/">
-              <i class="fab fa-instagram fa-2x" aria-hidden="true"></i>
-            </a>
-            <a href="https://github.com/mikikiv/">
-              <i class="fab fa-github fa-2x" aria-hidden="true"></i>
-            </a>
-            <a
-              href="https://getbootstrap.com/docs/5.0/getting-started/introduction/"
-            >
-              <i class="fab fa-bootstrap fa-2x" aria-hidden="true"></i>
-            </a>
-            <a href="https://cloudappreciationsociety.org/">
-              <i class="fa fa-cloud fa-2x" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div>$copy; Copyright 2021</div>
-        </section>
-      </footer>
-  
-      <script
-        src="https://kit.fontawesome.com/08fc1ca827.js"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"
-      ></script>
-    </body>
-  </html>
-  
