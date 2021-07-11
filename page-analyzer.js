@@ -20,7 +20,6 @@ async function analyzeUrl(url) {
 
         let classes = new Map();
 
-        console.log("it worked?");
         /**
          * A map of class => number of occurrences 
          */
@@ -28,7 +27,7 @@ async function analyzeUrl(url) {
         for (let i=0; i<elements.length; i++) {
             let element = elements[i];
 
-            console.log(element.classList.length);
+            // console.log(element.classList.length);
 
             // Count each class we have
             // TBH, could just add classes we find a > 1 of to an "elimination" list... 
@@ -47,7 +46,7 @@ async function analyzeUrl(url) {
         return JSON.stringify(Array.from(classes.entries()));
     });
 
-    console.log(classesMap);
+    // console.log(classesMap);
     out.classes = new Map(JSON.parse(classesMap));
 
     await browser.close();
@@ -68,5 +67,7 @@ let url = 'https://duckduckgo.com/';
             out += `${key}, `;
         }
     });
+
+    console.log(out);
 })();
 
