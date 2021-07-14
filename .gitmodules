@@ -1,0 +1,3 @@
+[submodule "clojurejson-web-automation"]
+	path = clojurejson-web-automation
+	url = https://gitlab.com/dswanky/clojurejson-web-automation.git
