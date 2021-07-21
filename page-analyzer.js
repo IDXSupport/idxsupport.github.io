@@ -1,3 +1,7 @@
+const http = require("http");
+const hostname = "0.0.0.0";
+const port = 5732;
+
 const puppeteer = require('puppeteer');
 
 /**
@@ -78,9 +82,12 @@ async function analyzePage(page) {
 
 let url = 'https://duckduckgo.com/';
 
+const server = http.createServer((req, res) => 
 (async () => {
-    
-    const browser = await puppeteer.launch();
+	
+	console.log("Starting server");
+
+    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
     const page = await browser.newPage();
     // Setup console out
     page.on('console', consoleMessage => console.log(consoleMessage.text()));
@@ -214,5 +221,17 @@ let url = 'https://duckduckgo.com/';
 
     await browser.close();
 
-})();
+  console.log("Finished, responding");
+
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('This is node and I don\'t do anything yet');
+
+})());
+
+server.listen(port, hostname, () => {
+
+	console.log("Server running at http://${hostname}:${port}");
+
+});
 
