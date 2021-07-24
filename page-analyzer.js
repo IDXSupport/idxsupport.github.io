@@ -3,11 +3,15 @@ const hostname = "0.0.0.0";
 const port = 5732;
 
 const puppeteer = require('puppeteer');
+const express = require('express');
 
-/**
+const expressApp = express();
+let browser;
+
+/**         
  * An element that might be able to be used as a wrapper.
  */
-class WrapperCandidate {
+ class WrapperCandidate {
     /**
      * 
      * @param {*} type, whether this candidate is an 'id' or a 'class' 
@@ -23,17 +27,17 @@ class WrapperCandidate {
 }
 
 /**
- * @param {*} url, the url we want to analyze to determine its wrapper capability
+ * @param {*} page, the puppeteer page we want to analyze to determine its wrapper capability
  * @returns An object collection of wrapper canidates for consideration. .classes for classes, .ids for ids. 
  */
-async function analyzePage(page) {
+async function findCandidates(page) {
 
     let out = {};
 
     /**
      * A map of class => number of occurrences
      */
-    let candidateMapsJson = await page.evaluate(() => {
+    let candidatesJson = await page.evaluate(() => {
 
         // Go through all the elements and see which IDs and classes might work...
         let elements = document.querySelectorAll('*');
@@ -57,79 +61,77 @@ async function analyzePage(page) {
 
         }
 
-        /*
-        console.log(`Map size: ${classes.size}`);        
-        console.log(elements.length);
-        console.log(JSON.stringify(Array.from(classes.entries())));
-        */
-       // Result has to be serializable, so let's keep it simple with an object.
+        // See which classes and ids have only occurred once on the page.
+        let uniques = [];
 
-
-        return JSON.stringify({ 
-            classes: Array.from(classes.entries()),
-            ids: Array.from(ids.entries())
+        classes.forEach((value, key) => {
+            if (value == 1) {
+                uniques.push({type: 'class', name: key});
+            }
         });
+    
+        ids.forEach((value, key) => {
+            if (value == 1) {
+                uniques.push({type: 'id', name: key});
+            }
+        });
+
+        console.log(uniques.length);    
+
+        // We can only return serializable objects from page.evaluate.
+        return JSON.stringify(uniques);
     });
 
-    let candidateMaps = JSON.parse(candidateMapsJson);
+    let uniqueCandidates = JSON.parse(candidatesJson);
 
-    // console.log(classesMap);
-    out.classes = new Map(candidateMaps.classes);
-    out.ids = new Map(candidateMaps.ids);
+    console.log(uniqueCandidates);
 
-    return out;
+    return uniqueCandidates;
 }
 
-let url = 'https://duckduckgo.com/';
+const RESPONSE_STATUSES = {
+    success: 'success',
+    failure: 'failure'
+}
 
-const server = http.createServer((req, res) => 
-(async () => {
-	
-	console.log("Starting server");
+class ServerResponse {
+    constructor(status) {
+        this.status = status;
+    }
+}
 
-    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
+expressApp.get('/analyze', async (req, res) => {
+    let url = req.query.url;
+
+    res.type('json');
+
+    // See if a url was provided.
+    if (!url) {
+        res.send({
+            status: RESPONSE_STATUSES.failure,
+            message: 'URL missing.'
+        });
+        return;
+    } 
+
+    // See if we've initialized the browser yet.
+    if (!browser) {
+        browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
+    }
+    
     const page = await browser.newPage();
+
     // Setup console out
     page.on('console', consoleMessage => console.log(consoleMessage.text()));
     page.on('pageerror', err => console.log(err));
 
     await page.goto(url);
 
-    let analysis = await analyzePage(page);
+    let candidates = await findCandidates(page);
 
-    let candidates = [];
-
-    console.log(`Classes that have occurred exactly once on ${url}`);
-
-    let out = '';
+    // Score each candidade 
     
-    analysis.classes.forEach((value, key) => {
-        if (value == 1) {
-            out += `${key}, `;
-            candidates.push(new WrapperCandidate('class', key));
-        }
-    });
-
-    console.log(out);
-    console.log("");
-    console.log(`Ids that have occurred exactly once on ${url}`);
-
-    let idsOut = '';
-    analysis.ids.forEach((value, key) => {
-        if (value==1) {
-            idsOut += `${key}, `;
-            candidates.push(new WrapperCandidate('id', key));
-        } 
-    });
-
-    console.log(idsOut);
-
-    console.log("");
-    console.log("============================");
-    console.log("");
-
-    // Score each candidate
-    await page.evaluate((candidates) => {
+    let scoredCandidatesJson = await page.evaluate((candidates) => {
                 
         // Scores a wrapper candidate against a provided HTML document.
         // TODO move this out of the page evaulate block
@@ -192,7 +194,9 @@ const server = http.createServer((req, res) =>
             candidate.score = score;
         }
 
+        console.log("ummmmm ok");
         console.log(candidates.length);
+
         candidates.forEach((candidate) => {
             let score = 0;
 
@@ -210,15 +214,58 @@ const server = http.createServer((req, res) =>
 
         console.log("Sorted candidates:");
         console.log("");
-        let count = 0;
+
         for (let candidate of candidates) {
             console.log(`${candidate.type} ${candidate.name}: ${candidate.score}`);
-            count++;
         }
-    
 
+        return JSON.stringify(candidates);
+    
     }, candidates);
 
+    res.send(JSON.parse(scoredCandidatesJson));
+
+});
+
+expressApp.listen(port, () => {
+	console.log("Starting server");
+});
+
+/*
+const server = http.createServer((req, res) => 
+(async () => {
+	
+
+
+    await page.goto(url);
+
+    let analysis = await analyzePage(page);
+
+    let candidates = [];
+
+    console.log(`Classes that have occurred exactly once on ${url}`);
+
+    let out = '';
+    
+    console.log(out);
+    console.log("");
+    console.log(`Ids that have occurred exactly once on ${url}`);
+
+    let idsOut = '';
+    analysis.ids.forEach((value, key) => {
+        if (value==1) {
+            idsOut += `${key}, `;
+            candidates.push(new WrapperCandidate('id', key));
+        } 
+    });
+
+    console.log(idsOut);
+
+    console.log("");
+    console.log("============================");
+    console.log("");
+
+    // Score each candidate
     await browser.close();
 
   console.log("Finished, responding");
@@ -235,3 +282,4 @@ server.listen(port, hostname, () => {
 
 });
 
+*/
