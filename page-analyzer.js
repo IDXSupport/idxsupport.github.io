@@ -28,7 +28,7 @@ let browser;
 
 /**
  * @param {*} page, the puppeteer page we want to analyze to determine its wrapper capability
- * @returns An object collection of wrapper canidates for consideration. .classes for classes, .ids for ids. 
+ * @returns An array of unscored wrapper candidates
  */
 async function findCandidates(page) {
 
@@ -230,56 +230,3 @@ expressApp.get('/analyze', async (req, res) => {
 expressApp.listen(port, () => {
 	console.log("Starting server");
 });
-
-/*
-const server = http.createServer((req, res) => 
-(async () => {
-	
-
-
-    await page.goto(url);
-
-    let analysis = await analyzePage(page);
-
-    let candidates = [];
-
-    console.log(`Classes that have occurred exactly once on ${url}`);
-
-    let out = '';
-    
-    console.log(out);
-    console.log("");
-    console.log(`Ids that have occurred exactly once on ${url}`);
-
-    let idsOut = '';
-    analysis.ids.forEach((value, key) => {
-        if (value==1) {
-            idsOut += `${key}, `;
-            candidates.push(new WrapperCandidate('id', key));
-        } 
-    });
-
-    console.log(idsOut);
-
-    console.log("");
-    console.log("============================");
-    console.log("");
-
-    // Score each candidate
-    await browser.close();
-
-  console.log("Finished, responding");
-
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('This is node and I don\'t do anything yet');
-
-})());
-
-server.listen(port, hostname, () => {
-
-	console.log("Server running at http://${hostname}:${port}");
-
-});
-
-*/
