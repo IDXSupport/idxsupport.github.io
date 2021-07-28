@@ -67,7 +67,8 @@ a:hover {
 
 .app h2 {
   color: #222;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+ "Lucida Sans", Arial, sans-serif;
 }
 
 .inputs {
@@ -82,7 +83,9 @@ section {
   margin-top: 1vh;
   text-align: left;
 }
-
+.button.cal {
+    width: 8%;
+}
 button {
   padding: 1ch;
   border-radius: 10px;
