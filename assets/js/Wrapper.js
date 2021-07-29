@@ -18,29 +18,36 @@ function copy() {
 }
 
 function doMath(choise) {
-  var urlSelector, classSelector, idSelector, aSelector, c;
-  urlSelector = document.getElementById("url").value;
-  classSelector = document.getElementById("className").value;
-  idSelector = document.getElementById("idName").value;
+  //This is the function that adds the query to the URL and the class or ID name. Assigns a value
+  //to these vars when any button is clicked
+  var urlSelector, classSelector, idSelector, totalSelector, c;
+  urlSelector = document.getElementById("url").value; //take the value from the URL field
+  classSelector = document.getElementById("className").value; //take the value from the class name field
+  idSelector = document.getElementById("idName").value; //take the value form the ID field 
 
   c = choise;
 
   // switch call for selecting ID or Class input
   switch (c) {
     case "1":
-      aSelector = "&target=class&class=" + classSelector;
+      urlSelector = "wrapper?site="+urlSelector;
+      totalSelector = "&target=class&class=" + classSelector;
       break;
     case "2":
-      aSelector = "&target=id&id=" + idSelector;
+      urlSelector = "wrapper?site="+urlSelector;
+      totalSelector = "&target=id&id=" + idSelector;
       break;
+    case "3":
+      urlSelector = "duda?site="+urlSelector;
+      totalSelector = "&target=id&id=" + idSelector;
     default:
       break;
   }
   //displays wrapper endpoint url
   document.getElementById("output").value =
-    "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=" +
+    "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
     urlSelector +
-    aSelector +
+    totalSelector +
     "&title=Search&h1Ignore=Y";
 
   copy();
