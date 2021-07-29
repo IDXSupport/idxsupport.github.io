@@ -71,7 +71,8 @@ a:hover {
 
 .app h2 {
   color: #222;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+ "Lucida Sans", Arial, sans-serif;
 }
 
 .inputs {
@@ -134,7 +135,7 @@ label {
 
 /*Toast Notifications*/
 #toast {
-  visibility: visible;
+  visibility: hidden;
   min-width: 10%;
   max-width: 50%;
   background-color: #333;
