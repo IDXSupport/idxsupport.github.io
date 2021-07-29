@@ -28,18 +28,17 @@
                 <input class="col-11" type="url" name="url" id="url" placeholder="http://"/>
             </div>
             <div class="row input-fields">
-                <label for="idName" class="badge-dark col-1">ID</label>
-                <input  class="col-6"type="text" name="idName" id="idName" placeholder="ID Name"/>
+                <label for="idName" class="badge-dark col-1">target</label>
+                <input  class="col-6"type="text" name="idName" id="idName" placeholder="Class/ID/Element Name"/>
             </div>
             <div class="row calc-buttons">
                 <div class="col">
-                  <button class="button cal" onclick="doMath('1')">Class</button>
-                  <button class="button cal" onclick="doMath('2')">ID</button>
-                  <button class="button cal" onclick="doMath('3')">Duda ID</button>
+                  <button class="button cal" id="classButton" onclick="doMath('1')">Class</button>
+                  <button class="button cal" id="idButton" onclick="doMath('2')">ID</button>
+                  <button class="button cal" id="elementButton" onclick="doMath('4')">Element</button>
+                  <button class="button cal" id="ClearButton" onclick="cleary()">Clear</button>
                   <br>
-                  <button class="button cal" onclick="doMath('4')">Element</button>
-                  <br>
-                  <button class="button cal" onclick="cleary()">Clear</button>
+                  <button class="button cal" id="DudaButton" onclick="doMath('3')">Duda ID</button>
                 </div>
             </div> 
             <div class="row">

@@ -44,7 +44,8 @@ function doMath(choise) {
       urlSelector = "wrapper?site="+urlSelector;
       totalSelector = "&target=element&el=" + elementSelector;
       break;
-      default;
+      default:
+      break;
   }
   //displays wrapper endpoint url
   document.getElementById("output").value =
@@ -60,7 +61,5 @@ function doMath(choise) {
 function cleary() {
   //Clears out the page values
   document.getElementById("url").value = "";
-  document.getElementById("className").value = "";
   document.getElementById("idName").value = "";
-  document.getElementById("output").value = "";
 }
