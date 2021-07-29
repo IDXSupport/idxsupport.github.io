@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>IDX Broker Wrapper Analyzer</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+    
+    Url: <input type="text" id="target-url" v-model="targetUrl"> <button onclick="analyze()">Analyze</button>
+
+    <hr>
+    
+    <div id="results">
+        <div class="result" v-for="result in results">
+            <span class="candidate-type">{{result.type}}</span>
+            <span class="candidate-name">{{result.name}}</span>
+            <span class="candidate-score">{{result.score}}</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+const analysisServerEndpoint = "http://54.213.224.126:5732/analyze?url="
+
+let app = new Vue({
+    el: "#app",
+    data: {
+        targetUrl: '',
+        results: []
+    }
+})
+
+function analyze() {
+    let url = document.getElementById("target-url").value;
+
+    axios.get(analysisServerEndpoint + url).then((response) => {
+        console.log(response);
+        app.results = response.data;
+    })
+
+}
+
+
+
+</script>
+
+</body>
+</html>

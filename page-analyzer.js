@@ -47,7 +47,7 @@ async function findCandidates(page) {
 
         // Count up how many of each class and id we have.
         for (let i=0; i<elements.length; i++) {
-            let element = elements[i];
+            let element = elements[i];  
 
             // console.log(element.classList.length);
 
@@ -99,6 +99,13 @@ class ServerResponse {
         this.status = status;
     }
 }
+
+expressApp.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+  
 
 expressApp.get('/analyze', async (req, res) => {
     let url = req.query.url;
