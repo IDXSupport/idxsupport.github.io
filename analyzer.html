@@ -11,14 +11,16 @@
 
 <div id="app">
     
-    Url: <input type="text" id="target-url" v-model="targetUrl"> <button onclick="analyze()">Analyze</button>
+    Url: <input type="text" id="target-url" v-model="targetUrl"> <button v-on:click="analyze()">Analyze</button>
 
     <hr>
     
     <div id="results">
         <div class="result" v-for="result in results">
             <span class="candidate-type">{{result.type}}</span>
-            <span class="candidate-name">{{result.name}}</span>
+            <span class="candidate-name">
+                <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
+            </span>
             <span class="candidate-score">{{result.score}}</span>
         </div>
     </div>
@@ -34,18 +36,17 @@ let app = new Vue({
     data: {
         targetUrl: '',
         results: []
+    },
+    methods: {
+        analyze: function () {
+            let url = this.targetUrl;
+            axios.get(analysisServerEndpoint + url).then((response) => {
+                console.log(response);
+                app.results = response.data;
+            });
+        }
     }
 })
-
-function analyze() {
-    let url = document.getElementById("target-url").value;
-
-    axios.get(analysisServerEndpoint + url).then((response) => {
-        console.log(response);
-        app.results = response.data;
-    })
-
-}
 
 
 
