@@ -49,6 +49,10 @@ a:hover {
   color: orange;
 }
 
+#ClearButton {
+  float: right;
+}
+
 .app {
   background-color: white;
   max-width: 1200px;
@@ -80,28 +84,21 @@ section {
 }
 
 .calc-buttons {
-  margin-top: 1vh;
   text-align: left;
 }
-.button.cal {
-    width: 8%;
-}
+
 button {
   padding: 1ch;
   border-radius: 10px;
   border: 1px solid #222;
   background-color: #3389B0;
   color: #fff;
-  width: auto;
+  width: 10%;
+  margin: 3px;
 }
 
 button:hover {
   background-color: orange;
-}
-
-.half {
-  width: 50%;
-  float: left;
 }
 
 .answer {
@@ -116,49 +113,11 @@ input {
   max-width: 100%;
 }
 
-#answer {
-  border-style: dashed;
-  font-weight: bolder;
-}
-
-#equation {
-  color: #222;
-}
-
 .input-fields {
   margin-bottom: 15px;
 }
 
 .input-fields span {
-  color: #222;
-}
-
-.petinfo {
-  color: black;
-  vertical-align: middle;
-}
-
-.petinfo p {
-  vertical-align: middle;
-}
-
-secret {
-  background-color: black;
-}
-
-secret:hover {
-  background-color: unset;
-}
-
-#content {
-  width: 99%;
-}
-
-.card {
-  height: 100%;
-}
-
-.card h2 {
   color: #222;
 }
 
@@ -178,18 +137,18 @@ label {
 #toast {
   visibility: hidden;
   min-width: 10%;
-  margin-left: -125px;
+  max-width: 50%;
   background-color: #333;
   color: #fff;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 10;
+  top: 50px;
   font-size: 17px;
-  max-width: 50%;
 }
 
 #toast code {

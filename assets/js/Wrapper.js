@@ -20,10 +20,9 @@ function copy() {
 function doMath(choise) {
   //This is the function that adds the query to the URL and the class or ID name. Assigns a value
   //to these vars when any button is clicked
-  var urlSelector, classSelector, idSelector, totalSelector, c;
+  var urlSelector, elementSelector, totalSelector, c;
   urlSelector = document.getElementById("url").value; //take the value from the URL field
-  classSelector = document.getElementById("className").value; //take the value from the class name field
-  idSelector = document.getElementById("idName").value; //take the value form the ID field 
+  elementSelector = document.getElementById("idName").value; //take the value from the class/id/element field 
 
   c = choise;
 
@@ -31,16 +30,21 @@ function doMath(choise) {
   switch (c) {
     case "1":
       urlSelector = "wrapper?site="+urlSelector;
-      totalSelector = "&target=class&class=" + classSelector;
+      totalSelector = "&target=class&class=" + elementSelector;
       break;
     case "2":
       urlSelector = "wrapper?site="+urlSelector;
-      totalSelector = "&target=id&id=" + idSelector;
+      totalSelector = "&target=id&id=" + elementSelector;
       break;
     case "3":
       urlSelector = "duda?site="+urlSelector;
-      totalSelector = "&target=id&id=" + idSelector;
-    default:
+      totalSelector = "&target=id&id=" + elementSelector;
+      break;
+    case "4":
+      urlSelector = "wrapper?site="+urlSelector;
+      totalSelector = "&target=element&el=" + elementSelector;
+      break;
+      default:
       break;
   }
   //displays wrapper endpoint url
@@ -57,7 +61,5 @@ function doMath(choise) {
 function cleary() {
   //Clears out the page values
   document.getElementById("url").value = "";
-  document.getElementById("className").value = "";
   document.getElementById("idName").value = "";
-  document.getElementById("output").value = "";
 }
