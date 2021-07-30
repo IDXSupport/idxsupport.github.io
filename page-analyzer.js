@@ -125,7 +125,7 @@ expressApp.get('/analyze', async (req, res) => {
 
     // See if we've initialized the browser yet.
     if (!browser) {
-        browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
+        browser = await puppeteer.launch({args: ['--single-process', '--no-zygote', '--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
     }
     
     const page = await browser.newPage();
