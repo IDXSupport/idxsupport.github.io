@@ -136,7 +136,6 @@ expressApp.get('/analyze', async (req, res) => {
     let candidates = await findCandidates(page);
 
     // Score each candidade 
-    
     let scoredCandidatesJson = await page.evaluate((candidates) => {
                 
         // Scores a wrapper candidate against a provided HTML document.
@@ -193,14 +192,17 @@ expressApp.get('/analyze', async (req, res) => {
                 score += 1;
             }
 
-            // Get a rough count of th      e number of words in the element and increase the score based on how many this element contains
+            // Reduce score by how "unbalanced" the element's distance from the left and right parts of the viewpart are
+            let rightDistance = window.innerWidth - boundingRectangle.right;
+            score -= Math.abs(boundingRectangle.left - rightDistance)/250;
+
+            // Get a rough count of the number of words in the element and increase the score based on how many this element contains
             let text = element.textContent;
             score += text.split(" ").length / 10000;
 
             candidate.score = score;
         }
 
-        console.log("ummmmm ok");
         console.log(candidates.length);
 
         candidates.forEach((candidate) => {
