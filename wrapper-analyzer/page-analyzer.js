@@ -6,7 +6,6 @@ const puppeteer = require('puppeteer');
 const express = require('express');
 
 const expressApp = express();
-let browser;
 
 /**         
  * An element that might be able to be used as a wrapper.
@@ -123,10 +122,8 @@ expressApp.get('/analyze', async (req, res) => {
         return;
     } 
 
-    // See if we've initialized the browser yet.
-    if (!browser) {
-        browser = await puppeteer.launch({args: ['--single-process', '--no-zygote', '--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
-    }
+    // The browser seems to use too much memory unless we make a new instance with puppeteer for every request...  
+    let browser = await puppeteer.launch({args: ['--single-process', '--no-zygote', '--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
     
     const page = await browser.newPage();
 
@@ -233,6 +230,9 @@ expressApp.get('/analyze', async (req, res) => {
     }, candidates);
 
     res.send(JSON.parse(scoredCandidatesJson));
+
+    // Close the browser once we're done sending our response. 
+    await browser.close();
 
 });
 
