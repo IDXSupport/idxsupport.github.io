@@ -1,0 +1,65 @@
+body {
+  background: #f9fbff;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  color: #283c8d;
+}
+
+hr {
+  border-color: #c1c9da;
+  border-style: solid;
+}
+
+h1, .app-description {
+  margin: 0;
+}
+
+button {
+  color: white;
+  background-color: #283c8d;
+  border-color: #2668ad;
+  border-radius: 3px;
+}
+
+input {
+  border-color: #2668ad;
+  border-radius: 3px;
+}
+
+.analyzer-app {
+  min-width: 30rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.app-input {
+  margin: 1rem 0;
+}
+
+.analyzer-app-header {
+  text-transform: uppercase;
+}
+.analyzer-app-header .header-first-part {
+  color: #283c8d;
+}
+.analyzer-app-header .header-second-part {
+  color: #2668ad;
+}
+.analyzer-app-header .header-third-part {
+  color: #8cc640;
+}
+
+.analysis-error {
+  background: #faa;
+  padding: 1rem;
+}
+
+.app-footer {
+  border-top: 0.25rem solid #c1c9da;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+}
+
+/*# sourceMappingURL=main.css.map */

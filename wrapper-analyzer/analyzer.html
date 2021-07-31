@@ -3,20 +3,41 @@
 <head>
 
 <title>IDX Broker Wrapper Analyzer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<link href="css/main.css" rel="stylesheet">
 
 </head>
 <body>
 
-<div id="app">
+<div id="app" class="analyzer-app">    
+    <h1 class="analyzer-app-header">
+        <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span class="header-third-part">Calculator</span>
+    </h1>
     
-    Url: <input type="text" id="target-url" v-model="targetUrl"> <button v-on:click="analyze()">Analyze</button>
+    <p class="app-description">
+        Use this tool with a url to generate and score elements that might make for a good wrapper. A larger score is better.   
+    </p>
 
-    <hr>
-    
-    <div id="results">
-        <div class="result" v-for="result in results">
+
+    <div class="app-input">
+        Url: <input type="text" id="target-url" v-model="targetUrl"> <button v-on:click="analyze()">Analyze</button>
+    </div>
+
+    <div class="analysis-results-container">
+        <div class="analysis-status">
+            <div v-if="working">Waiting for results...</div>
+        </div>
+        <div class="analysis-error" v-if="error">
+            <span class="error-message">{{errorMessage}}</span>
+        </div>
+        <div class="analysis-result" v-for="result in results">
             <span class="candidate-type">{{result.type}}</span>
             <span class="candidate-name">
                 <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
@@ -25,31 +46,43 @@
         </div>
     </div>
 
-</div>
+    <div class="app-footer">
+        Contribute to the Candidate Calculator and other tools at the <a href="https://github.com/IDXSupport/idxsupport.github.io/">idxsupport.github.io</a> repository!
+    </div>
+</div>  
 
 <script>
-
 const analysisServerEndpoint = "http://54.213.224.126:5732/analyze?url="
 
 let app = new Vue({
     el: "#app",
     data: {
         targetUrl: '',
-        results: []
+        results: [],
+        working: false,
+        error: false,
+        errorMessage: ""
     },
     methods: {
         analyze: function () {
-            let url = this.targetUrl;
-            axios.get(analysisServerEndpoint + url).then((response) => {
+            this.working = true;
+            this.error = false;
+            this.errorMessage = '';
+            app.results = null;
+            axios.get(analysisServerEndpoint + this.targetUrl).then((response) => {
                 console.log(response);
+
+                if (response.data.status == 'failure') {
+                    this.error = true;
+                    this.errorMessage = response.data.message;
+                }
+
                 app.results = response.data;
+                this.working = false;
             });
         }
     }
 })
-
-
-
 </script>
 
 </body>

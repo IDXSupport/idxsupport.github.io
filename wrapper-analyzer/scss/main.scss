@@ -1,0 +1,70 @@
+$primary-first: #283c8d;
+$primary-first-light: #2668ad;
+$primary-second: #8cc640;
+
+$main-background: #f9fbff;
+$main-background-darker: #c1c9da;
+
+body {
+    background: $main-background;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    color: $primary-first;
+}
+
+hr {
+    border-color: $main-background-darker;
+    border-style: solid;
+}
+
+h1, .app-description {
+    margin: 0;
+}
+
+button {
+    color: white;
+    background-color: $primary-first;
+    border-color: $primary-first-light;
+    border-radius: 3px;
+}
+
+input {
+    border-color: $primary-first-light;
+    border-radius: 3px;
+}
+
+.analyzer-app {
+    min-width: 30rem;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.app-input {
+    margin: 1rem 0;
+}
+
+.analyzer-app-header {
+    text-transform: uppercase;
+    .header-first-part {
+        color: $primary-first;
+    }
+    .header-second-part {
+        color: $primary-first-light;
+    }
+    .header-third-part {
+        color: $primary-second;
+    }
+}
+
+.analysis-error {
+    background: #faa;
+    padding: 1rem;
+}
+
+.app-footer {
+    border-top: 0.25rem solid $main-background-darker;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+}
