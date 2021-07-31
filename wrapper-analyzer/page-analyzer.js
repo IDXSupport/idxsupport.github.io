@@ -99,6 +99,10 @@ class ServerResponse {
     }
 }
 
+async function getBrowser() {
+    return await puppeteer.launch({args: ['--single-process', '--no-zygote', '--no-sandbox', '--disable-setuid-sandbox']});
+}
+
 expressApp.use(express.static('public'));       
 
 expressApp.use(function(req, res, next) {
@@ -123,7 +127,7 @@ expressApp.get('/analyze', async (req, res) => {
     } 
 
     // The browser seems to use too much memory unless we make a new instance with puppeteer for every request...  
-    let browser = await puppeteer.launch({args: ['--single-process', '--no-zygote', '--no-sandbox', '--disable-setuid-sandbox']}); //Fix sandbox when possible
+    let browser = await getBrowser(); //Fix sandbox when possible
     
     const page = await browser.newPage();
 
@@ -131,7 +135,16 @@ expressApp.get('/analyze', async (req, res) => {
     page.on('console', consoleMessage => console.log(consoleMessage.text()));
     page.on('pageerror', err => console.log(err));
 
-    await page.goto(url);
+    try {
+        await page.goto(url);
+    } catch (e) {
+        console.log(e);
+        res.send({
+            status: RESPONSE_STATUSES.failure,
+            message: e.message
+        });
+        return false;   
+    }
 
     let candidates = await findCandidates(page);
 
