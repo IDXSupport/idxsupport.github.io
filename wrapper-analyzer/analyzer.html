@@ -27,7 +27,7 @@
 
 
     <div class="app-input">
-        Url: <input type="text" id="target-url" v-model="targetUrl"> <button v-on:click="analyze()">Analyze</button>
+        <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl" class="target-url"> <button v-on:click="analyze()" class="action-button">Analyze</button>
     </div>
 
     <div class="analysis-results-container">
@@ -38,16 +38,50 @@
             <span class="error-message">{{errorMessage}}</span>
         </div>
         <div class="analysis-result" v-for="result in results">
-            <span class="candidate-type">{{result.type}}</span>
             <span class="candidate-name">
                 <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
             </span>
-            <span class="candidate-score">{{result.score}}</span>
+            (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-type">{{result.type}}</span>)
         </div>
     </div>
 
     <div class="app-footer">
-        Contribute to the Candidate Calculator and other tools at the <a href="https://github.com/IDXSupport/idxsupport.github.io/">idxsupport.github.io</a> repository!
+        <ul class="app-faq">
+            <li>
+                <span class="question">I clicked on one of the generated candidate links but the wrapper says it can't find where to insert the start and stop tags.</span>
+                <p class="answer">
+                    This can happen for a few reasons. You'll want to first just try refreshing the wrapper url as sometimes it just takes another page load to get the wrapper to appear. It could also be that the class or id found by the calculator was added after page load and thus wouldn't be suitable for the wrapper endpoint.
+                </p>
+            </li>
+            <li>
+                <span class="question">I'm encountering issues with the candidate calculator tool or I have ideas and feedback on how it can be improved.</span>
+                <p class="answer">
+                    Derek is currently handling the AWS server for this tool, so if it seems like it is down you can see if he's online. Lain also has access to the server and can probably restart the actual node.js server that analyzes and scores wrapper candidates, if that is the issue.
+                </p>
+                <p class="answer">
+                    If you have ideas or feedback for the candidate calculator itself, reaching out to Lain directly would probably be most effective. But anyone with access to the repository can make changes or log issues for review.
+                </p>
+            </li>
+            <li>
+                <span class="question">How does the scoring work?</span>
+                <p class="answer">
+                    It's still a pretty simple system; elements gain or lose points based on whether they aren't against the edge of the screen, where exactly they are positioned on the screen, how much space is between the left and right sides of the element and the viewport and other factors. <a href="https://github.com/IDXSupport/idxsupport.github.io/blob/153b6604af68a2e8a81c91f6720016abad517315/wrapper-analyzer/page-analyzer.js#L156" target="_blank">Look over the "simpleScore" function in the repository to see what this precisely entails</a>.
+                </p>
+            </li>
+            <li>
+                <span class="question">Where is the wrapper endpoint generator Mikey made?</span>
+                <p class="answer">
+                    It's still available at <a href="https://idxsupport.github.io/" target="_blank">https://idxsupport.github.io/</a>.
+                </p>
+            </li>
+            <li>
+                <span class="question">I want to help with projects like these.</span>
+                <p class="answer">
+                    Contribute to the Candidate Calculator and other tools at the <a href="https://github.com/IDXSupport/idxsupport.github.io/" target="_blank">idxsupport.github.io</a> repository!
+                </p>
+
+            </li>
+        </ul>
     </div>
 </div>  
 
