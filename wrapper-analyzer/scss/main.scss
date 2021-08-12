@@ -31,11 +31,22 @@ h1, .app-description {
     margin: 0;
 }
 
-button {
+button.action-button {
     color: white;
     background-color: $primary-first;
     border-color: $primary-first-light;
     border-radius: 3px;
+}
+
+button.text-button {
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+    margin:0;
+}
+
+button.text-button:hover {
+    color: $primary-second;
 }
 
 input {
@@ -93,6 +104,10 @@ input {
 
 .candidate-name {
     font-weight: bold;
+}
+
+.alternative {
+    font-size: smaller;
 }
 
 .app-faq {

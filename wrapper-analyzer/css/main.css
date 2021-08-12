@@ -24,11 +24,21 @@ h1, .app-description {
   margin: 0;
 }
 
-button {
+button.action-button {
   color: white;
   background-color: #283c8d;
   border-color: #2668ad;
   border-radius: 3px;
+}
+
+button.text-button {
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+}
+
+button.text-button:hover {
+  color: #8cc640;
 }
 
 input {

@@ -131,6 +131,11 @@ expressApp.get('/analyze', async (req, res) => {
     
     const page = await browser.newPage();
 
+    await page.setViewport({
+        width: 1024,
+        height: 768    
+    })    
+
     // Setup console out
     page.on('console', consoleMessage => console.log(consoleMessage.text()));
     page.on('pageerror', err => console.log(err));
@@ -148,9 +153,74 @@ expressApp.get('/analyze', async (req, res) => {
 
     let candidates = await findCandidates(page);
 
+    await page.addStyleTag({content: '.idx-page-analyzer-candidate {border: 5px solid red !important;}'});
+
+    
+    // Returns the filename of the screenshot if successful
+    async function screenshotCandidate(candidate, page) {
+
+        let href = await page.evaluate((candidate) => {
+            function getElementForCandidate(candidate, document) {
+                let type = candidate.type;
+                let element;
+                if (type == 'class') {
+                    element = document.getElementsByClassName(candidate.name)[0];
+                } else if (type == 'id'){
+                    element = document.getElementById(candidate.name);
+                }
+                return element;
+            }
+            
+            let element = getElementForCandidate(candidate, document);
+            element.classList.add("idx-page-analyzer-candidate");
+
+            return document.location.href;
+        }, candidate);
+
+
+        let sanitizedUrl = href.replace(/\/|\.|:/g,'');
+        let filename =  `${sanitizedUrl}-${candidate.name}-${candidate.type}.png`;
+
+        console.log(`saving screenshot: ${filename}`);
+        await page.screenshot({
+            path: `./public/screenshots/${filename}`
+        });         
+
+        await page.evaluate((candidate) => {
+            function getElementForCandidate(candidate, document) {
+                let type = candidate.type;
+                let element;
+                if (type == 'class') {
+                    element = document.getElementsByClassName(candidate.name)[0];
+                } else if (type == 'id'){
+                    element = document.getElementById(candidate.name);
+                }
+                return element;
+            }
+            
+            let element = getElementForCandidate(candidate, document);
+            element.classList.remove("idx-page-analyzer-candidate");
+
+        }, candidate);
+
+        return filename;
+    }
+
+
     // Score each candidade 
     let scoredCandidatesJson = await page.evaluate((candidates) => {
-                
+        
+        function getElementForCandidate(candidate, document) {
+            let type = candidate.type;
+            let element;
+            if (type == 'class') {
+                element = document.getElementsByClassName(candidate.name)[0];
+            } else if (type == 'id'){
+                element = document.getElementById(candidate.name);
+            }
+            return element;
+        }
+
         // Scores a wrapper candidate against a provided HTML document.
         // TODO move this out of the page evaulate block
         function simpleScore(candidate, document) {
@@ -161,11 +231,7 @@ expressApp.get('/analyze', async (req, res) => {
                 throw 'No document provided to score against';
             }
 
-            if (type == 'class') {
-                element = document.getElementsByClassName(candidate.name)[0];
-            } else if (type == 'id'){
-                element = document.getElementById(candidate.name);
-            }
+            element = getElementForCandidate(candidate, document);
 
             if (!element) {
                 throw "Scorer could not find the element indicated by the candidate"; 
@@ -218,20 +284,28 @@ expressApp.get('/analyze', async (req, res) => {
 
         console.log(candidates.length);
 
-        candidates.forEach((candidate) => {
+        // Sort our candidates from most scoring to least.
+        for (let i=0; i<candidates.length; i++) {
+            let candidate = candidates[i];
+            simpleScore(candidate, document);
+
+            // Add other attributes to the candidate that might be relevant
+        }
+        
+        candidates.sort((a, b) => {
+            return b.score - a.score;
+        });
+
+        /*
+        candidates.forEach(async (candidate) => {
             let score = 0;
 
             simpleScore(candidate, document);
+            await screenshotCandidate(candidate, document);
 
             // console.log(`${candidate.type} ${candidate.name}: ${candidate.score}`);
 
-
-            candidates.sort((a, b) => {
-                return b.score - a.score;
-            });
-
-
-        });
+        });*/
 
         console.log("Sorted candidates:");
         console.log("");
@@ -244,7 +318,22 @@ expressApp.get('/analyze', async (req, res) => {
     
     }, candidates);
 
-    res.send(JSON.parse(scoredCandidatesJson));
+    let scoredCandidates = JSON.parse(scoredCandidatesJson);
+    let scoreScreenshotSet = new Set();
+    for (let i=0; i<scoredCandidates.length/3; i++) {
+        let score = scoredCandidates[i].score;
+        if (!scoreScreenshotSet.has(score.toFixed(2))) {
+            scoredCandidates[i].hasScreenshot = true;
+            let sanitizedUrl = await screenshotCandidate(scoredCandidates[i], page);
+            scoredCandidates[i].imageUrl = '/screenshots/' + sanitizedUrl;
+            scoreScreenshotSet.add(score.toFixed(2));
+        } else {
+            scoredCandidates[i].hasScreenshot = false;
+        }
+    }
+
+
+    res.send(scoredCandidates);
 
     // Close the browser once we're done sending our response. 
     await browser.close();
