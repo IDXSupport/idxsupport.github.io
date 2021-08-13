@@ -93,10 +93,6 @@ input {
   object-fit: scale-down;
   margin-right: 0.75rem;
 }
-.analysis-result .candidate-details-container {
-  flex: 1 0 auto;
-}
-
 .analysis-error {
   background: #faa;
   padding: 1rem;

@@ -51,7 +51,7 @@
                     <span class="candidate-name">
                         <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
                     </span>
-                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-width">{{result.width.toFixed(0)}}</span>x<span class="candidate-height">{{result.height.toFixed(0)}}</span>,<span class="candidate-type">{{result.type}}</span>) <button v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button" v-on:click="result.showAlternatives = true">more</button>
+                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-width">{{result.width.toFixed(0)}}</span>x<span class="candidate-height">{{result.height.toFixed(0)}}</span>, <span class="candidate-type">{{result.type}}</span>) <button v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button" v-on:click="result.showAlternatives = true">more</button>
                         <span v-if="result.showAlternatives">
                             <span class="alternative" v-for="alternative in result.alternatives">
                                 <span class="candidate-name">
