@@ -232,7 +232,7 @@ expressApp.get('/analyze', async (req, res) => {
 
     await page.setViewport({
         width: 1024,
-        height: 1280    
+        height: 1280
     })    
 
     // Setup console out
@@ -278,7 +278,7 @@ expressApp.get('/analyze', async (req, res) => {
 
 
         let sanitizedUrl = href.replace(/\/|\.|:/g,'');
-        let filename =  `${sanitizedUrl}-${candidate.name}-${candidate.type}.png`;
+        let filename =  `${sanitizedUrl}-${candidate.name}-${candidate.type}.jpg`;
 
         console.log(`saving screenshot: ${filename}`);
         await page.screenshot({
