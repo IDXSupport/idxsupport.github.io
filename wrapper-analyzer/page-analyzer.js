@@ -183,7 +183,8 @@ expressApp.get('/analyze', async (req, res) => {
 
         console.log(`saving screenshot: ${filename}`);
         await page.screenshot({
-            path: `./public/screenshots/${filename}`
+            path: `./public/screenshots/${filename}`,
+            fullPage: true
         });         
 
         await page.evaluate((candidate) => {
@@ -335,7 +336,12 @@ expressApp.get('/analyze', async (req, res) => {
         for (let i=0; i<candidates.length; i++) {
             let candidate = candidates[i];
             addDetails(candidate, document);
-            simpleScore(candidate, document);
+            try {
+                simpleScore(candidate, document);
+            } catch (e) {
+                console.log(e.message);
+                candidate.score = -100;
+            }
 
             // Add other attributes to the candidate that might be relevant
         }
