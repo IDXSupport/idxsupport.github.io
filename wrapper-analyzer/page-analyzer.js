@@ -133,7 +133,7 @@ expressApp.get('/analyze', async (req, res) => {
 
     await page.setViewport({
         width: 1024,
-        height: 768    
+        height: 1280    
     })    
 
     // Setup console out
@@ -221,6 +221,14 @@ expressApp.get('/analyze', async (req, res) => {
             return element;
         }
 
+        // Adds useful proeprties to the candidate that will be used later for various purposes (mostly on the front-end )
+        function addDetails(candidate, document) {
+            let element = getElementForCandidate(candidate, document);
+            let boundingRectangle = element.getBoundingClientRect();
+            candidate.width = boundingRectangle.width;
+            candidate.height = boundingRectangle.height;
+        }
+
         // Scores a wrapper candidate against a provided HTML document.
         // TODO move this out of the page evaulate block
         function simpleScore(candidate, document) {
@@ -287,6 +295,7 @@ expressApp.get('/analyze', async (req, res) => {
         // Sort our candidates from most scoring to least.
         for (let i=0; i<candidates.length; i++) {
             let candidate = candidates[i];
+            addDetails(candidate, document);
             simpleScore(candidate, document);
 
             // Add other attributes to the candidate that might be relevant

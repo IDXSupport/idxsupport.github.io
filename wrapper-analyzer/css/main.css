@@ -35,6 +35,7 @@ button.text-button {
   text-decoration: underline;
   background: transparent;
   border: none;
+  margin: 0;
 }
 
 button.text-button:hover {
@@ -53,7 +54,7 @@ input {
 }
 
 .app-input {
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   display: flex;
 }
 .app-input .target-url {
@@ -80,6 +81,22 @@ input {
   color: #8cc640;
 }
 
+.analysis-result {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+.analysis-result .candidate-image-container {
+  flex: 0;
+}
+.analysis-result .candidate-image-container .candidate-image {
+  width: 256px;
+  object-fit: scale-down;
+  margin-right: 0.75rem;
+}
+.analysis-result .candidate-details-container {
+  flex: 1 0 auto;
+}
+
 .analysis-error {
   background: #faa;
   padding: 1rem;
@@ -92,8 +109,17 @@ input {
   padding-top: 0.5rem;
 }
 
+.app-options {
+  text-align: right;
+  margin: 0.25rem 0 1rem 0;
+}
+
 .candidate-name {
   font-weight: bold;
+}
+
+.alternative {
+  font-size: smaller;
 }
 
 .app-faq {

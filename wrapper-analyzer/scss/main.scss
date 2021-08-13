@@ -61,7 +61,7 @@ input {
 }
 
 .app-input {
-    margin: 1rem 0;
+    margin: 1rem 0 0 0;
     display: flex;
 
     .target-url {
@@ -90,6 +90,23 @@ input {
     }
 }
 
+.analysis-result {
+    display: flex;
+    .candidate-image-container {
+        flex: 0;
+        .candidate-image {
+            width: 256px;
+            object-fit: scale-down;
+            margin-right: 0.75rem;  
+        }
+    }
+    .candidate-details-container {
+        flex: 1 0 auto;
+    }
+
+    margin-bottom: 0.75rem;
+}
+
 .analysis-error {
     background: #faa;
     padding: 1rem;
@@ -100,6 +117,11 @@ input {
     border-top: 0.25rem solid $main-background-darker;
     margin-top: 1rem;
     padding-top: 0.5rem;
+}
+
+.app-options {
+    text-align: right;
+    margin: 0.25rem 0 1rem 0;
 }
 
 .candidate-name {
