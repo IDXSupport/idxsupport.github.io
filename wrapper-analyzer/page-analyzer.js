@@ -224,9 +224,11 @@ expressApp.get('/analyze', async (req, res) => {
         // Adds useful proeprties to the candidate that will be used later for various purposes (mostly on the front-end )
         function addDetails(candidate, document) {
             let element = getElementForCandidate(candidate, document);
-            let boundingRectangle = element.getBoundingClientRect();
-            candidate.width = boundingRectangle.width;
-            candidate.height = boundingRectangle.height;
+            if (element) {
+                let boundingRectangle = element.getBoundingClientRect();
+                candidate.width = boundingRectangle.width;
+                candidate.height = boundingRectangle.height;
+            }
         }
 
         // Scores a wrapper candidate against a provided HTML document.
@@ -274,6 +276,10 @@ expressApp.get('/analyze', async (req, res) => {
                 score += 1;
             }
 
+            if (boundingRectangle.width > 500) {
+                score += 0.5;
+            }
+
             if (boundingRectangle.height > 300) {
                 // Taller is better??
                 score += 1;
@@ -286,6 +292,39 @@ expressApp.get('/analyze', async (req, res) => {
             // Get a rough count of the number of words in the element and increase the score based on how many this element contains
             let text = element.textContent;
             score += text.split(" ").length / 10000;
+
+            let computedStyle = getComputedStyle(element);
+            
+            // Increase the score a bit if there's a margin around the element.
+            if (parseInt(computedStyle.marginTop) > 0) {
+                score += 0.25;
+            }
+
+            if (parseInt(computedStyle.marginRight) > 0) {
+                score += 0.25;
+            }
+
+            if (parseInt(computedStyle.marginBottom) > 0) {
+                score += 0.25;
+            }
+
+            if (parseInt(computedStyle.marginLeft) > 0) {
+                score += 0.25;
+            }
+
+            // Increase the score if the element is smaller than its parent
+            
+            if (element.parentElement) {
+                let parentStyle = getComputedStyle(element.parentElement);
+                if (parentStyle) {
+                    if (parentStyle.width != computedStyle.width) {
+                        score += 0.05;
+                    }
+                    if (parentStyle.height != computedStyle.height) {
+                        score += 0.05;
+                    }
+                }
+            }
 
             candidate.score = score;
         }
