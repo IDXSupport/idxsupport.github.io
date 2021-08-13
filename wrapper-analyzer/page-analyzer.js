@@ -111,6 +111,105 @@ expressApp.use(function(req, res, next) {
     next();
 });
   
+expressApp.get('/generateStatic', async (req, res) => {
+    let url = req.query.url;
+    let targetType = req.query.type;
+    let targetName = req.query.name;
+    let targetRemoveScripts = req.query?.removeScripts;
+
+    let targetElement;
+
+    let browser = await getBrowser();
+    const page = await browser.newPage();
+
+    // Setup console out
+    page.on('console', consoleMessage => console.log(consoleMessage.text()));
+    page.on('pageerror', err => console.log(err));
+
+    try {
+        await page.goto(url);
+    } catch (e) {
+        console.log(e);
+        res.send({
+            status: RESPONSE_STATUSES.failure,
+            message: e.message
+        });
+        return false;
+    }
+
+    let processedHTML = await page.evaluate((target) => {
+
+        // Fix links
+        let as = document.getElementsByTagName('a');
+        for (let i=0; i<as.length; i++) {
+            let link = as[i];
+            let oldLink = link.getAttribute('href');
+            let absoluteLink = link.href;
+            if (oldLink != absoluteLink) {
+                console.log(`Changing ${link.getAttribute('href')} to ${link.href}`);
+                link.setAttribute('href', link.href);
+            }
+        }
+
+        let links = document.getElementsByTagName('link');
+        for (let i=0; i<links.length; i++) {
+            let link = links[i];
+            let oldLink = link.getAttribute('href');
+            let absoluteLink = link.href;
+            if (oldLink != absoluteLink) {  
+                console.log(`Changing ${link.getAttribute('href')} to ${link.href}`);
+                link.setAttribute('href', link.href);
+            }
+        }
+
+        let images = document.getElementsByTagName('img');
+        for (let i=0; i<images.length; i++) {
+            let img = images[i];
+            let oldImageSrc = img.getAttribute('src');
+            let absoluteImageSrc = img.src;
+            if (oldImageSrc != absoluteImageSrc) {
+                console.log(`Changing ${img.getAttribute('src')} to ${img.src}`);
+                img.setAttribute('src', img.href);
+            }
+        }
+
+        if (target.removeScripts) {
+            let scripts = document.getElementsByTagName('script');
+            // Count backwards because removing elements will change the length of the html collection.
+            for (let i=scripts.length-1; i>=0; i--) {
+                scripts[i].parentNode.removeChild(scripts[i]);
+           }
+        }
+
+        // TODO don't have this function duplicated 3+ times ... should be a way to avoid this.
+        function getElementForCandidate(candidate, document) {
+            let type = candidate.type;
+            let element;
+            if (type == 'class') {
+                element = document.getElementsByClassName(candidate.name)[0];
+            } else if (type == 'id'){
+                element = document.getElementById(candidate.name);
+            }
+            return element;
+        }
+
+        let targetElement = getElementForCandidate(target, document);
+        targetElement.innerHTML = "***splithere***";
+
+        return document.children[0].innerHTML;
+    }, {
+        type: targetType,
+        name: targetName,
+        removeScripts: targetRemoveScripts
+    });
+    
+    // We don't want the output to render.  
+    res.type('txt');
+    processedHTML = `<!DOCTYPE html>${processedHTML}`;
+    res.send(processedHTML);
+
+    browser.close();
+});
 
 expressApp.get('/analyze', async (req, res) => {
     let url = req.query.url;
