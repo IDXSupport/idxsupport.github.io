@@ -24,11 +24,22 @@ h1, .app-description {
   margin: 0;
 }
 
-button {
+button.action-button {
   color: white;
   background-color: #283c8d;
   border-color: #2668ad;
   border-radius: 3px;
+}
+
+button.text-button {
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  margin: 0;
+}
+
+button.text-button:hover {
+  color: #8cc640;
 }
 
 input {
@@ -43,13 +54,14 @@ input {
 }
 
 .app-input {
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   display: flex;
 }
 .app-input .target-url {
   margin-right: 1rem;
   flex: 1 0;
   font-size: 18px;
+  padding: 0.4rem;
 }
 .app-input .action-button {
   padding: 0.4rem;
@@ -69,6 +81,18 @@ input {
   color: #8cc640;
 }
 
+.analysis-result {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+.analysis-result .candidate-image-container {
+  flex: 0;
+}
+.analysis-result .candidate-image-container .candidate-image {
+  width: 256px;
+  object-fit: scale-down;
+  margin-right: 0.75rem;
+}
 .analysis-error {
   background: #faa;
   padding: 1rem;
@@ -81,8 +105,17 @@ input {
   padding-top: 0.5rem;
 }
 
+.app-options {
+  text-align: right;
+  margin: 0.25rem 0 1rem 0;
+}
+
 .candidate-name {
   font-weight: bold;
+}
+
+.alternative {
+  font-size: smaller;
 }
 
 .app-faq {

@@ -111,6 +111,105 @@ expressApp.use(function(req, res, next) {
     next();
 });
   
+expressApp.get('/generateStatic', async (req, res) => {
+    let url = req.query.url;
+    let targetType = req.query.type;
+    let targetName = req.query.name;
+    let targetRemoveScripts = req.query?.removeScripts;
+
+    let targetElement;
+
+    let browser = await getBrowser();
+    const page = await browser.newPage();
+
+    // Setup console out
+    page.on('console', consoleMessage => console.log(consoleMessage.text()));
+    page.on('pageerror', err => console.log(err));
+
+    try {
+        await page.goto(url);
+    } catch (e) {
+        console.log(e);
+        res.send({
+            status: RESPONSE_STATUSES.failure,
+            message: e.message
+        });
+        return false;
+    }
+
+    let processedHTML = await page.evaluate((target) => {
+
+        // Fix links
+        let as = document.getElementsByTagName('a');
+        for (let i=0; i<as.length; i++) {
+            let link = as[i];
+            let oldLink = link.getAttribute('href');
+            let absoluteLink = link.href;
+            if (oldLink != absoluteLink) {
+                console.log(`Changing ${link.getAttribute('href')} to ${link.href}`);
+                link.setAttribute('href', link.href);
+            }
+        }
+
+        let links = document.getElementsByTagName('link');
+        for (let i=0; i<links.length; i++) {
+            let link = links[i];
+            let oldLink = link.getAttribute('href');
+            let absoluteLink = link.href;
+            if (oldLink != absoluteLink) {  
+                console.log(`Changing ${link.getAttribute('href')} to ${link.href}`);
+                link.setAttribute('href', link.href);
+            }
+        }
+
+        let images = document.getElementsByTagName('img');
+        for (let i=0; i<images.length; i++) {
+            let img = images[i];
+            let oldImageSrc = img.getAttribute('src');
+            let absoluteImageSrc = img.src;
+            if (oldImageSrc != absoluteImageSrc) {
+                console.log(`Changing ${img.getAttribute('src')} to ${img.src}`);
+                img.setAttribute('src', img.href);
+            }
+        }
+
+        if (target.removeScripts) {
+            let scripts = document.getElementsByTagName('script');
+            // Count backwards because removing elements will change the length of the html collection.
+            for (let i=scripts.length-1; i>=0; i--) {
+                scripts[i].parentNode.removeChild(scripts[i]);
+           }
+        }
+
+        // TODO don't have this function duplicated 3+ times ... should be a way to avoid this.
+        function getElementForCandidate(candidate, document) {
+            let type = candidate.type;
+            let element;
+            if (type == 'class') {
+                element = document.getElementsByClassName(candidate.name)[0];
+            } else if (type == 'id'){
+                element = document.getElementById(candidate.name);
+            }
+            return element;
+        }
+
+        let targetElement = getElementForCandidate(target, document);
+        targetElement.innerHTML = "***splithere***";
+
+        return document.children[0].innerHTML;
+    }, {
+        type: targetType,
+        name: targetName,
+        removeScripts: targetRemoveScripts
+    });
+    
+    // We don't want the output to render.  
+    res.type('txt');
+    processedHTML = `<!DOCTYPE html>${processedHTML}`;
+    res.send(processedHTML);
+
+    browser.close();
+});
 
 expressApp.get('/analyze', async (req, res) => {
     let url = req.query.url;
@@ -131,6 +230,11 @@ expressApp.get('/analyze', async (req, res) => {
     
     const page = await browser.newPage();
 
+    await page.setViewport({
+        width: 1024,
+        height: 1280
+    })    
+
     // Setup console out
     page.on('console', consoleMessage => console.log(consoleMessage.text()));
     page.on('pageerror', err => console.log(err));
@@ -148,9 +252,85 @@ expressApp.get('/analyze', async (req, res) => {
 
     let candidates = await findCandidates(page);
 
+    await page.addStyleTag({content: '.idx-page-analyzer-candidate {border: 5px solid red !important;}'});
+
+    
+    // Returns the filename of the screenshot if successful
+    async function screenshotCandidate(candidate, page) {
+
+        let href = await page.evaluate((candidate) => {
+            function getElementForCandidate(candidate, document) {
+                let type = candidate.type;
+                let element;
+                if (type == 'class') {
+                    element = document.getElementsByClassName(candidate.name)[0];
+                } else if (type == 'id'){
+                    element = document.getElementById(candidate.name);
+                }
+                return element;
+            }
+            
+            let element = getElementForCandidate(candidate, document);
+            element.classList.add("idx-page-analyzer-candidate");
+
+            return document.location.href;
+        }, candidate);
+
+
+        let sanitizedUrl = href.replace(/\/|\.|:/g,'');
+        let filename =  `${sanitizedUrl}-${candidate.name}-${candidate.type}.jpg`;
+
+        console.log(`saving screenshot: ${filename}`);
+        await page.screenshot({
+            path: `./public/screenshots/${filename}`,
+            fullPage: true
+        });         
+
+        await page.evaluate((candidate) => {
+            function getElementForCandidate(candidate, document) {
+                let type = candidate.type;
+                let element;
+                if (type == 'class') {
+                    element = document.getElementsByClassName(candidate.name)[0];
+                } else if (type == 'id'){
+                    element = document.getElementById(candidate.name);
+                }
+                return element;
+            }
+            
+            let element = getElementForCandidate(candidate, document);
+            element.classList.remove("idx-page-analyzer-candidate");
+
+        }, candidate);
+
+        return filename;
+    }
+
+
     // Score each candidade 
     let scoredCandidatesJson = await page.evaluate((candidates) => {
-                
+        
+        function getElementForCandidate(candidate, document) {
+            let type = candidate.type;
+            let element;
+            if (type == 'class') {
+                element = document.getElementsByClassName(candidate.name)[0];
+            } else if (type == 'id'){
+                element = document.getElementById(candidate.name);
+            }
+            return element;
+        }
+
+        // Adds useful proeprties to the candidate that will be used later for various purposes (mostly on the front-end )
+        function addDetails(candidate, document) {
+            let element = getElementForCandidate(candidate, document);
+            if (element) {
+                let boundingRectangle = element.getBoundingClientRect();
+                candidate.width = boundingRectangle.width;
+                candidate.height = boundingRectangle.height;
+            }
+        }
+
         // Scores a wrapper candidate against a provided HTML document.
         // TODO move this out of the page evaulate block
         function simpleScore(candidate, document) {
@@ -161,11 +341,7 @@ expressApp.get('/analyze', async (req, res) => {
                 throw 'No document provided to score against';
             }
 
-            if (type == 'class') {
-                element = document.getElementsByClassName(candidate.name)[0];
-            } else if (type == 'id'){
-                element = document.getElementById(candidate.name);
-            }
+            element = getElementForCandidate(candidate, document);
 
             if (!element) {
                 throw "Scorer could not find the element indicated by the candidate"; 
@@ -200,6 +376,10 @@ expressApp.get('/analyze', async (req, res) => {
                 score += 1;
             }
 
+            if (boundingRectangle.width > 500) {
+                score += 0.5;
+            }
+
             if (boundingRectangle.height > 300) {
                 // Taller is better??
                 score += 1;
@@ -213,25 +393,72 @@ expressApp.get('/analyze', async (req, res) => {
             let text = element.textContent;
             score += text.split(" ").length / 10000;
 
+            let computedStyle = getComputedStyle(element);
+            
+            // Increase the score a bit if there's a margin around the element.
+            if (parseInt(computedStyle.marginTop) > 0) {
+                score += 0.25;
+            }
+
+            if (parseInt(computedStyle.marginRight) > 0) {
+                score += 0.25;
+            }
+
+            if (parseInt(computedStyle.marginBottom) > 0) {
+                score += 0.25;
+            }
+
+            if (parseInt(computedStyle.marginLeft) > 0) {
+                score += 0.25;
+            }
+
+            // Increase the score if the element is smaller than its parent
+            
+            if (element.parentElement) {
+                let parentStyle = getComputedStyle(element.parentElement);
+                if (parentStyle) {
+                    if (parentStyle.width != computedStyle.width) {
+                        score += 0.05;
+                    }
+                    if (parentStyle.height != computedStyle.height) {
+                        score += 0.05;
+                    }
+                }
+            }
+
             candidate.score = score;
         }
 
         console.log(candidates.length);
 
-        candidates.forEach((candidate) => {
+        // Sort our candidates from most scoring to least.
+        for (let i=0; i<candidates.length; i++) {
+            let candidate = candidates[i];
+            addDetails(candidate, document);
+            try {
+                simpleScore(candidate, document);
+            } catch (e) {
+                console.log(e.message);
+                candidate.score = -100;
+            }
+
+            // Add other attributes to the candidate that might be relevant
+        }
+        
+        candidates.sort((a, b) => {
+            return b.score - a.score;
+        });
+
+        /*
+        candidates.forEach(async (candidate) => {
             let score = 0;
 
             simpleScore(candidate, document);
+            await screenshotCandidate(candidate, document);
 
             // console.log(`${candidate.type} ${candidate.name}: ${candidate.score}`);
 
-
-            candidates.sort((a, b) => {
-                return b.score - a.score;
-            });
-
-
-        });
+        });*/
 
         console.log("Sorted candidates:");
         console.log("");
@@ -244,7 +471,22 @@ expressApp.get('/analyze', async (req, res) => {
     
     }, candidates);
 
-    res.send(JSON.parse(scoredCandidatesJson));
+    let scoredCandidates = JSON.parse(scoredCandidatesJson);
+    let scoreScreenshotSet = new Set();
+    for (let i=0; i<scoredCandidates.length/3; i++) {
+        let score = scoredCandidates[i].score;
+        if (!scoreScreenshotSet.has(score.toFixed(2))) {
+            scoredCandidates[i].hasScreenshot = true;
+            let sanitizedUrl = await screenshotCandidate(scoredCandidates[i], page);
+            scoredCandidates[i].imageUrl = '/screenshots/' + sanitizedUrl;
+            scoreScreenshotSet.add(score.toFixed(2));
+        } else {
+            scoredCandidates[i].hasScreenshot = false;
+        }
+    }
+
+
+    res.send(scoredCandidates);
 
     // Close the browser once we're done sending our response. 
     await browser.close();

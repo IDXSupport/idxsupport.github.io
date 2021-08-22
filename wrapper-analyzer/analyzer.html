@@ -22,12 +22,16 @@
     </h1>
     
     <p class="app-description">
-        Use this tool with a url to generate and score elements that might make for a good wrapper. A larger score is better.   
+        Use this tool with a url to discover and score unique elements that might make for a good wrapper. A larger score is better.   
     </p>
 
 
     <div class="app-input">
-        <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl" class="target-url"> <button v-on:click="analyze()" class="action-button">Analyze</button>
+        <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl" class="target-url"> <button v-on:click="analyze()" class="action-button">Analyze</button> 
+    </div>
+
+    <div class="app-options">
+        <label for="hide-small">Hide tiny candidates <input v-model="hideTinyCandidates"    type="checkbox" id="hide-small"> </label>
     </div>
 
     <div class="analysis-results-container">
@@ -37,11 +41,29 @@
         <div class="analysis-error" v-if="error">
             <span class="error-message">{{errorMessage}}</span>
         </div>
-        <div class="analysis-result" v-for="result in results">
-            <span class="candidate-name">
-                <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
-            </span>
-            (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-type">{{result.type}}</span>)
+        <div class="analysis-result" v-for="(result, index) in preparedResults">
+                <div class="candidate-image-container" v-if="result.hasScreenshot">
+                    <a v-bind:href="result.imageUrl" target="_blank">
+                        <img v-bind:src="result.imageUrl" class="candidate-image">
+                    </a>
+                </div>
+                <div class="candidate-details-container">
+                    <span class="candidate-name">
+                        <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
+                    </span>
+                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-width">{{result.width.toFixed(0)}}</span>x<span class="candidate-height">{{result.height.toFixed(0)}}</span>, <span class="candidate-type">{{result.type}}</span>, <a v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}`" target="_blanks">static</a>) <button v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button" v-on:click="result.showAlternatives = true">more</button>
+                        <span v-if="result.showAlternatives">
+                            <span class="alternative" v-for="alternative in result.alternatives">
+                                <span class="candidate-name">
+                                    <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{alternative.name}}</a>
+                                </span>
+                                <span class="candidate-image" v-if="alternative.hasScreenshot">
+                                    <a v-bind:href="result.imageUrl" target="_blank">(img)</a>
+                                </span>
+                                (<span class="candidate-score">{{alternative.score.toFixed(2)}}</span>, <span class="candidate-type">{{alternative.type}}</span>, <a v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}`" target="_blanks">static</a>)
+                            </span>
+                        </span>    
+                </div>    
         </div>
     </div>
 
@@ -63,9 +85,21 @@
                 </p>
             </li>
             <li>
+                <span class="question">How do I use the static version of a wrapper candidate?</span>
+                <p class="answer">
+                    Click on the "static" link next to the candidate you want to try to use. The server will try to adjust relative anchor links, link tags, and images to be absolutely oriented towards the target website. The targetted candidate will have its contents replaced with <strong>***splithere***</strong>. Use it to determine which half of the output should be used for the top and which should be used for the bottom of the static wrapper. 
+                </p>
+            </li>
+            <li>
+                <span class="question">I want to use the static version of a wrapper candidate but I don't want to include the script tags.</span>
+                <p class="answer">
+                    Append &removeScripts=true to the end of the generateStatic endpoint and the server will try to remove those scripts.
+                </p>
+            </li>
+            <li>
                 <span class="question">How does the scoring work?</span>
                 <p class="answer">
-                    It's still a pretty simple system; elements gain or lose points based on whether they aren't against the edge of the screen, where exactly they are positioned on the screen, how much space is between the left and right sides of the element and the viewport and other factors. <a href="https://github.com/IDXSupport/idxsupport.github.io/blob/153b6604af68a2e8a81c91f6720016abad517315/wrapper-analyzer/page-analyzer.js#L156" target="_blank">Look over the "simpleScore" function in the repository to see what this precisely entails</a>.
+                    It's a pretty simple system right now; elements gain or lose points based on whether they aren't against the edge of the screen, where exactly they are positioned on the screen, how much space is between the left and right sides of the element and the viewport and other factors. <a href="https://github.com/IDXSupport/idxsupport.github.io/blob/153b6604af68a2e8a81c91f6720016abad517315/wrapper-analyzer/page-analyzer.js#L156" target="_blank">Look over the "simpleScore" function in the repository to see what this precisely entails</a>.
                 </p>
             </li>
             <li>
@@ -75,9 +109,9 @@
                 </p>
             </li>
             <li>
-                <span class="question">I want to help with projects like these.</span>
+                <span class="question">I want to help with projects like these or learn things like HTML/CSS/JS.</span>
                 <p class="answer">
-                    Contribute to the Candidate Calculator and other tools at the <a href="https://github.com/IDXSupport/idxsupport.github.io/" target="_blank">idxsupport.github.io</a> repository!
+                    Contribute to the Candidate Calculator and other tools at the <a href="https://github.com/IDXSupport/idxsupport.github.io/" target="_blank">idxsupport.github.io</a> repository! Or, just reach out to Lain over Slack. She loves collaborating with and teaching people and would be more than happy to guide you.
                 </p>
 
             </li>
@@ -95,25 +129,78 @@ let app = new Vue({
         results: [],
         working: false,
         error: false,
-        errorMessage: ""
+        errorMessage: "",
+        hideTinyCandidates: true
     },
     methods: {
         analyze: function () {
             this.working = true;
             this.error = false;
             this.errorMessage = '';
-            app.results = null;
+            this.results = null;
             axios.get(analysisServerEndpoint + this.targetUrl).then((response) => {
                 console.log(response);
 
                 if (response.data.status == 'failure') {
                     this.error = true;
                     this.errorMessage = response.data.message;
+                    this.results = [];
+                } else {
+                    response.data.forEach((candidate) => {
+                        candidate.showAlternatives = false;
+                    })
+                    app.results = response.data;
                 }
 
-                app.results = response.data;
                 this.working = false;
             });
+        },
+        toggleAlternatives: function (index) {
+            Vue.set(this.results[index], "showAlternatives", !this.results[index]?.showAlternatives);
+            console.log(this.results[index].showAlternatives);
+        }
+    },
+    computed: {
+        preparedResults: function() {
+            if (this?.results == null) {
+                return [];
+            }
+            let candidateScoreMap = new Map();
+            this.results.forEach((candidate) => {
+
+                let score = candidate.score;
+                let name = candidate.name;
+                let type = candidate.type;
+
+                let fixedScore = score.toFixed(2);
+                
+                // If we're hiding tiny candidates, don't include them!
+                if (this.hideTinyCandidates && candidate.width < 300) {
+                    return;
+                }
+
+                // Skip candidates that have a negative score
+                if (fixedScore < 0) {
+                    return;
+                }
+
+                
+
+                if (candidateScoreMap.has(fixedScore)) {
+                    let parentCandidate = candidateScoreMap.get(fixedScore);
+                    parentCandidate.alternatives.push({
+                        score: score,
+                        name: name,
+                        type: type
+                    });
+                } else {
+                    candidate.alternatives = [];
+                    candidate.showAlternatives = false;
+                    candidateScoreMap.set(fixedScore, candidate);
+                }
+            });
+
+            return Array.from(candidateScoreMap.values());
         }
     }
 })
