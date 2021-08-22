@@ -59,10 +59,10 @@ button {
   padding: 1ch;
   border-radius: $radius;
   border: $border;
-  background-color: $blue;
+  background-color: $button-color;
   color: $white;
   width: 150px;
-  padding: 10px
+  margin-bottom: 0.5ch;
   &:hover {
     background-color: $accent-color;
   }
@@ -98,7 +98,7 @@ input {
   visibility: hidden;
   margin-left: auto;
   margin-right: auto;
-  background-color: #333;
+  background-color: $blue;
   color: #fff;
   text-align: center;
   border-radius: 2px;
@@ -109,7 +109,7 @@ input {
   max-width: 1080px;
   bottom: 30px;
   code{
-      color:limegreen;
+      color:$accent-color;
   }
 }
 

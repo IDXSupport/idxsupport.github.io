@@ -1,109 +1,135 @@
-body {
-  background: #f9fbff;
-  font-family: 'Poppins', sans-serif;
-}
-
-a {
-  color: #2668ad;
-}
-
-a:hover {
-  color: #8cc640;
-}
-
-a:visited {
-  color: #283c8d;
-}
-
-hr {
-  border-color: #c1c9da;
-  border-style: solid;
-}
-
-h1, .app-description {
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0%;
+}
+
+body {
+  background: #22272e;
+  color: white;
+}
+
+main {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10vh;
+}
+
+main main__paragraph {
+  font-weight: 400;
+}
+
+.app {
+  background-color: #1e2329;
+  max-width: 1200px;
+  border: 1px solid #444c56;
+  border-radius: 6px;
+  padding: 4em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.app h1 {
+  color: #fff;
+  text-transform: uppercase;
+  font-family: var(--bs-font-sans-serif);
+  padding-bottom: 10px;
+  text-transform: uppercase full-width;
+}
+
+.inputs {
+  line-height: 2rem;
+}
+
+section {
+  margin-top: 10px;
+}
+
+.calc-buttons {
+  margin-top: 1vh;
+  text-align: left;
+}
+
+.calc-buttons #ClearButton {
+  float: right;
 }
 
 button {
-  color: white;
+  padding: 1ch;
+  border-radius: 6px;
+  border: 1px solid #444c56;
   background-color: #283c8d;
-  border-color: #2668ad;
-  border-radius: 3px;
+  color: #fff;
+  width: 150px;
+  margin-bottom: 0.5ch;
+}
+
+button:hover {
+  background-color: #8cc640;
+}
+
+.answer {
+  background: silver;
 }
 
 input {
-  border-color: #2668ad;
-  border-radius: 3px;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  text-align: left;
+  max-width: 100%;
+  border-radius: 6px;
 }
 
-.analyzer-app {
-  min-width: 30rem;
-  max-width: 40rem;
-  margin: 0 auto;
+.input-fields {
+  margin-bottom: 15px;
 }
 
-.app-input {
-  margin: 1rem 0;
-  display: flex;
+.input-fields span {
+  color: #222;
 }
 
-.app-input .target-url {
-  margin-right: 1rem;
-  flex: 1 0;
-  font-size: 18px;
+/*Toast Notifications*/
+#toast {
+  visibility: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #2668ad;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: relative;
+  z-index: 1;
+  font-size: 17px;
+  max-width: 1080px;
+  bottom: 30px;
 }
 
-.app-input .action-button {
-  padding: 0.4rem;
-  font-size: 18px;
-}
-
-.analyzer-app-header {
-  text-transform: uppercase;
-}
-
-.analyzer-app-header .header-first-part {
-  color: #283c8d;
-}
-
-.analyzer-app-header .header-second-part {
-  color: #2668ad;
-}
-
-.analyzer-app-header .header-third-part {
+#toast code {
   color: #8cc640;
 }
 
-.analysis-error {
-  background: #faa;
-  padding: 1rem;
+#toast.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s;
 }
 
-.app-footer {
-  font-size: 14px;
-  border-top: 0.25rem solid #c1c9da;
-  margin-top: 1rem;
-  padding-top: 0.5rem;
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.candidate-name {
-  font-weight: bold;
-}
-
-.app-faq {
-  list-style: none;
-  margin: 0 0 1rem 0;
-  padding: 0;
-}
-
-.app-faq li {
-  margin: 0;
-}
-
-.app-faq .question {
-  font-weight: bold;
-}
-
-.app-faq .answer {
-  margin: 0 0 1rem 0;
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
