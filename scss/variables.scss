@@ -1,7 +1,10 @@
  
  $primary-color: #313150;
  $accent-color: orange;
- $background-color: #aaa;
+ $background-color:#22272e;
+ $app-background:#1e2329;
+ $app-text: white;
+ $button-color: blue;
  $text-color: white;
  $white: #fff;
  $black: #222;
@@ -10,8 +13,8 @@
      "medium": 500,
      "bold": 800
  );
-$radius: 10px;
-$border: 1px solid $black;
+$radius: 6px;
+$border: 1px solid #444c56;
 $blue: #3389B0;
 
 $small: 375px;

@@ -1,183 +1,109 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0%;
-}
-
 body {
-  background: #aaa;
-  color: white;
-}
-
-main {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 10vh;
-}
-
-main main__paragraph {
-  font-weight: 400;
-}
-
-header {
-  color: white;
-  background-color: #313150;
-  padding: 30px;
-}
-
-header ul {
-  font-size: 1.2em;
-  list-style-type: none;
-}
-
-footer {
-  width: 100%;
-  align-content: center;
-  float: none;
-  position: fixed;
-  bottom: 0;
-  text-align: center;
-  margin-top: 100px;
+  background: #f9fbff;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
-  color: #3389B0;
+  color: #2668ad;
 }
 
 a:hover {
-  color: orange;
+  color: #8cc640;
 }
 
-#ClearButton {
-  float: right;
+a:visited {
+  color: #283c8d;
 }
 
-.app {
-  background-color: white;
-  max-width: 1200px;
-  border: 1px solid #222;
-  border-radius: 10px;
-  padding: 4em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+hr {
+  border-color: #c1c9da;
+  border-style: solid;
 }
 
-.app h1 {
-  color: #222;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-}
-
-.app h2 {
-  color: #222;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
- "Lucida Sans", Arial, sans-serif;
-}
-
-.inputs {
-  line-height: 2rem;
-}
-
-section {
-  margin-top: 10px;
-}
-
-.calc-buttons {
-  text-align: left;
+h1, .app-description {
+  margin: 0;
 }
 
 button {
-  padding: 1ch;
-  border-radius: 10px;
-  border: 1px solid #222;
-  background-color: #3389B0;
-  color: #fff;
-  width: 10%;
-  margin: 3px;
-}
-
-button:hover {
-  background-color: orange;
-}
-
-.answer {
-  background: silver;
-  border-radius: 10px;
+  color: white;
+  background-color: #283c8d;
+  border-color: #2668ad;
+  border-radius: 3px;
 }
 
 input {
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-  text-align: left;
-  max-width: 100%;
+  border-color: #2668ad;
+  border-radius: 3px;
 }
 
-.input-fields {
-  margin-bottom: 15px;
+.analyzer-app {
+  min-width: 30rem;
+  max-width: 40rem;
+  margin: 0 auto;
 }
 
-.input-fields span {
-  color: #222;
+.app-input {
+  margin: 1rem 0;
+  display: flex;
 }
 
-label {
-  color: black;
+.app-input .target-url {
+  margin-right: 1rem;
+  flex: 1 0;
+  font-size: 18px;
 }
 
-.classname {
-  -webkit-animation-name: cssAnimation;
-  -webkit-animation-duration: 3s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease;
-  -webkit-animation-fill-mode: forwards;
+.app-input .action-button {
+  padding: 0.4rem;
+  font-size: 18px;
 }
 
-/*Toast Notifications*/
-#toast {
-  visibility: hidden;
-  min-width: 10%;
-  max-width: 50%;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 2px;
-  padding: 16px;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 10;
-  top: 50px;
-  font-size: 17px;
+.analyzer-app-header {
+  text-transform: uppercase;
 }
 
-#toast code {
-  color: limegreen;
+.analyzer-app-header .header-first-part {
+  color: #283c8d;
 }
 
-#toast.show {
-  visibility: visible;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+.analyzer-app-header .header-second-part {
+  color: #2668ad;
 }
 
-@keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0;
-  }
-  to {
-    bottom: 30px;
-    opacity: 1;
-  }
+.analyzer-app-header .header-third-part {
+  color: #8cc640;
 }
 
-@keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1;
-  }
-  to {
-    bottom: 0;
-    opacity: 0;
-  }
+.analysis-error {
+  background: #faa;
+  padding: 1rem;
+}
+
+.app-footer {
+  font-size: 14px;
+  border-top: 0.25rem solid #c1c9da;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+}
+
+.candidate-name {
+  font-weight: bold;
+}
+
+.app-faq {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.app-faq li {
+  margin: 0;
+}
+
+.app-faq .question {
+  font-weight: bold;
+}
+
+.app-faq .answer {
+  margin: 0 0 1rem 0;
 }
