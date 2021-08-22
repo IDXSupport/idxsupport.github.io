@@ -60,7 +60,7 @@ button {
   padding: 1ch;
   border-radius: 6px;
   border: 1px solid #444c56;
-  background-color: #283c8d;
+  background-color: #2668ad;
   color: #fff;
   width: 150px;
   margin-bottom: 0.5ch;
@@ -90,12 +90,21 @@ input {
   color: #222;
 }
 
+@keyframes cssAnimation {
+  from {
+    transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
+  }
+  to {
+    transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
+  }
+}
+
 /*Toast Notifications*/
 #toast {
   visibility: hidden;
   margin-left: auto;
   margin-right: auto;
-  background-color: #2668ad;
+  background-color: #283c8d;
   color: #fff;
   text-align: center;
   border-radius: 2px;

@@ -83,7 +83,14 @@ input {
   }
   margin-bottom: 15px;
 }
-
+@keyframes cssAnimation {
+  from {
+    transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
+  }
+  to {
+    transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
+  }
+}
 @-webkit-keyframes cssAnimation {
   from {
     -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
