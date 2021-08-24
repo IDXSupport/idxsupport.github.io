@@ -51,7 +51,7 @@
                     <span class="candidate-name">
                         <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
                     </span>
-                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-width">{{result.width.toFixed(0)}}</span>x<span class="candidate-height">{{result.height.toFixed(0)}}</span>, <span class="candidate-type">{{result.type}}</span>, <a v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}`" target="_blanks">static</a>) <button v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button" v-on:click="result.showAlternatives = true">more</button>
+                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-width">{{result.width.toFixed(0)}}</span>x<span class="candidate-height">{{result.height.toFixed(0)}}</span>, <span class="candidate-type">{{result.type}}</span>, <a v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}`" target="_blank">static</a>, <a v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}&removeScripts=true`" target="_blank">nojs</a>) <button v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button" v-on:click="result.showAlternatives = true">more</button>
                         <span v-if="result.showAlternatives">
                             <span class="alternative" v-for="alternative in result.alternatives">
                                 <span class="candidate-name">
@@ -60,7 +60,7 @@
                                 <span class="candidate-image" v-if="alternative.hasScreenshot">
                                     <a v-bind:href="result.imageUrl" target="_blank">(img)</a>
                                 </span>
-                                (<span class="candidate-score">{{alternative.score.toFixed(2)}}</span>, <span class="candidate-type">{{alternative.type}}</span>, <a v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}`" target="_blanks">static</a>)
+                                (<span class="candidate-score">{{alternative.score.toFixed(2)}}</span>, <span class="c  andidate-type">{{alternative.type}}</span>, <a v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}`" target="_blank">static</a>, <a v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}&removeScripts=true`" target="_blank">nojs</a>)
                             </span>
                         </span>    
                 </div>    
