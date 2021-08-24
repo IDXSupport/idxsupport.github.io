@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #aaa;
+  background: #22272e;
   color: white;
 }
 
@@ -20,44 +20,11 @@ main main__paragraph {
   font-weight: 400;
 }
 
-header {
-  color: white;
-  background-color: #313150;
-  padding: 30px;
-}
-
-header ul {
-  font-size: 1.2em;
-  list-style-type: none;
-}
-
-footer {
-  width: 100%;
-  align-content: center;
-  float: none;
-  position: fixed;
-  bottom: 0;
-  text-align: center;
-  margin-top: 100px;
-}
-
-a {
-  color: #3389B0;
-}
-
-a:hover {
-  color: orange;
-}
-
-#ClearButton {
-  float: right;
-}
-
 .app {
-  background-color: white;
+  background-color: #1e2329;
   max-width: 1200px;
-  border: 1px solid #222;
-  border-radius: 10px;
+  border: 1px solid #444c56;
+  border-radius: 6px;
   padding: 4em;
   margin-left: auto;
   margin-right: auto;
@@ -65,14 +32,11 @@ a:hover {
 }
 
 .app h1 {
-  color: #222;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-}
-
-.app h2 {
-  color: #222;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
- "Lucida Sans", Arial, sans-serif;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: var(--bs-font-sans-serif);
+  padding-bottom: 10px;
+  text-transform: uppercase full-width;
 }
 
 .inputs {
@@ -84,26 +48,30 @@ section {
 }
 
 .calc-buttons {
+  margin-top: 1vh;
   text-align: left;
+}
+
+.calc-buttons #ClearButton {
+  float: right;
 }
 
 button {
   padding: 1ch;
-  border-radius: 10px;
-  border: 1px solid #222;
-  background-color: #3389B0;
+  border-radius: 6px;
+  border: 1px solid #444c56;
+  background-color: #2668ad;
   color: #fff;
-  width: 10%;
-  margin: 3px;
+  width: 150px;
+  margin-bottom: 0.5ch;
 }
 
 button:hover {
-  background-color: orange;
+  background-color: #8cc640;
 }
 
 .answer {
   background: silver;
-  border-radius: 10px;
 }
 
 input {
@@ -111,6 +79,7 @@ input {
   -webkit-appearance: textfield;
   text-align: left;
   max-width: 100%;
+  border-radius: 6px;
 }
 
 .input-fields {
@@ -121,63 +90,55 @@ input {
   color: #222;
 }
 
-label {
-  color: black;
-}
-
-.classname {
-  -webkit-animation-name: cssAnimation;
-  -webkit-animation-duration: 3s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease;
-  -webkit-animation-fill-mode: forwards;
+@keyframes cssAnimation {
+  from {
+    transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
+  }
+  to {
+    transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
+  }
 }
 
 /*Toast Notifications*/
 #toast {
   visibility: hidden;
-  min-width: 10%;
-  max-width: 50%;
-  background-color: #333;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #283c8d;
   color: #fff;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 10;
-  top: 50px;
+  z-index: 1;
   font-size: 17px;
+  max-width: 1080px;
+  bottom: 30px;
 }
 
 #toast code {
-  color: limegreen;
+  color: #8cc640;
 }
 
 #toast.show {
   visibility: visible;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s;
 }
 
 @keyframes fadein {
   from {
-    bottom: 0;
     opacity: 0;
   }
   to {
-    bottom: 30px;
     opacity: 1;
   }
 }
 
 @keyframes fadeout {
   from {
-    bottom: 30px;
     opacity: 1;
   }
   to {
-    bottom: 0;
     opacity: 0;
   }
 }
