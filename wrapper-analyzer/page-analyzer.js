@@ -473,7 +473,11 @@ expressApp.get('/analyze', async (req, res) => {
 
     let scoredCandidates = JSON.parse(scoredCandidatesJson);
     let scoreScreenshotSet = new Set();
-    for (let i=0; i<scoredCandidates.length/3; i++) {
+
+    let startingTime = process.uptime();
+    let maxTime = 45;
+
+    for (let i=0; i<scoredCandidates.length/2; i++) {
         let score = scoredCandidates[i].score;
         if (!scoreScreenshotSet.has(score.toFixed(2))) {
             scoredCandidates[i].hasScreenshot = true;
@@ -482,6 +486,13 @@ expressApp.get('/analyze', async (req, res) => {
             scoreScreenshotSet.add(score.toFixed(2));
         } else {
             scoredCandidates[i].hasScreenshot = false;
+        }
+        let currentTime = process.uptime();
+
+        // Only take sreenshots for the indicated amount of seconds.
+        if (currentTime - startingTime > maxTime) {
+            console.log("Maximum time taking screenshots reached.");    
+            break;
         }
     }
 
