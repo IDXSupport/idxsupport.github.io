@@ -1,18 +1,248 @@
-<!-- Scripts for putting two showcase widgets results together in one High to Low -->
 
-    <!-- Add JQuery if its not already in the website-->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+		<title>Columns &#8211; Alpaca Web Demo</title>
+<meta name='robots' content='noindex, nofollow' />
+<link rel='dns-prefetch' href='//s3.amazonaws.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Alpaca Web Demo &raquo; Feed" href="https://1.alpacawebdesign.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Alpaca Web Demo &raquo; Comments Feed" href="https://1.alpacawebdesign.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/1.alpacawebdesign.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='dashicons-css'  href='https://1.alpacawebdesign.com/wp-includes/css/dashicons.min.css?ver=5.8' type='text/css' media='all' />
+<link rel='stylesheet' id='admin-bar-css'  href='https://1.alpacawebdesign.com/wp-includes/css/admin-bar.min.css?ver=5.8' type='text/css' media='all' />
+<link rel='stylesheet' id='properticons-css'  href='https://s3.amazonaws.com/properticons/css/properticons.css?ver=5.8' type='text/css' media='all' />
+<link rel='stylesheet' id='idx-menus-css'  href='https://1.alpacawebdesign.com/wp-content/plugins/wordpress-plugin-mikey-patch-missing-closing-div/assets/css/idx-menus.min.css?ver=5.8' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://1.alpacawebdesign.com/wp-includes/css/dist/block-library/style.min.css?ver=5.8' type='text/css' media='all' />
+<link rel='stylesheet' id='neve-style-css'  href='https://1.alpacawebdesign.com/wp-content/themes/neve/style-main.min.css?ver=2.11.6' type='text/css' media='all' />
+<style id='neve-style-inline-css' type='text/css'>
+.header-menu-sidebar-inner li.menu-item-nav-search { display: none; }
+ .container{ max-width: 748px; } .alignfull > [class*="__inner-container"], .alignwide > [class*="__inner-container"]{ max-width:718px;margin:auto } .button.button-primary, button, input[type=button], .btn, input[type="submit"], /* Buttons in navigation */ ul[id^="nv-primary-navigation"] li.button.button-primary > a, .menu li.button.button-primary > a, .wp-block-button.is-style-primary .wp-block-button__link, .wc-block-grid .wp-block-button .wp-block-button__link, form input[type="submit"], form button[type="submit"], #comments input[type="submit"]{ background-color: var(--nv-primary-accent);color: #ffffff;border-radius:3px 3px 3px 3px;border:none;border-width:1px 1px 1px 1px; } .button.button-primary:hover, ul[id^="nv-primary-navigation"] li.button.button-primary > a:hover, .menu li.button.button-primary > a:hover, .wp-block-button.is-style-primary .wp-block-button__link:hover, .wc-block-grid .wp-block-button .wp-block-button__link:hover, form input[type="submit"]:hover, form button[type="submit"]:hover, #comments input[type="submit"]:hover{ background-color: var(--nv-primary-accent);color: #ffffff; } .button.button-secondary:not(.secondary-default), .wp-block-button.is-style-secondary .wp-block-button__link{ background-color: rgba(0,0,0,0);color: var(--nv-text-color);border-radius:3px;border:1px solid;border-width:1px 1px 1px 1px; } .button.button-secondary.secondary-default{ background-color: rgba(0,0,0,0);color: var(--nv-text-color);border-radius:3px;border:1px solid;border-width:1px 1px 1px 1px; } .button.button-secondary:not(.secondary-default):hover, .wp-block-button.is-style-secondary .wp-block-button__link:hover{ background-color: rgba(0,0,0,0);color: var(--nv-text-color); } .button.button-secondary.secondary-default:hover{ background-color: rgba(0,0,0,0);color: var(--nv-text-color); } body, .site-title{ font-family: Catamaran, var(--nv-fallback-ff); } h1, .single h1.entry-title{ font-family: Allan, var(--nv-fallback-ff); } h2{ font-family: Allan, var(--nv-fallback-ff); } h3, .woocommerce-checkout h3{ font-family: Allan, var(--nv-fallback-ff); } h4{ font-family: Allan, var(--nv-fallback-ff); } h5{ font-family: Allan, var(--nv-fallback-ff); } h6{ font-family: Allan, var(--nv-fallback-ff); } form:not([role="search"]):not(.woocommerce-cart-form):not(.woocommerce-ordering):not(.cart) input:read-write:not(#coupon_code), form textarea, form select, .widget select{ margin-bottom: 10px; } form input:read-write, form textarea, form select, form select option, form.wp-block-search input.wp-block-search__input, .widget select{ color: var(--nv-text-color); font-family: Catamaran, var(--nv-fallback-ff); } form label, .wpforms-container .wpforms-field-label{ margin-bottom: 10px; } form.search-form input:read-write{ padding-right:45px !important; font-family: Catamaran, var(--nv-fallback-ff); } .header-main-inner,.header-main-inner a:not(.button),.header-main-inner .navbar-toggle{ color: var(--nv-text-color); } .header-main-inner .nv-icon svg,.header-main-inner .nv-contact-list svg{ fill: var(--nv-text-color); } .header-main-inner .icon-bar{ background-color: var(--nv-text-color); } .hfg_header .header-main-inner .nav-ul .sub-menu{ background-color: var(--nv-site-bg); } .hfg_header .header-main-inner{ background-color: var(--nv-site-bg); } .header-menu-sidebar .header-menu-sidebar-bg,.header-menu-sidebar .header-menu-sidebar-bg a:not(.button),.header-menu-sidebar .header-menu-sidebar-bg .navbar-toggle{ color: var(--nv-text-color); } .header-menu-sidebar .header-menu-sidebar-bg .nv-icon svg,.header-menu-sidebar .header-menu-sidebar-bg .nv-contact-list svg{ fill: var(--nv-text-color); } .header-menu-sidebar .header-menu-sidebar-bg .icon-bar{ background-color: var(--nv-text-color); } .hfg_header .header-menu-sidebar .header-menu-sidebar-bg .nav-ul .sub-menu{ background-color: var(--nv-site-bg); } .hfg_header .header-menu-sidebar .header-menu-sidebar-bg{ background-color: var(--nv-site-bg); } .header-menu-sidebar{ width: 360px; } .builder-item--logo .site-logo img{ max-width: 120px; } .builder-item--logo .site-logo .brand .nv-title-tagline-wrap{ color: var(--nv-primary-accent); } .builder-item--logo .site-logo{ padding:10px 0px 10px 0px; } .builder-item--logo{ margin:0px 0px 0px 0px; } .builder-item--nav-icon .navbar-toggle{ padding:10px 15px 10px 15px; } .builder-item--nav-icon{ margin:0px 0px 0px 0px; } .builder-item--primary-menu .nav-menu-primary > .nav-ul li:not(.woocommerce-mini-cart-item) > a,.builder-item--primary-menu .nav-menu-primary > .nav-ul .has-caret > a,.builder-item--primary-menu .nav-menu-primary > .nav-ul .neve-mm-heading span,.builder-item--primary-menu .nav-menu-primary > .nav-ul .has-caret{ color: var(--nv-text-color); } .builder-item--primary-menu .nav-menu-primary > .nav-ul li:not(.woocommerce-mini-cart-item) > a:after,.builder-item--primary-menu .nav-menu-primary > .nav-ul li > .has-caret > a:after{ background-color: var(--nv-secondary-accent); } .builder-item--primary-menu .nav-menu-primary > .nav-ul li:not(.woocommerce-mini-cart-item):hover > a,.builder-item--primary-menu .nav-menu-primary > .nav-ul li:hover > .has-caret > a,.builder-item--primary-menu .nav-menu-primary > .nav-ul li:hover > .has-caret{ color: var(--nv-secondary-accent); } .builder-item--primary-menu .nav-menu-primary > .nav-ul li:hover > .has-caret svg{ fill: var(--nv-secondary-accent); } .builder-item--primary-menu .nav-menu-primary > .nav-ul li.current-menu-item > a,.builder-item--primary-menu .nav-menu-primary > .nav-ul li.current_page_item > a,.builder-item--primary-menu .nav-menu-primary > .nav-ul li.current_page_item > .has-caret > a{ color: var(--nv-primary-accent); } .builder-item--primary-menu .nav-menu-primary > .nav-ul li.current-menu-item > .has-caret svg{ fill: var(--nv-primary-accent); } .builder-item--primary-menu .nav-ul > li:not(:last-of-type){ margin-right:20px; } .builder-item--primary-menu .style-full-height .nav-ul li:not(.menu-item-nav-search):not(.menu-item-nav-cart):hover > a:after{ width: calc(100% + 20px); } .builder-item--primary-menu .nav-ul li a, .builder-item--primary-menu .neve-mm-heading span{ min-height: 25px; } .builder-item--primary-menu{ font-size: 1em; line-height: 1.6em; letter-spacing: 0px; font-weight: 500; text-transform: none; padding:0px 0px 0px 0px;margin:0px 0px 0px 0px; } .builder-item--primary-menu svg{ width: 1em;height: 1em; } .footer-bottom-inner{ background-color: var(--nv-site-bg); } .footer-bottom-inner,.footer-bottom-inner a:not(.button),.footer-bottom-inner .navbar-toggle{ color: var(--nv-text-color); } .footer-bottom-inner .nv-icon svg,.footer-bottom-inner .nv-contact-list svg{ fill: var(--nv-text-color); } .footer-bottom-inner .icon-bar{ background-color: var(--nv-text-color); } .footer-bottom-inner .nav-ul .sub-menu{ background-color: var(--nv-site-bg); } .builder-item--footer_copyright{ font-size: 1em; line-height: 1.6em; letter-spacing: 0px; font-weight: 500; text-transform: none; padding:0px 0px 0px 0px;margin:0px 0px 0px 0px; } .builder-item--footer_copyright svg{ width: 1em;height: 1em; } @media(min-width: 576px){ .container{ max-width: 992px; } .header-menu-sidebar{ width: 360px; } .builder-item--logo .site-logo img{ max-width: 120px; } .builder-item--logo .site-logo{ padding:10px 0px 10px 0px; } .builder-item--logo{ margin:0px 0px 0px 0px; } .builder-item--nav-icon .navbar-toggle{ padding:10px 15px 10px 15px; } .builder-item--nav-icon{ margin:0px 0px 0px 0px; } .builder-item--primary-menu .nav-ul > li:not(:last-of-type){ margin-right:20px; } .builder-item--primary-menu .style-full-height .nav-ul li:not(.menu-item-nav-search):not(.menu-item-nav-cart):hover > a:after{ width: calc(100% + 20px); } .builder-item--primary-menu .nav-ul li a, .builder-item--primary-menu .neve-mm-heading span{ min-height: 25px; } .builder-item--primary-menu{ font-size: 1em; line-height: 1.6em; letter-spacing: 0px; padding:0px 0px 0px 0px;margin:0px 0px 0px 0px; } .builder-item--primary-menu svg{ width: 1em;height: 1em; } .builder-item--footer_copyright{ font-size: 1em; line-height: 1.6em; letter-spacing: 0px; padding:0px 0px 0px 0px;margin:0px 0px 0px 0px; } .builder-item--footer_copyright svg{ width: 1em;height: 1em; } }@media(min-width: 960px){ .container{ max-width: 1800px; } #content .container .col, #content .container-fluid .col{ max-width: 70%; } .alignfull > [class*="__inner-container"], .alignwide > [class*="__inner-container"]{ max-width:1230px } .container-fluid .alignfull > [class*="__inner-container"], .container-fluid .alignwide > [class*="__inner-container"]{ max-width:calc(70% + 15px) } .nv-sidebar-wrap, .nv-sidebar-wrap.shop-sidebar{ max-width: 30%; } .header-menu-sidebar{ width: 360px; } .builder-item--logo .site-logo img{ max-width: 120px; } .builder-item--logo .site-logo{ padding:10px 0px 10px 0px; } .builder-item--logo{ margin:0px 0px 0px 0px; } .builder-item--nav-icon .navbar-toggle{ padding:10px 15px 10px 15px; } .builder-item--nav-icon{ margin:0px 0px 0px 0px; } .builder-item--primary-menu .nav-ul > li:not(:last-of-type){ margin-right:20px; } .builder-item--primary-menu .style-full-height .nav-ul li:not(.menu-item-nav-search):not(.menu-item-nav-cart) > a:after{ left:-10px;right:-10px } .builder-item--primary-menu .style-full-height .nav-ul li:not(.menu-item-nav-search):not(.menu-item-nav-cart):hover > a:after{ width: calc(100% + 20px); } .builder-item--primary-menu .nav-ul li a, .builder-item--primary-menu .neve-mm-heading span{ min-height: 25px; } .builder-item--primary-menu{ font-size: 1em; line-height: 1.6em; letter-spacing: 0px; padding:0px 0px 0px 0px;margin:0px 0px 0px 0px; } .builder-item--primary-menu svg{ width: 1em;height: 1em; } .builder-item--footer_copyright{ font-size: 1em; line-height: 1.6em; letter-spacing: 0px; padding:0px 0px 0px 0px;margin:0px 0px 0px 0px; } .builder-item--footer_copyright svg{ width: 1em;height: 1em; } }:root{--nv-primary-accent:#0366d6;--nv-secondary-accent:#0e509a;--nv-site-bg:#ffffff;--nv-light-bg:#ededed;--nv-dark-bg:#14171c;--nv-text-color:#393939;--nv-text-dark-bg:#ffffff;--nv-c-1:#77b978;--nv-c-2:#f37262;--nv-fallback-ff:Arial, Helvetica, sans-serif;}
+</style>
+<link rel='stylesheet' id='neve-google-font-catamaran-css'  href='//fonts.googleapis.com/css?family=Catamaran%3A400&#038;display=swap&#038;ver=2.11.6' type='text/css' media='all' />
+<link rel='stylesheet' id='neve-google-font-allan-css'  href='//fonts.googleapis.com/css?family=Allan%3A400&#038;display=swap&#038;ver=2.11.6' type='text/css' media='all' />
+<link rel="https://api.w.org/" href="https://1.alpacawebdesign.com/wp-json/" /><link rel="alternate" type="application/json" href="https://1.alpacawebdesign.com/wp-json/wp/v2/pages/138" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://1.alpacawebdesign.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://1.alpacawebdesign.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8" />
+<link rel="canonical" href="https://1.alpacawebdesign.com/columns/" />
+<link rel='shortlink' href='https://1.alpacawebdesign.com/?p=138' />
+<link rel="alternate" type="application/json+oembed" href="https://1.alpacawebdesign.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2F1.alpacawebdesign.com%2Fcolumns%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://1.alpacawebdesign.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2F1.alpacawebdesign.com%2Fcolumns%2F&#038;format=xml" />
+
+
+<!-- WordPress Version 5.8 -->
+<!-- IDX Broker WordPress Plugin 3.0.3.1 Activated -->
+<!-- IDX Broker WordPress Plugin Wrapper Meta-->
+
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><style type="text/css" media="print">#wpadminbar { display:none; }</style>
+	<style type="text/css" media="screen">
+	html { margin-top: 32px !important; }
+	* html body { margin-top: 32px !important; }
+	@media screen and ( max-width: 782px ) {
+		html { margin-top: 46px !important; }
+		* html body { margin-top: 46px !important; }
+	}
+</style>
+	<link rel="icon" href="https://1.alpacawebdesign.com/wp-content/uploads/2021/07/cropped-Screenshot-2021-07-16-at-10-17-44-Logo-Maker-Brand-Builder.png" sizes="32x32" />
+<link rel="icon" href="https://1.alpacawebdesign.com/wp-content/uploads/2021/07/cropped-Screenshot-2021-07-16-at-10-17-44-Logo-Maker-Brand-Builder.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://1.alpacawebdesign.com/wp-content/uploads/2021/07/cropped-Screenshot-2021-07-16-at-10-17-44-Logo-Maker-Brand-Builder.png" />
+<meta name="msapplication-TileImage" content="https://1.alpacawebdesign.com/wp-content/uploads/2021/07/cropped-Screenshot-2021-07-16-at-10-17-44-Logo-Maker-Brand-Builder.png" />
+
+	</head>
+
+<body  class="page-template-default page page-id-138 logged-in admin-bar no-customize-support wp-custom-logo nv-sidebar-full-width menu_sidebar_slide_left" id="neve_body"  >
+	<script type="text/javascript">
+		(function() {
+			var request, b = document.body, c = 'className', cs = 'customize-support', rcs = new RegExp('(^|\\s+)(no-)?'+cs+'(\\s+|$)');
+
+				request = true;
+	
+			b[c] = b[c].replace( rcs, ' ' );
+			// The customizer requires postMessage and CORS (if the site is cross domain).
+			b[c] += ( window.postMessage && request ? ' ' : ' no-' ) + cs;
+		}());
+	</script>
+			<div id="wpadminbar" class="nojq nojs">
+						<div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
+				<ul id='wp-admin-bar-root-default' class="ab-top-menu"><li id='wp-admin-bar-wp-logo' class="menupop"><a class='ab-item' aria-haspopup="true" href='https://1.alpacawebdesign.com/wp-admin/about.php'><span class="ab-icon" aria-hidden="true"></span><span class="screen-reader-text">About WordPress</span></a><div class="ab-sub-wrapper"><ul id='wp-admin-bar-wp-logo-default' class="ab-submenu"><li id='wp-admin-bar-about'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/about.php'>About WordPress</a></li></ul><ul id='wp-admin-bar-wp-logo-external' class="ab-sub-secondary ab-submenu"><li id='wp-admin-bar-wporg'><a class='ab-item' href='https://wordpress.org/'>WordPress.org</a></li><li id='wp-admin-bar-documentation'><a class='ab-item' href='https://wordpress.org/support/'>Documentation</a></li><li id='wp-admin-bar-support-forums'><a class='ab-item' href='https://wordpress.org/support/forums/'>Support</a></li><li id='wp-admin-bar-feedback'><a class='ab-item' href='https://wordpress.org/support/forum/requests-and-feedback'>Feedback</a></li></ul></div></li><li id='wp-admin-bar-site-name' class="menupop"><a class='ab-item' aria-haspopup="true" href='https://1.alpacawebdesign.com/wp-admin/'>Alpaca Web Demo</a><div class="ab-sub-wrapper"><ul id='wp-admin-bar-site-name-default' class="ab-submenu"><li id='wp-admin-bar-dashboard'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/'>Dashboard</a></li></ul><ul id='wp-admin-bar-appearance' class="ab-submenu"><li id='wp-admin-bar-themes'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/themes.php'>Themes</a></li><li id='wp-admin-bar-widgets'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/widgets.php'>Widgets</a></li><li id='wp-admin-bar-menus'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/nav-menus.php'>Menus</a></li><li id='wp-admin-bar-background' class="hide-if-customize"><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/themes.php?page=custom-background'>Background</a></li></ul></div></li><li id='wp-admin-bar-customize' class="hide-if-no-customize"><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/customize.php?url=https%3A%2F%2F1.alpacawebdesign.com%2Fcolumns%2F'>Customize</a></li><li id='wp-admin-bar-updates'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/update-core.php'><span class="ab-icon" aria-hidden="true"></span><span class="ab-label" aria-hidden="true">8</span><span class="screen-reader-text updates-available-text">8 updates available</span></a></li><li id='wp-admin-bar-comments'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/edit-comments.php'><span class="ab-icon" aria-hidden="true"></span><span class="ab-label awaiting-mod pending-count count-0" aria-hidden="true">0</span><span class="screen-reader-text comments-in-moderation-text">0 Comments in moderation</span></a></li><li id='wp-admin-bar-new-content' class="menupop"><a class='ab-item' aria-haspopup="true" href='https://1.alpacawebdesign.com/wp-admin/post-new.php'><span class="ab-icon" aria-hidden="true"></span><span class="ab-label">New</span></a><div class="ab-sub-wrapper"><ul id='wp-admin-bar-new-content-default' class="ab-submenu"><li id='wp-admin-bar-new-post'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/post-new.php'>Post</a></li><li id='wp-admin-bar-new-media'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/media-new.php'>Media</a></li><li id='wp-admin-bar-new-page'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/post-new.php?post_type=page'>Page</a></li><li id='wp-admin-bar-new-idx-wrapper'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/post-new.php?post_type=idx-wrapper'>Wrapper</a></li><li id='wp-admin-bar-new-user'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/user-new.php'>User</a></li></ul></div></li><li id='wp-admin-bar-edit'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/post.php?post=138&#038;action=edit'>Edit Page</a></li><li id='wp-admin-bar-idx_admin_bar_menu' class="menupop"><a class='ab-item' aria-haspopup="true" href='https://1.alpacawebdesign.com/wp-admin/admin.php?page=idx-broker#/settings/general'><span class="ab-icon properticons-logo-idx"></span>IMPress</a><div class="ab-sub-wrapper"><ul id='wp-admin-bar-idx_admin_bar_menu-default' class="ab-submenu"><li id='wp-admin-bar-idx_admin_bar_menu_item_1'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/admin.php?page=idx-broker#/settings/general'>General Settings</a></li><li id='wp-admin-bar-idx_admin_bar_menu_item_2'><a class='ab-item' href='http://support.idxbroker.com' target='_blank'>Knowledgebase</a></li><li id='wp-admin-bar-idx_admin_bar_menu_item_3'><a class='ab-item' href='https://middleware.idxbroker.com/mgmt/login' target='_blank'>IDX Control Panel</a></li></ul></div></li></ul><ul id='wp-admin-bar-top-secondary' class="ab-top-secondary ab-top-menu"><li id='wp-admin-bar-search' class="admin-bar-search"><div class="ab-item ab-empty-item" tabindex="-1"><form action="https://1.alpacawebdesign.com/" method="get" id="adminbarsearch"><input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" /><label for="adminbar-search" class="screen-reader-text">Search</label><input type="submit" class="adminbar-button" value="Search" /></form></div></li><li id='wp-admin-bar-my-account' class="menupop with-avatar"><a class='ab-item' aria-haspopup="true" href='https://1.alpacawebdesign.com/wp-admin/profile.php'>Howdy, <span class="display-name">1_me0ho1</span><img alt='' src='https://secure.gravatar.com/avatar/c7b2f45f2545bfceb5719de78fafbe83?s=26&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/c7b2f45f2545bfceb5719de78fafbe83?s=52&#038;d=mm&#038;r=g 2x' class='avatar avatar-26 photo' height='26' width='26' loading='lazy'/></a><div class="ab-sub-wrapper"><ul id='wp-admin-bar-user-actions' class="ab-submenu"><li id='wp-admin-bar-user-info'><a class='ab-item' tabindex="-1" href='https://1.alpacawebdesign.com/wp-admin/profile.php'><img alt='' src='https://secure.gravatar.com/avatar/c7b2f45f2545bfceb5719de78fafbe83?s=64&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/c7b2f45f2545bfceb5719de78fafbe83?s=128&#038;d=mm&#038;r=g 2x' class='avatar avatar-64 photo' height='64' width='64' loading='lazy'/><span class='display-name'>1_me0ho1</span></a></li><li id='wp-admin-bar-edit-profile'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-admin/profile.php'>Edit Profile</a></li><li id='wp-admin-bar-logout'><a class='ab-item' href='https://1.alpacawebdesign.com/wp-login.php?action=logout&#038;_wpnonce=7a0f29a829'>Log Out</a></li></ul></div></li></ul>			</div>
+						<a class="screen-reader-shortcut" href="https://1.alpacawebdesign.com/wp-login.php?action=logout&#038;_wpnonce=7a0f29a829">Log Out</a>
+					</div>
+
+		<div class="wrapper">
+	
+	<header class="header" role="banner">
+		<a class="neve-skip-link show-on-focus" href="#content" tabindex="0">
+			Skip to content		</a>
+		<div id="header-grid"  class="hfg_header site-header">
+	
+<nav class="header--row header-main hide-on-mobile hide-on-tablet layout-full-contained nv-navbar header--row"
+	data-row-id="main" data-show-on="desktop">
+
+	<div
+		class="header--row-inner header-main-inner">
+		<div class="container">
+			<div
+				class="row row--wrapper"
+				data-section="hfg_header_layout_main" >
+				<div class="builder-item hfg-item-first col-4 desktop-left"><div class="item--inner builder-item--logo"
+		data-section="title_tagline"
+		data-item-id="logo">
+	<div class="site-logo">
+	<a class="brand" href="https://1.alpacawebdesign.com/" title="Alpaca Web Demo"
+			aria-label="Alpaca Web Demo"><div class="title-with-logo"><img width="72" height="69" src="https://1.alpacawebdesign.com/wp-content/uploads/2021/07/cropped-Screenshot-2021-07-16-at-10-17-44-Logo-Maker-Brand-Builder.png" class="skip-lazy" alt="" loading="lazy" /><div class="nv-title-tagline-wrap"><p class="site-title">Alpaca Web Demo</p></div></div></a></div>
+
+	</div>
+
+</div><div class="builder-item has-nav hfg-item-last col-8 desktop-right"><div class="item--inner builder-item--primary-menu has_menu"
+		data-section="header_menu_primary"
+		data-item-id="primary-menu">
+	<div class="nv-nav-wrap">
+	<div role="navigation" class="style-plain nav-menu-primary"
+			aria-label="Primary Menu">
+
+		<ul id="nv-primary-navigation-main" class="primary-menu-ul nav-ul"><li class="page_item page-item-157"><a href="https://1.alpacawebdesign.com/157-2/">#157 (no title)</a></li><li class="page_item page-item-138 current_page_item"><a href="https://1.alpacawebdesign.com/columns/" aria-current="page">Columns</a></li><li class="page_item page-item-10"><a href="https://1.alpacawebdesign.com/">Homepage</a></li><li class="page_item page-item-22"><a href="https://1.alpacawebdesign.com/my-account/">My account</a></li><li class="page_item page-item-2"><a href="https://1.alpacawebdesign.com/sample-page/">Sample Page</a></li><li class="page_item page-item-103"><a href="https://1.alpacawebdesign.com/103-2/">wrapper</a></li></ul>	</div>
+</div>
+
+	</div>
+
+</div>							</div>
+		</div>
+	</div>
+</nav>
+
+
+<nav class="header--row header-main hide-on-desktop layout-full-contained nv-navbar header--row"
+	data-row-id="main" data-show-on="mobile">
+
+	<div
+		class="header--row-inner header-main-inner">
+		<div class="container">
+			<div
+				class="row row--wrapper"
+				data-section="hfg_header_layout_main" >
+				<div class="builder-item hfg-item-first col-8 tablet-left mobile-left"><div class="item--inner builder-item--logo"
+		data-section="title_tagline"
+		data-item-id="logo">
+	<div class="site-logo">
+	<a class="brand" href="https://1.alpacawebdesign.com/" title="Alpaca Web Demo"
+			aria-label="Alpaca Web Demo"><div class="title-with-logo"><img width="72" height="69" src="https://1.alpacawebdesign.com/wp-content/uploads/2021/07/cropped-Screenshot-2021-07-16-at-10-17-44-Logo-Maker-Brand-Builder.png" class="skip-lazy" alt="" loading="lazy" /><div class="nv-title-tagline-wrap"><p class="site-title">Alpaca Web Demo</p></div></div></a></div>
+
+	</div>
+
+</div><div class="builder-item hfg-item-last col-4 tablet-right mobile-right"><div class="item--inner builder-item--nav-icon"
+		data-section="header_menu_icon"
+		data-item-id="nav-icon">
+	<div class="menu-mobile-toggle item-button navbar-toggle-wrapper">
+	<button class="navbar-toggle"
+					aria-label="
+			Navigation Menu			">
+				<div class="bars">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</div>
+		<span class="screen-reader-text">Toggle Navigation</span>
+	</button>
+</div> <!--.navbar-toggle-wrapper-->
+
+
+	</div>
+
+</div>							</div>
+		</div>
+	</div>
+</nav>
+
+<div id="header-menu-sidebar" class="header-menu-sidebar menu-sidebar-panel slide_left">
+	<div id="header-menu-sidebar-bg" class="header-menu-sidebar-bg">
+		<div class="close-sidebar-panel navbar-toggle-wrapper">
+			<button class="navbar-toggle active" 					aria-label="
+				Navigation Menu				">
+				<div class="bars">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</div>
+				<span class="screen-reader-text">
+				Toggle Navigation					</span>
+			</button>
+		</div>
+		<div id="header-menu-sidebar-inner" class="header-menu-sidebar-inner ">
+			<div class="builder-item has-nav hfg-item-last hfg-item-first col-12 desktop-right tablet-left mobile-left"><div class="item--inner builder-item--primary-menu has_menu"
+		data-section="header_menu_primary"
+		data-item-id="primary-menu">
+	<div class="nv-nav-wrap">
+	<div role="navigation" class="style-plain nav-menu-primary"
+			aria-label="Primary Menu">
+
+		<ul id="nv-primary-navigation-sidebar" class="primary-menu-ul nav-ul"><li class="page_item page-item-157"><a href="https://1.alpacawebdesign.com/157-2/">#157 (no title)</a></li><li class="page_item page-item-138 current_page_item"><a href="https://1.alpacawebdesign.com/columns/" aria-current="page">Columns</a></li><li class="page_item page-item-10"><a href="https://1.alpacawebdesign.com/">Homepage</a></li><li class="page_item page-item-22"><a href="https://1.alpacawebdesign.com/my-account/">My account</a></li><li class="page_item page-item-2"><a href="https://1.alpacawebdesign.com/sample-page/">Sample Page</a></li><li class="page_item page-item-103"><a href="https://1.alpacawebdesign.com/103-2/">wrapper</a></li></ul>	</div>
+</div>
+
+	</div>
+
+</div>		</div>
+	</div>
+</div>
+<div class="header-menu-sidebar-overlay"></div>
+
+</div>
+	</header>
+
+	
+
+	
+	<main id="content" class="neve-main" role="main">
+
+<div class="container single-page-container">
+	<div class="row">
+				<div class="nv-single-page-wrap col">
+			<div class="nv-page-title-wrap nv-big-title">
+	<div class="nv-page-title ">
+				<h1>Columns</h1>
+					</div><!--.nv-page-title-->
+</div> <!--.nv-page-title-wrap-->
+<div class="nv-content-wrap entry-content">
+<div class="wp-block-columns">
+<div class="wp-block-column">
+    <!-- Scripts for putting two showcase widgets results together in one. Place this code into an HTML box on the page where you want the listings to be displayed-->
+
+    <!-- Adds JQuery if its not already in the website-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-    <!-- remove JQuery above if its a problem -->
+    <!-- remove JQuery if its a problem -->
 
     <script>
         jQuery(init);
-        // First move all showcase cells from a single page to the same element
         function init() { 
-            //first element is where you want to move the showcase to. Cannot use any impress elements. 
-            //Use the same elements here in the last lines of script
-            jQuery('.entry-content').append(jQuery('.impress-showcase-property.columns.small-12.medium-6.large-6'));
+            jQuery('#moveHere').append(jQuery('.impress-property-showcase>div'));
         };
-        // Do not change
         $(document).ready(function () {
             var els = document.querySelectorAll('.impress-showcase-property');
             for (var i = 0, val = []; i < els.length; i++) {
@@ -20,17 +250,358 @@
             }
 
             val.sort(function (a, b) { 
-                //sorts properties. Use '<' for Highest to Lowest
+                //sorts properties. Use '<' for Highest to Lowest. Change to '>' to switch sorting
                 return a.value < b.value ? 1 : a.value == b.value ? 0 : -1
             })
-
             for (var i = 0, str = ''; i < val.length; i++) {
-                // make sure the classes here match those used above
-                str += '<div class="impress-showcase-property columns small-12 medium-6 large-6">' + els[val[i].index].innerHTML + '</div>'
+                // Change the classes here to match the number of columns in page setup. May need to remove or alter the style section
+                str += '<div class="impress-showcase-property columns small-12 medium-3 large-3" style="height:350px">' + els[val[i].index].innerHTML + '</div>' 
+
             }
-            document.querySelector('.entry-content').innerHTML = str;
+            document.querySelector('#moveHere').innerHTML = str;
         })
     </script>
-    
-    
-<!-- End Scripts for Showcase widget combination-->
+    <div id="moveHere" class="shortcode impress-property-showcase impress-row"></div>    
+        
+    <!-- End Scripts for Showcase widget combination-->
+
+
+    <p><!-- Saved Link ID: 4219 --><div class="shortcode impress-property-showcase impress-row"><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21519007/32088-SW-Peach-Cove-RD-West-Linn-OR-97068" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/166d/d6610f10454c583dd3386e9729420461/a001" alt="Stunning design by renowned Richard Luke Architects. Sweeping 270 degree water views with 2,700'+/- of Willamette River waterfront, 50,000'+/- estate, heli-pad, vineyards, pool, sandy beach access and proposed dock. This extraordinary design offers 11 ensuite bedrooms, grand ball-room, wine cellar, climate controlled auto museums/flex space, water-rights...elevator. Approx. 18-months to complete from purchase. Or, acreage may be purchased with entitlements. $16m in infrastructure. Review video." title="32088 SW Peach Cove RD  West Linn, Oregon" />
+                            <span class="impress-price">$38,000,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">32088 SW Peach Cove RD </span>
+                                <span class="impress-cityname">West Linn</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">11 Beds</span> 
+                        <span class="impress-baths">9.9 Baths</span> 
+                        <span class="impress-sqft">51,908 SqFt</span> 
+                        <span class="impress-acres">31.800 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21109511/14175-SW-WILSONVILLE-RD-Wilsonville-OR-97070" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/1608/80618461928c423bb307f2f21e4009e3/a001" alt="World-class 215-ac equine breeding and training facility on Willamette River w/stunning 9,855sf owner?s residence. State-of-the-art facilities w/indr and outdr arenas, 33 pastures, 5 barns, 97 stalls w/attached runs, vet lab, farrier rms and wash racks. Main res has infinity pool, outdoor living, grmt kit, add'l detach garage w/priv office plus 2 add'l homes for staff/guests. Fenced and gated. River frontage w/dock. Exceptional equestrian lifestyle opportunity! Real Estate only for sale." title="14175 SW WILSONVILLE RD  Wilsonville, Oregon" />
+                            <span class="impress-price">$19,500,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">14175 SW WILSONVILLE RD </span>
+                                <span class="impress-cityname">Wilsonville</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">5 Beds</span> 
+                        <span class="impress-baths">6.1 Baths</span> 
+                        <span class="impress-sqft">9,855 SqFt</span> 
+                        <span class="impress-acres">213.950 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/20026395/30575-NE-FERNWOOD-RD-Newberg-OR-97132" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/8a2c/c2a8850048c5e28de9c4b332e7ed22f9/a001" alt="Bring your vision and ambition to this dreamy 31 acre, level lot, nestled in Wine Country just past Chehalem Glenn Golf Course. This acreage opportunity is close to downtown Newberg, Providence Hospital, and surrounding Vineyards. Two main road access points on Corral Cr and Fernwood Rd. Buyer to perform due diligence on possible UGB expansion. Sale includes 3 tax lots (18.1 acres,10 acres, 2.99 acres)" title="30575 NE FERNWOOD RD  Newberg, Oregon" />
+                            <span class="impress-price">$16,500,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">30575 NE FERNWOOD RD </span>
+                                <span class="impress-cityname">Newberg</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">3 Beds</span> 
+                        <span class="impress-baths">2.1 Baths</span> 
+                        <span class="impress-sqft">1,782 SqFt</span> 
+                        <span class="impress-acres">31 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21675422/1707-SW-SCHAEFFER-RD-West-Linn-OR-97068" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/4032/2304fc272c4d7b963bfcac5a533893ae/a001" alt="Secret Sanctuary - recharge your soul w/ spectacular panoramic views of the Pacific Northwest's Cascade mountains. Relax &amp; unwind w/ friends and family at the sprawling forest-lined Villa de L'or estate, secreted away just 15 miles outside of downtown Portland in idyllic comfort &amp; privacy. Clear blue skies await you in the resort-like swimming pavilion with in-ground pool &amp; cascading spa. Privacy &amp; entertainment, seclusion &amp; access, nature &amp; amenities' at Villa de L'or everything is in balance." title="1707 SW SCHAEFFER RD  West Linn, Oregon" />
+                            <span class="impress-price">$15,000,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">1707 SW SCHAEFFER RD </span>
+                                <span class="impress-cityname">West Linn</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">14 Beds</span> 
+                        <span class="impress-baths">9.5 Baths</span> 
+                        <span class="impress-sqft">16,359 SqFt</span> 
+                        <span class="impress-acres">49.170 Acres</span> 
+                        </p>
+                        
+                        </div></div> <!-- .impress-row --><div class="impress-row shortcode impress-property-showcase"><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21416057/3355-Kircher-RD-Chiloquin-OR-97624" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/10ac/ca016f915106c8ae4a595845f8d8bae0/a001" alt="WORLD CLASS FLY FISHING RANCH +/-3 miles of River Frontage on the Beautiful Williamson and Sprague Rivers in Klamath County, OregonDeeded River Frontage:Kircher???s World Class Fly Fishing Ranch is a unique property that sits on the Waterfront of two of the best Trout Fishing Rivers in the Northwest. River Frontage includes +/-3 miles of the mighty Williamson and the meandering Sprague Rivers. The main Ranch Home sits just up river from the confluence of these two beautiful waterways." title="3355  Kircher RD  Chiloquin, Oregon" />
+                            <span class="impress-price">$14,700,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">3355  Kircher RD </span>
+                                <span class="impress-cityname">Chiloquin</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">3 Beds</span> 
+                        <span class="impress-baths">2 Baths</span> 
+                        <span class="impress-sqft">2,689 SqFt</span> 
+                        <span class="impress-acres">349.940 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21698704/700-NW-DAWSON-RIDGE-DR-Camas-WA-98607" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/7f52/25f7c6d8fdc85b1fe83eb0441d74299f/a001" alt="Exquisite living with VIEWS! 6 beds, 2 full baths, 3 3/4 baths, &amp; 3 half baths in home; 1 3/4 bath in finished 4+ car garage. Barn includes studio apartment w/ 1 3/4 bath, hay loft, 4 stables, garage &amp; storage. Sub Zero &amp; Wolf appliances, dual ovens, dual dishwashers, dual washer/dryers. Half finished basement. Gym, Media Room, Lounge, formal and informal spaces, 240-degree panoramic views of the Columbia River from Coastal Mountain Range to Cascade Mountain Range, featuring Mt. Hood." title="700 NW DAWSON RIDGE DR  Camas, Washington" />
+                            <span class="impress-price">$13,997,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">700 NW DAWSON RIDGE DR </span>
+                                <span class="impress-cityname">Camas</span>,
+                                <span class="impress-state"> Washington</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">6 Beds</span> 
+                        <span class="impress-baths">6.3 Baths</span> 
+                        <span class="impress-sqft">11,649 SqFt</span> 
+                        <span class="impress-acres">10.600 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/20258021/65640-ISLAND-RD-Deer-Island-OR-97054" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/f68c/c86fd004dce6c5902a9eb1a094500813/a001" alt="One-of-a-kind working ranch featuring approx 2,200 acres, several parcels, multiple homes, barns, outbuildings and vast infrastructure. Dynamic landscape includes pasture, forest, lakes, ponds, slough and an island. The ranch is a wildlife paradise with elk, deer, coyote and an incredible array of resident and migratory bird species including cranes, swans, heron, ducks and geese. First time on market in 70 years." title="65640  ISLAND RD  Deer Island, Oregon" />
+                            <span class="impress-price">$12,295,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">65640  ISLAND RD </span>
+                                <span class="impress-cityname">Deer Island</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">8 Beds</span> 
+                        <span class="impress-baths">4.1 Baths</span> 
+                        <span class="impress-sqft">7,448 SqFt</span> 
+                        <span class="impress-acres">2,174 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21404537/35400-HWY-101-Gold-Beach-OR-97444" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/0df8/8fd0925cff4689b74b0280dc92776ee3/a001" alt="Radiating it's 10,000 sq ft grandeur,this MASSIVE LOG HOME ESTATE rests serenely on 28+ acres of OCEANFRONT coastline. Enormous living spaces throughout. Floor to ceiling windows, dramatic river rock fireplace reaches up to 35' high soaring ceiling. Massive old growth logs imported from Canada. Rich combination of Quartzite &amp; hand scraped Acacia wood floors. Guesthouse, Pond, 2 barns, shop, gazebo, private Helipad and beach access." title="35400  HWY 101  Gold Beach, Oregon" />
+                            <span class="impress-price">$11,900,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">35400  HWY 101 </span>
+                                <span class="impress-cityname">Gold Beach</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">4 Beds</span> 
+                        <span class="impress-baths">5 Baths</span> 
+                        <span class="impress-sqft">10,000 SqFt</span> 
+                        <span class="impress-acres">28.170 Acres</span> 
+                        </p>
+                        
+                        </div></div> <!-- .impress-row --><!-- Saved Link ID: 4219 --><div class="shortcode impress-property-showcase impress-row"><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21519007/32088-SW-Peach-Cove-RD-West-Linn-OR-97068" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/166d/d6610f10454c583dd3386e9729420461/a001" alt="Stunning design by renowned Richard Luke Architects. Sweeping 270 degree water views with 2,700'+/- of Willamette River waterfront, 50,000'+/- estate, heli-pad, vineyards, pool, sandy beach access and proposed dock. This extraordinary design offers 11 ensuite bedrooms, grand ball-room, wine cellar, climate controlled auto museums/flex space, water-rights...elevator. Approx. 18-months to complete from purchase. Or, acreage may be purchased with entitlements. $16m in infrastructure. Review video." title="32088 SW Peach Cove RD  West Linn, Oregon" />
+                            <span class="impress-price">$38,000,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">32088 SW Peach Cove RD </span>
+                                <span class="impress-cityname">West Linn</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">11 Beds</span> 
+                        <span class="impress-baths">9.9 Baths</span> 
+                        <span class="impress-sqft">51,908 SqFt</span> 
+                        <span class="impress-acres">31.800 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21109511/14175-SW-WILSONVILLE-RD-Wilsonville-OR-97070" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/1608/80618461928c423bb307f2f21e4009e3/a001" alt="World-class 215-ac equine breeding and training facility on Willamette River w/stunning 9,855sf owner?s residence. State-of-the-art facilities w/indr and outdr arenas, 33 pastures, 5 barns, 97 stalls w/attached runs, vet lab, farrier rms and wash racks. Main res has infinity pool, outdoor living, grmt kit, add'l detach garage w/priv office plus 2 add'l homes for staff/guests. Fenced and gated. River frontage w/dock. Exceptional equestrian lifestyle opportunity! Real Estate only for sale." title="14175 SW WILSONVILLE RD  Wilsonville, Oregon" />
+                            <span class="impress-price">$19,500,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">14175 SW WILSONVILLE RD </span>
+                                <span class="impress-cityname">Wilsonville</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">5 Beds</span> 
+                        <span class="impress-baths">6.1 Baths</span> 
+                        <span class="impress-sqft">9,855 SqFt</span> 
+                        <span class="impress-acres">213.950 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/20026395/30575-NE-FERNWOOD-RD-Newberg-OR-97132" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/8a2c/c2a8850048c5e28de9c4b332e7ed22f9/a001" alt="Bring your vision and ambition to this dreamy 31 acre, level lot, nestled in Wine Country just past Chehalem Glenn Golf Course. This acreage opportunity is close to downtown Newberg, Providence Hospital, and surrounding Vineyards. Two main road access points on Corral Cr and Fernwood Rd. Buyer to perform due diligence on possible UGB expansion. Sale includes 3 tax lots (18.1 acres,10 acres, 2.99 acres)" title="30575 NE FERNWOOD RD  Newberg, Oregon" />
+                            <span class="impress-price">$16,500,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">30575 NE FERNWOOD RD </span>
+                                <span class="impress-cityname">Newberg</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">3 Beds</span> 
+                        <span class="impress-baths">2.1 Baths</span> 
+                        <span class="impress-sqft">1,782 SqFt</span> 
+                        <span class="impress-acres">31 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21675422/1707-SW-SCHAEFFER-RD-West-Linn-OR-97068" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/4032/2304fc272c4d7b963bfcac5a533893ae/a001" alt="Secret Sanctuary - recharge your soul w/ spectacular panoramic views of the Pacific Northwest's Cascade mountains. Relax &amp; unwind w/ friends and family at the sprawling forest-lined Villa de L'or estate, secreted away just 15 miles outside of downtown Portland in idyllic comfort &amp; privacy. Clear blue skies await you in the resort-like swimming pavilion with in-ground pool &amp; cascading spa. Privacy &amp; entertainment, seclusion &amp; access, nature &amp; amenities' at Villa de L'or everything is in balance." title="1707 SW SCHAEFFER RD  West Linn, Oregon" />
+                            <span class="impress-price">$15,000,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">1707 SW SCHAEFFER RD </span>
+                                <span class="impress-cityname">West Linn</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">14 Beds</span> 
+                        <span class="impress-baths">9.5 Baths</span> 
+                        <span class="impress-sqft">16,359 SqFt</span> 
+                        <span class="impress-acres">49.170 Acres</span> 
+                        </p>
+                        
+                        </div></div> <!-- .impress-row --><div class="impress-row shortcode impress-property-showcase"><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21416057/3355-Kircher-RD-Chiloquin-OR-97624" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/10ac/ca016f915106c8ae4a595845f8d8bae0/a001" alt="WORLD CLASS FLY FISHING RANCH +/-3 miles of River Frontage on the Beautiful Williamson and Sprague Rivers in Klamath County, OregonDeeded River Frontage:Kircher???s World Class Fly Fishing Ranch is a unique property that sits on the Waterfront of two of the best Trout Fishing Rivers in the Northwest. River Frontage includes +/-3 miles of the mighty Williamson and the meandering Sprague Rivers. The main Ranch Home sits just up river from the confluence of these two beautiful waterways." title="3355  Kircher RD  Chiloquin, Oregon" />
+                            <span class="impress-price">$14,700,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">3355  Kircher RD </span>
+                                <span class="impress-cityname">Chiloquin</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">3 Beds</span> 
+                        <span class="impress-baths">2 Baths</span> 
+                        <span class="impress-sqft">2,689 SqFt</span> 
+                        <span class="impress-acres">349.940 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21698704/700-NW-DAWSON-RIDGE-DR-Camas-WA-98607" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/7f52/25f7c6d8fdc85b1fe83eb0441d74299f/a001" alt="Exquisite living with VIEWS! 6 beds, 2 full baths, 3 3/4 baths, &amp; 3 half baths in home; 1 3/4 bath in finished 4+ car garage. Barn includes studio apartment w/ 1 3/4 bath, hay loft, 4 stables, garage &amp; storage. Sub Zero &amp; Wolf appliances, dual ovens, dual dishwashers, dual washer/dryers. Half finished basement. Gym, Media Room, Lounge, formal and informal spaces, 240-degree panoramic views of the Columbia River from Coastal Mountain Range to Cascade Mountain Range, featuring Mt. Hood." title="700 NW DAWSON RIDGE DR  Camas, Washington" />
+                            <span class="impress-price">$13,997,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">700 NW DAWSON RIDGE DR </span>
+                                <span class="impress-cityname">Camas</span>,
+                                <span class="impress-state"> Washington</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">6 Beds</span> 
+                        <span class="impress-baths">6.3 Baths</span> 
+                        <span class="impress-sqft">11,649 SqFt</span> 
+                        <span class="impress-acres">10.600 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/20258021/65640-ISLAND-RD-Deer-Island-OR-97054" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/f68c/c86fd004dce6c5902a9eb1a094500813/a001" alt="One-of-a-kind working ranch featuring approx 2,200 acres, several parcels, multiple homes, barns, outbuildings and vast infrastructure. Dynamic landscape includes pasture, forest, lakes, ponds, slough and an island. The ranch is a wildlife paradise with elk, deer, coyote and an incredible array of resident and migratory bird species including cranes, swans, heron, ducks and geese. First time on market in 70 years." title="65640  ISLAND RD  Deer Island, Oregon" />
+                            <span class="impress-price">$12,295,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">65640  ISLAND RD </span>
+                                <span class="impress-cityname">Deer Island</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">8 Beds</span> 
+                        <span class="impress-baths">4.1 Baths</span> 
+                        <span class="impress-sqft">7,448 SqFt</span> 
+                        <span class="impress-acres">2,174 Acres</span> 
+                        </p>
+                        
+                        </div><div class="impress-showcase-property columns small-12 medium-3 large-3">
+                        <a href="https://shoesies.1.alpacawebdesign.com/idx/details/listing/a001/21404537/35400-HWY-101-Gold-Beach-OR-97444" class="impress-showcase-photo" target="_self">
+                            <img src="https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/0df8/8fd0925cff4689b74b0280dc92776ee3/a001" alt="Radiating it's 10,000 sq ft grandeur,this MASSIVE LOG HOME ESTATE rests serenely on 28+ acres of OCEANFRONT coastline. Enormous living spaces throughout. Floor to ceiling windows, dramatic river rock fireplace reaches up to 35' high soaring ceiling. Massive old growth logs imported from Canada. Rich combination of Quartzite &amp; hand scraped Acacia wood floors. Guesthouse, Pond, 2 barns, shop, gazebo, private Helipad and beach access." title="35400  HWY 101  Gold Beach, Oregon" />
+                            <span class="impress-price">$11,900,000</span>
+                            <span class="impress-status">Active</span>
+                            <p class="impress-address">
+                                <span class="impress-street">35400  HWY 101 </span>
+                                <span class="impress-cityname">Gold Beach</span>,
+                                <span class="impress-state"> Oregon</span>
+                            </p>
+                        </a>
+                        <p class="impress-beds-baths-sqft">
+                        <span class="impress-beds">4 Beds</span> 
+                        <span class="impress-baths">5 Baths</span> 
+                        <span class="impress-sqft">10,000 SqFt</span> 
+                        <span class="impress-acres">28.170 Acres</span> 
+                        </p>
+                        
+                        </div></div> <!-- .impress-row --></p>
+</div>
+</div>
+</div>		</div>
+			</div>
+</div>
+
+</main><!--/.neve-main-->
+
+<footer class="site-footer" id="site-footer">
+	<div class="hfg_footer">
+		<div class="footer--row footer-bottom layout-full-contained"
+	id="cb-row--footer-bottom"
+	data-row-id="bottom" data-show-on="desktop">
+	<div
+		class="footer--row-inner footer-bottom-inner footer-content-wrap">
+		<div class="container">
+			<div
+				class="hfg-grid nv-footer-content hfg-grid-bottom row--wrapper row "
+				data-section="hfg_footer_layout_bottom" >
+				<div class="builder-item hfg-item-last hfg-item-first col-12 desktop-center tablet-center mobile-center hfg-item-v-middle"><div class="item--inner builder-item--footer_copyright"
+		data-section="footer_copyright"
+		data-item-id="footer_copyright">
+	<div class="component-wrap">
+	<p><a href="https://themeisle.com/themes/neve/" rel="nofollow">Neve</a> | Powered by <a href="http://wordpress.org" rel="nofollow">WordPress</a></p></div>
+
+	</div>
+
+</div>							</div>
+		</div>
+	</div>
+</div>
+
+	</div>
+</footer>
+
+</div><!--/.wrapper-->
+<link rel='stylesheet' id='impress-showcase-css'  href='https://1.alpacawebdesign.com/wp-content/plugins/wordpress-plugin-mikey-patch-missing-closing-div/idx/../assets/css/widgets/impress-showcase.min.css?ver=5.8' type='text/css' media='all' />
+<script type='text/javascript' src='https://1.alpacawebdesign.com/wp-includes/js/hoverintent-js.min.js?ver=2.2.1' id='hoverintent-js-js'></script>
+<script type='text/javascript' src='https://1.alpacawebdesign.com/wp-includes/js/admin-bar.min.js?ver=5.8' id='admin-bar-js'></script>
+<script type='text/javascript' id='neve-script-js-extra'>
+/* <![CDATA[ */
+var NeveProperties = {"ajaxurl":"https:\/\/1.alpacawebdesign.com\/wp-admin\/admin-ajax.php","nonce":"8be722ff15","isRTL":"","isCustomize":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://1.alpacawebdesign.com/wp-content/themes/neve/assets/js/build/modern/frontend.js?ver=2.11.6' id='neve-script-js' async></script>
+<script type='text/javascript' src='https://1.alpacawebdesign.com/wp-includes/js/comment-reply.min.js?ver=5.8' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://1.alpacawebdesign.com/wp-includes/js/wp-embed.min.js?ver=5.8' id='wp-embed-js'></script>
+</body>
+
+</html>
