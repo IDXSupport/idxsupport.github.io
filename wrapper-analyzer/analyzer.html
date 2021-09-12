@@ -27,7 +27,7 @@
 
 
     <div class="app-input">
-        <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl" class="target-url"> <button v-on:click="analyze()" class="action-button">Analyze</button> 
+        <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl" class="target-url" v-on:keyup.enter="analyze()"> <button v-on:click="analyze()" class="action-button">Analyze</button> 
     </div>
 
     <div class="app-options">
