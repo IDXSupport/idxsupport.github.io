@@ -139,6 +139,10 @@ expressApp.get('/generateStatic', async (req, res) => {
 
     let processedHTML = await page.evaluate((target) => {
 
+        // Rename title
+        let title = document.getElementsByTagName('title')[0];
+        title?.innerHTML = 'Property Search';
+
         // Fix links
         let as = document.getElementsByTagName('a');
         for (let i=0; i<as.length; i++) {
