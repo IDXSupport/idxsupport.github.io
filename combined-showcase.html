@@ -1,0 +1,33 @@
+
+    <!-- Scripts for putting two showcase widgets results together in one. Place this code into an HTML box on the page where you want the listings to be displayed-->
+
+    <!-- Adds JQuery if its not already in the website-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <!-- remove JQuery if its a problem -->
+
+    <script>
+        jQuery(init);
+        function init() { 
+            jQuery('#moveHere').append(jQuery('.impress-property-showcase>div'));
+        };
+        $(document).ready(function () {
+            var els = document.querySelectorAll('.impress-showcase-property');
+            for (var i = 0, val = []; i < els.length; i++) {
+                val[i] = { index: i, value:  Number(document.querySelectorAll('.impress-price')[i].innerHTML.replace(/[^0-9\.-]+/g,""))}; 
+            }
+
+            val.sort(function (a, b) { 
+                //sorts properties. Use '<' for Highest to Lowest. Change to '>' to switch sorting
+                return a.value < b.value ? 1 : a.value == b.value ? 0 : -1
+            })
+            for (var i = 0, str = ''; i < val.length; i++) {
+                // Change the classes here to match the number of columns in page setup. May need to remove or alter the style section
+                str += '<div class="impress-showcase-property columns small-12 medium-3 large-3" style="height:350px">' + els[val[i].index].innerHTML + '</div>' 
+
+            }
+            document.querySelector('#moveHere').innerHTML = str;
+        })
+    </script>
+    <div id="moveHere" class="shortcode impress-property-showcase impress-row"></div>    
+        
+    <!-- End Scripts for Showcase widget combination-->
