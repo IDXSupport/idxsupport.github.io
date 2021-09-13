@@ -57,12 +57,14 @@ input {
   margin: 1rem 0 0 0;
   display: flex;
 }
+
 .app-input .target-url {
   margin-right: 1rem;
   flex: 1 0;
   font-size: 18px;
   padding: 0.4rem;
 }
+
 .app-input .action-button {
   padding: 0.4rem;
   font-size: 18px;
@@ -71,12 +73,15 @@ input {
 .analyzer-app-header {
   text-transform: uppercase;
 }
+
 .analyzer-app-header .header-first-part {
   color: #283c8d;
 }
+
 .analyzer-app-header .header-second-part {
   color: #2668ad;
 }
+
 .analyzer-app-header .header-third-part {
   color: #8cc640;
 }
@@ -85,14 +90,17 @@ input {
   display: flex;
   margin-bottom: 0.75rem;
 }
+
 .analysis-result .candidate-image-container {
   flex: 0;
 }
+
 .analysis-result .candidate-image-container .candidate-image {
   width: 256px;
   object-fit: scale-down;
   margin-right: 0.75rem;
 }
+
 .analysis-error {
   background: #faa;
   padding: 1rem;
@@ -123,36 +131,19 @@ input {
   margin: 0 0 1rem 0;
   padding: 0;
 }
+
 .app-faq li {
   margin: 0;
 }
+
 .app-faq .question {
   font-weight: bold;
 }
+
 .app-faq .answer {
   margin: 0 0 1rem 0;
 }
 
-.app-intranavigation {
-  display: flex;
-  margin: 0.5rem 0;
-  background: #2668ad;
-  border: 0.25rem #283c8d solid;
-  border-radius: 0.5rem;
-}
-.app-intranavigation a.intrasite {
-  flex: 1;
-  padding: 0.5rem;
-  background: white;
-  justify-content: center;
-  display: block;
-  text-align: center;
-  border-radius: 0.25rem;
-}
-.app-intranavigation a.intrasite.current {
-  color: white;
-  background: #283c8d;
-  text-decoration: none;
-}
+/*# sourceMappingURL=main.css.map */
 
 /*# sourceMappingURL=main.css.map */

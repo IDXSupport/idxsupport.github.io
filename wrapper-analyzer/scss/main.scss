@@ -148,3 +148,29 @@ input {
         margin: 0 0 1rem 0;
     }
 }
+
+.app-intranavigation {
+    display: flex;
+    margin: 0.5rem 0;
+    background: $primary-first-light;
+
+    a.intrasite {
+        flex: 1;
+        padding: 0.5rem;
+        background: white;
+        justify-content: center;
+        display: block;
+        text-align: center;
+        border-radius: 0.25rem;
+    }
+
+    a.intrasite.current {
+        color: white;
+        background: $primary-first;
+        text-decoration: none;
+    }
+
+    border: 0.25rem $primary-first solid;
+    border-radius: 0.5rem;
+
+}

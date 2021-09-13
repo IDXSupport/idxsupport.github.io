@@ -21,6 +21,11 @@
         <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span class="header-third-part">Calculator</span>
     </h1>
     
+    <div class="app-intranavigation">
+        <a class="intrasite" href="https://idxsupport.github.io/">Endpoint Creator</a>
+        <a class="intrasite current" href="http://54.213.224.126:5732/analyzer.html" >Candidate Calculator</a>
+    </div>
+
     <p class="app-description">
         Use this tool with a url to discover and score unique elements that might make for a good wrapper. A larger score is better.   
     </p>
@@ -161,6 +166,7 @@ let app = new Vue({
         }
     },
     computed: {
+        },
         preparedResults: function() {
             if (this?.results == null) {
                 return [];
