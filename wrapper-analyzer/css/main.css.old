@@ -20,7 +20,8 @@ hr {
   border-style: solid;
 }
 
-h1, .app-description {
+h1,
+.app-description {
   margin: 0;
 }
 
