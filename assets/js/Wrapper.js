@@ -5,7 +5,7 @@ function toasterNoti() {
   toaster.className = "show";
   setTimeout(function () {
     toaster.className = toast.className.replace("show", "");
-  }, 3000);
+  }, 5000);
 }
 
 function copy() {
@@ -19,7 +19,7 @@ function copy() {
 
 // Removes any surrounding whitespace and Replaces any spaces with commas for use with the wrapper endpoint.
 function formatTarget(target) {
-  return target.trim().replaceAll(' ', ',');
+  return target.trim().replaceAll(" ", ",");
 }
 
 function doMath(choice) {
@@ -27,7 +27,7 @@ function doMath(choice) {
   //to these vars when any button is clicked
   var urlSelector, elementSelector, totalSelector, c;
   urlSelector = document.getElementById("url").value; //take the value from the URL field
-  elementSelector = formatTarget(document.getElementById("idName").value); //take the value from the class/id/element field 
+  elementSelector = formatTarget(document.getElementById("idName").value); //take the value from the class/id/element field
 
   // Might have changed the actual target with formatTarget, so set the idName input to whatever elementSelector is now.
   document.getElementById("idName").value = elementSelector;
@@ -37,22 +37,22 @@ function doMath(choice) {
   // switch call for selecting ID or Class input
   switch (c) {
     case "1":
-      urlSelector = "wrapper?site="+urlSelector;
+      urlSelector = "wrapper?site=" + urlSelector;
       totalSelector = "&target=class&class=" + elementSelector;
       break;
     case "2":
-      urlSelector = "wrapper?site="+urlSelector;
+      urlSelector = "wrapper?site=" + urlSelector;
       totalSelector = "&target=id&id=" + elementSelector;
       break;
     case "3":
-      urlSelector = "duda?site="+urlSelector;
+      urlSelector = "duda?site=" + urlSelector;
       totalSelector = "&target=id&id=" + elementSelector;
       break;
     case "4":
-      urlSelector = "wrapper?site="+urlSelector;
+      urlSelector = "wrapper?site=" + urlSelector;
       totalSelector = "&target=element&el=" + elementSelector;
       break;
-      default:
+    default:
       break;
   }
   //displays wrapper endpoint url
@@ -64,6 +64,8 @@ function doMath(choice) {
 
   copy();
   toasterNoti();
+  //adds submissions in the console
+  console.log(document.getElementById("output").value);
 }
 
 function cleary() {
