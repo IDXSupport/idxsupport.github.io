@@ -19,7 +19,7 @@ function copy() {
 
 // Removes any surrounding whitespace and Replaces any spaces with commas for use with the wrapper endpoint.
 function formatTarget(target) {
-  return target.trim().replace(' ', ',');
+  return target.trim().replaceAll(' ', ',');
 }
 
 function doMath(choice) {
