@@ -2,12 +2,187 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0%;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  background: #22272e;
+  background: #f9fbff;
   color: white;
+  font-family: "Poppins", sans-serif;
 }
+
+a {
+  color: #2668ad;
+}
+
+a:hover {
+  color: #8cc640;
+}
+
+a:visited {
+  color: #283c8d;
+}
+
+hr {
+  border-color: #c1c9da;
+  border-style: solid;
+}
+
+h1,
+.app-description {
+  margin: 0;
+}
+
+button.action-button {
+  color: white;
+  background-color: #283c8d;
+  border-color: #2668ad;
+}
+
+button.text-button {
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  margin: 0;
+}
+
+button.text-button:hover {
+  color: #8cc640;
+}
+
+input {
+  border-color: #2668ad;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  text-align: left;
+  max-width: 100%;
+  border-radius: 4px;
+  margin-right: 1rem;
+  flex: 1 0;
+  font-size: 18px;
+  padding: 0.4rem;
+}
+#idName {
+  width: 700px;
+}
+#url,
+#output {
+  width: 961px;
+}
+#output {
+  font-size: 10px;
+}
+
+.analyzer-app {
+  min-width: 30rem;
+  max-width: 40rem;
+  margin: 0 auto;
+  color: black;
+}
+
+.app-input {
+  margin: 1rem 0 0 0;
+  display: flex;
+}
+.app-input .target-url {
+  margin-right: 1rem;
+  flex: 1 0;
+  font-size: 18px;
+  padding: 0.4rem;
+}
+.app-input .action-button {
+  padding: 0.4rem;
+  font-size: 18px;
+}
+
+.analyzer-app-header {
+  text-transform: uppercase;
+}
+.analyzer-app-header .header-first-part {
+  color: #283c8d;
+}
+.analyzer-app-header .header-second-part {
+  color: #2668ad;
+}
+.analyzer-app-header .header-third-part {
+  color: #8cc640;
+}
+
+.analysis-result {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+.analysis-result .candidate-image-container {
+  flex: 0;
+}
+.analysis-result .candidate-image-container .candidate-image {
+  width: 256px;
+  object-fit: scale-down;
+  margin-right: 0.75rem;
+}
+.analysis-error {
+  background: #faa;
+  padding: 1rem;
+}
+
+.app-footer {
+  font-size: 14px;
+  border-top: 0.25rem solid #c1c9da;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+}
+
+.app-options {
+  text-align: right;
+  margin: 0.25rem 0 1rem 0;
+}
+
+.candidate-name {
+  font-weight: bold;
+}
+
+.alternative {
+  font-size: smaller;
+}
+
+.app-faq {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+.app-faq li {
+  margin: 0;
+}
+.app-faq .question {
+  font-weight: bold;
+}
+.app-faq .answer {
+  margin: 0 0 1rem 0;
+}
+
+.app-intranavigation {
+  display: flex;
+  margin: 0.5rem 0;
+  background: #283c8d;
+  border: 0.25rem #283c8d solid;
+  border-radius: 0.5rem;
+}
+.app-intranavigation a.intrasite {
+  flex: 1;
+  padding: 0.5rem;
+  background: white;
+  justify-content: center;
+  display: block;
+  text-align: center;
+  border-radius: 0.25rem;
+}
+.app-intranavigation a.intrasite.current {
+  color: white;
+  background: #283c8d;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=main.css.map */
 
 main {
   text-align: center;
@@ -18,6 +193,10 @@ main {
 
 main main__paragraph {
   font-weight: 400;
+}
+#calculator {
+  font-size: 18px;
+  min-width: 612px;
 }
 
 .app {
@@ -37,6 +216,9 @@ main main__paragraph {
   font-family: var(--bs-font-sans-serif);
   padding-bottom: 10px;
   text-transform: uppercase full-width;
+  text-align: center;
+  font-weight: 400;
+  font-size: 34px;
 }
 
 .inputs {
@@ -48,7 +230,6 @@ section {
 }
 
 .calc-buttons {
-  margin-top: 1vh;
   text-align: left;
 }
 
@@ -56,47 +237,44 @@ section {
   float: right;
 }
 
-button {
-  padding: 1ch;
+.calc-button:hover {
+  cursor: pointer;
+}
+
+.calc-button {
+  padding: 1em;
   border-radius: 6px;
   border: 1px solid #444c56;
   background-color: #2668ad;
   color: #fff;
   width: 150px;
-  margin-bottom: 0.5ch;
+  margin: 0.5rem 0.1rem 0 0;
 }
 
 button:hover {
   background-color: #8cc640;
 }
-
-.answer {
+.calculator-result {
   background: silver;
-}
-
-input {
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-  text-align: left;
-  max-width: 100%;
-  border-radius: 6px;
 }
 
 .input-fields {
   margin-bottom: 15px;
 }
 
-.input-fields span {
-  color: #222;
+.row {
+  text-align: left;
+  margin: 1rem 0 1rem 0;
 }
 
-@keyframes cssAnimation {
-  from {
-    transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
-  }
-  to {
-    transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
-  }
+label {
+  display: inline-block;
+  width: 4em;
+  text-transform: capitalize;
+}
+
+.input-fields span {
+  color: #222;
 }
 
 /*Toast Notifications*/
@@ -111,7 +289,7 @@ input {
   padding: 16px;
   position: relative;
   z-index: 1;
-  font-size: 17px;
+  font-size: 18px;
   max-width: 1080px;
   bottom: 30px;
 }
@@ -122,23 +300,13 @@ input {
 
 #toast.show {
   visibility: visible;
-  animation: fadein 0.5s, fadeout 0.5s;
+  animation: fadein 0.5s;
 }
-
 @keyframes fadein {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes fadeout {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 }
