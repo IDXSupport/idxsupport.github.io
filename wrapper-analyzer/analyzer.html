@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>IDX Broker Wrapper Analyzer</title>
+    <title>IDX Broker Wrapper Analyzer</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-<link href="css/main.css" rel="stylesheet">
+    <link href="/dist/css/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
-<div id="app" class="analyzer-app">    
-    <h1 class="analyzer-app-header">
-        <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span class="header-third-part">Calculator</span>
-    </h1>
-    
-    <div class="app-intranavigation">
-        <a class="intrasite" href="https://idxsupport.github.io/">Endpoint Creator</a>
-        <a class="intrasite current" href="http://54.213.224.126:5732/analyzer.html" >Candidate Calculator</a>
-    </div>
+    <div id="app" class="analyzer-app">
+        <h1 class="analyzer-app-header">
+            <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span
+                class="header-third-part">Calculator</span>
+        </h1>
 
-    <p class="app-description">
-        Use this tool with a url to discover and score unique elements that might make for a good wrapper. A larger score is better.   
-    </p>
-
-
-    <div class="app-input">
-        <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl" class="target-url" v-on:keyup.enter="analyze()"> <button v-on:click="analyze()" class="action-button">Analyze</button> 
-    </div>
-
-    <div class="app-options">
-        <label for="hide-small">Hide tiny candidates <input v-model="hideTinyCandidates"    type="checkbox" id="hide-small"> </label>
-    </div>
-
-    <div class="analysis-results-container">
-        <div class="analysis-status">
-            <div v-if="working">Waiting for results...</div>
+        <div class="app-intranavigation">
+            <a class="intrasite" href="https://idxsupport.github.io/">Endpoint Creator</a>
+            <a class="intrasite current" href="http://54.213.224.126:5732/analyzer.html">Candidate Calculator</a>
         </div>
-        <div class="analysis-error" v-if="error">
-            <span class="error-message">{{errorMessage}}</span>
+
+        <p class="app-description">
+            Use this tool with a url to discover and score unique elements that might make for a good wrapper. A larger
+            score is better.
+        </p>
+
+
+        <div class="app-input">
+            <input type="text" id="target-url" v-model="targetUrl" placeholder="https://example.com" name="targetUrl"
+                class="target-url" v-on:keyup.enter="analyze()"> <button v-on:click="analyze()"
+                class="action-button">Analyze</button>
         </div>
-        <div class="analysis-result" v-for="(result, index) in preparedResults">
+
+        <div class="app-options">
+            <label for="hide-small">Hide tiny candidates <input v-model="hideTinyCandidates" type="checkbox"
+                    id="hide-small"> </label>
+        </div>
+
+        <div class="analysis-results-container">
+            <div class="analysis-status">
+                <div v-if="working">Waiting for results...</div>
+            </div>
+            <div class="analysis-error" v-if="error">
+                <span class="error-message">{{errorMessage}}</span>
+            </div>
+            <div class="analysis-result" v-for="(result, index) in preparedResults">
                 <div class="candidate-image-container" v-if="result.hasScreenshot">
                     <a v-bind:href="result.imageUrl" target="_blank">
                         <img v-bind:src="result.imageUrl" class="candidate-image">
@@ -54,163 +62,205 @@
                 </div>
                 <div class="candidate-details-container">
                     <span class="candidate-name">
-                        <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{result.name}}</a>
+                        <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`"
+                            target="_blank">{{result.name}}</a>
                     </span>
-                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span class="candidate-width">{{result.width.toFixed(0)}}</span>x<span class="candidate-height">{{result.height.toFixed(0)}}</span>, <span class="candidate-type">{{result.type}}</span>, <a v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}`" target="_blank">static</a>, <a v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}&removeScripts=true`" target="_blank">nojs</a>) <button v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button" v-on:click="result.showAlternatives = true">more</button>
-                        <span v-if="result.showAlternatives">
-                            <span class="alternative" v-for="alternative in result.alternatives">
-                                <span class="candidate-name">
-                                    <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`" target="_blank">{{alternative.name}}</a>
-                                </span>
-                                <span class="candidate-image" v-if="alternative.hasScreenshot">
-                                    <a v-bind:href="result.imageUrl" target="_blank">(img)</a>
-                                </span>
-                                (<span class="candidate-score">{{alternative.score.toFixed(2)}}</span>, <span class="c  andidate-type">{{alternative.type}}</span>, <a v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}`" target="_blank">static</a>, <a v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}&removeScripts=true`" target="_blank">nojs</a>)
+                    (<span class="candidate-score">{{result.score.toFixed(2)}}</span>, <span
+                        class="candidate-width">{{result.width.toFixed(0)}}</span>x<span
+                        class="candidate-height">{{result.height.toFixed(0)}}</span>, <span
+                        class="candidate-type">{{result.type}}</span>, <a
+                        v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}`"
+                        target="_blank">static</a>, <a
+                        v-bind:href="`/generateStatic?type=${result.type}&name=${result.name}&url=${targetUrl}&removeScripts=true`"
+                        target="_blank">nojs</a>) <button
+                        v-if="result?.alternatives?.length > 0 && !result.showAlternatives  " class="text-button"
+                        v-on:click="result.showAlternatives = true">more</button>
+                    <span v-if="result.showAlternatives">
+                        <span class="alternative" v-for="alternative in result.alternatives">
+                            <span class="candidate-name">
+                                <a v-bind:href="`https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=${targetUrl}&target=${result.type}&${result.type}=${result.name}&title=Search&h1Ignore=Y`"
+                                    target="_blank">{{alternative.name}}</a>
                             </span>
-                        </span>    
-                </div>    
+                            <span class="candidate-image" v-if="alternative.hasScreenshot">
+                                <a v-bind:href="result.imageUrl" target="_blank">(img)</a>
+                            </span>
+                            (<span class="candidate-score">{{alternative.score.toFixed(2)}}</span>, <span
+                                class="c  andidate-type">{{alternative.type}}</span>, <a
+                                v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}`"
+                                target="_blank">static</a>, <a
+                                v-bind:href="`/generateStatic?type=${alternative.type}&name=${alternative.name}&url=${targetUrl}&removeScripts=true`"
+                                target="_blank">nojs</a>)
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-footer">
+            <ul class="app-faq">
+                <li>
+                    <span class="question">I clicked on one of the generated candidate links but the wrapper says it
+                        can't find where to insert the start and stop tags.</span>
+                    <p class="answer">
+                        This can happen for a few reasons. You'll want to first just try refreshing the wrapper url as
+                        sometimes it just takes another page load to get the wrapper to appear. It could also be that
+                        the class or id found by the calculator was added after page load and thus wouldn't be suitable
+                        for the wrapper endpoint.
+                    </p>
+                </li>
+                <li>
+                    <span class="question">I'm encountering issues with the Candidate Calculator tool or I have ideas
+                        and feedback on how it can be improved.</span>
+                    <p class="answer">
+                        Derek is currently handling the AWS server for this tool, so if it seems like it is down you can
+                        see if he's online. Lain also has access to the server and can probably restart the actual
+                        node.js server that analyzes and scores wrapper candidates, if that is the issue.
+                    </p>
+                    <p class="answer">
+                        If you have ideas or feedback for the Candidate Calculator itself, reaching out to Lain directly
+                        would probably be most effective. But anyone with access to the repository can make changes or
+                        log issues for review.
+                    </p>
+                </li>
+                <li>
+                    <span class="question">How do I use the static version of a wrapper candidate?</span>
+                    <p class="answer">
+                        Click on the "static" link next to the candidate you want to try to use. The server will try to
+                        adjust relative anchor links, link tags, and images to be absolutely oriented towards the target
+                        website. The targetted candidate will have its contents replaced with
+                        <strong>***splithere***</strong>. Use it to determine which half of the output should be used
+                        for the top and which should be used for the bottom of the static wrapper.
+                    </p>
+                </li>
+                <li>
+                    <span class="question">I want to use the static version of a wrapper candidate but I don't want to
+                        include the script tags.</span>
+                    <p class="answer">
+                        Append &removeScripts=true to the end of the generateStatic endpoint and the server will try to
+                        remove those scripts.
+                    </p>
+                </li>
+                <li>
+                    <span class="question">How does the scoring work?</span>
+                    <p class="answer">
+                        It's a pretty simple system right now; elements gain or lose points based on whether they aren't
+                        against the edge of the screen, where exactly they are positioned on the screen, how much space
+                        is between the left and right sides of the element and the viewport and other factors. <a
+                            href="https://github.com/IDXSupport/idxsupport.github.io/blob/153b6604af68a2e8a81c91f6720016abad517315/wrapper-analyzer/page-analyzer.js#L156"
+                            target="_blank">Look over the "simpleScore" function in the repository to see what this
+                            precisely entails</a>.
+                    </p>
+                </li>
+                <li>
+                    <span class="question">Where is the wrapper endpoint generator Mikey made?</span>
+                    <p class="answer">
+                        It's still available at <a href="https://idxsupport.github.io/"
+                            target="_blank">https://idxsupport.github.io/</a>.
+                    </p>
+                </li>
+                <li>
+                    <span class="question">I want to help with projects like these or learn things like
+                        HTML/CSS/JS.</span>
+                    <p class="answer">
+                        Contribute to the Candidate Calculator and other tools at the <a
+                            href="https://github.com/IDXSupport/idxsupport.github.io/"
+                            target="_blank">idxsupport.github.io</a> repository! Or, just reach out to Lain over Slack.
+                        She loves collaborating with and teaching people and would be more than happy to guide you.
+                    </p>
+
+                </li>
+            </ul>
         </div>
     </div>
 
-    <div class="app-footer">
-        <ul class="app-faq">
-            <li>
-                <span class="question">I clicked on one of the generated candidate links but the wrapper says it can't find where to insert the start and stop tags.</span>
-                <p class="answer">
-                    This can happen for a few reasons. You'll want to first just try refreshing the wrapper url as sometimes it just takes another page load to get the wrapper to appear. It could also be that the class or id found by the calculator was added after page load and thus wouldn't be suitable for the wrapper endpoint.
-                </p>
-            </li>
-            <li>
-                <span class="question">I'm encountering issues with the Candidate Calculator tool or I have ideas and feedback on how it can be improved.</span>
-                <p class="answer">
-                    Derek is currently handling the AWS server for this tool, so if it seems like it is down you can see if he's online. Lain also has access to the server and can probably restart the actual node.js server that analyzes and scores wrapper candidates, if that is the issue.
-                </p>
-                <p class="answer">
-                    If you have ideas or feedback for the Candidate Calculator itself, reaching out to Lain directly would probably be most effective. But anyone with access to the repository can make changes or log issues for review.
-                </p>
-            </li>
-            <li>
-                <span class="question">How do I use the static version of a wrapper candidate?</span>
-                <p class="answer">
-                    Click on the "static" link next to the candidate you want to try to use. The server will try to adjust relative anchor links, link tags, and images to be absolutely oriented towards the target website. The targetted candidate will have its contents replaced with <strong>***splithere***</strong>. Use it to determine which half of the output should be used for the top and which should be used for the bottom of the static wrapper. 
-                </p>
-            </li>
-            <li>
-                <span class="question">I want to use the static version of a wrapper candidate but I don't want to include the script tags.</span>
-                <p class="answer">
-                    Append &removeScripts=true to the end of the generateStatic endpoint and the server will try to remove those scripts.
-                </p>
-            </li>
-            <li>
-                <span class="question">How does the scoring work?</span>
-                <p class="answer">
-                    It's a pretty simple system right now; elements gain or lose points based on whether they aren't against the edge of the screen, where exactly they are positioned on the screen, how much space is between the left and right sides of the element and the viewport and other factors. <a href="https://github.com/IDXSupport/idxsupport.github.io/blob/153b6604af68a2e8a81c91f6720016abad517315/wrapper-analyzer/page-analyzer.js#L156" target="_blank">Look over the "simpleScore" function in the repository to see what this precisely entails</a>.
-                </p>
-            </li>
-            <li>
-                <span class="question">Where is the wrapper endpoint generator Mikey made?</span>
-                <p class="answer">
-                    It's still available at <a href="https://idxsupport.github.io/" target="_blank">https://idxsupport.github.io/</a>.
-                </p>
-            </li>
-            <li>
-                <span class="question">I want to help with projects like these or learn things like HTML/CSS/JS.</span>
-                <p class="answer">
-                    Contribute to the Candidate Calculator and other tools at the <a href="https://github.com/IDXSupport/idxsupport.github.io/" target="_blank">idxsupport.github.io</a> repository! Or, just reach out to Lain over Slack. She loves collaborating with and teaching people and would be more than happy to guide you.
-                </p>
+    <script>
+        const analysisServerEndpoint = "http://54.213.224.126:5732/analyze?url="
 
-            </li>
-        </ul>
-    </div>
-</div>  
+        let app = new Vue({
+            el: "#app",
+            data: {
+                targetUrl: '',
+                results: [],
+                working: false,
+                error: false,
+                errorMessage: "",
+                hideTinyCandidates: true
+            },
+            methods: {
+                analyze: function () {
+                    this.working = true;
+                    this.error = false;
+                    this.errorMessage = '';
+                    this.results = null;
+                    axios.get(analysisServerEndpoint + this.targetUrl).then((response) => {
+                        console.log(response);
 
-<script>
-const analysisServerEndpoint = "http://54.213.224.126:5732/analyze?url="
+                        if (response.data.status == 'failure') {
+                            this.error = true;
+                            this.errorMessage = response.data.message;
+                            this.results = [];
+                        } else {
+                            response.data.forEach((candidate) => {
+                                candidate.showAlternatives = false;
+                            })
+                            app.results = response.data;
+                        }
 
-let app = new Vue({
-    el: "#app",
-    data: {
-        targetUrl: '',
-        results: [],
-        working: false,
-        error: false,
-        errorMessage: "",
-        hideTinyCandidates: true
-    },
-    methods: {
-        analyze: function () {
-            this.working = true;
-            this.error = false;
-            this.errorMessage = '';
-            this.results = null;
-            axios.get(analysisServerEndpoint + this.targetUrl).then((response) => {
-                console.log(response);
-
-                if (response.data.status == 'failure') {
-                    this.error = true;
-                    this.errorMessage = response.data.message;
-                    this.results = [];
-                } else {
-                    response.data.forEach((candidate) => {
-                        candidate.showAlternatives = false;
-                    })
-                    app.results = response.data;
-                }
-
-                this.working = false;
-            });
-        },
-        toggleAlternatives: function (index) {
-            Vue.set(this.results[index], "showAlternatives", !this.results[index]?.showAlternatives);
-            console.log(this.results[index].showAlternatives);
-        }
-    },
-    computed: {
-        },
-        preparedResults: function() {
-            if (this?.results == null) {
-                return [];
-            }
-            let candidateScoreMap = new Map();
-            this.results.forEach((candidate) => {
-
-                let score = candidate.score;
-                let name = candidate.name;
-                let type = candidate.type;
-
-                let fixedScore = score.toFixed(2);
-                
-                // If we're hiding tiny candidates, don't include them!
-                if (this.hideTinyCandidates && candidate.width < 300) {
-                    return;
-                }
-
-                // Skip candidates that have a negative score
-                if (fixedScore < 0) {
-                    return;
-                }
-
-                
-
-                if (candidateScoreMap.has(fixedScore)) {
-                    let parentCandidate = candidateScoreMap.get(fixedScore);
-                    parentCandidate.alternatives.push({
-                        score: score,
-                        name: name,
-                        type: type
+                        this.working = false;
                     });
-                } else {
-                    candidate.alternatives = [];
-                    candidate.showAlternatives = false;
-                    candidateScoreMap.set(fixedScore, candidate);
+                },
+                toggleAlternatives: function (index) {
+                    Vue.set(this.results[index], "showAlternatives", !this.results[index]?.showAlternatives);
+                    console.log(this.results[index].showAlternatives);
                 }
-            });
+            },
+            computed: {
+            },
+            preparedResults: function () {
+                if (this?.results == null) {
+                    return [];
+                }
+                let candidateScoreMap = new Map();
+                this.results.forEach((candidate) => {
 
-            return Array.from(candidateScoreMap.values());
+                    let score = candidate.score;
+                    let name = candidate.name;
+                    let type = candidate.type;
+
+                    let fixedScore = score.toFixed(2);
+
+                    // If we're hiding tiny candidates, don't include them!
+                    if (this.hideTinyCandidates && candidate.width < 300) {
+                        return;
+                    }
+
+                    // Skip candidates that have a negative score
+                    if (fixedScore < 0) {
+                        return;
+                    }
+
+
+
+                    if (candidateScoreMap.has(fixedScore)) {
+                        let parentCandidate = candidateScoreMap.get(fixedScore);
+                        parentCandidate.alternatives.push({
+                            score: score,
+                            name: name,
+                            type: type
+                        });
+                    } else {
+                        candidate.alternatives = [];
+                        candidate.showAlternatives = false;
+                        candidateScoreMap.set(fixedScore, candidate);
+                    }
+                });
+
+                return Array.from(candidateScoreMap.values());
+            }
         }
-    }
 })
-</script>
+    </script>
 
 </body>
+
 </html>
