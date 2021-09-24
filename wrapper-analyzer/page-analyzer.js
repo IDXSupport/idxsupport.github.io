@@ -116,6 +116,7 @@ expressApp.get('/generateStatic', async (req, res) => {
     let targetType = req.query.type;
     let targetName = req.query.name;
     let targetRemoveScripts = req.query?.removeScripts;
+    let targetInsertSs = req.query?.insertSs;
 
     let targetElement;
 
@@ -141,7 +142,7 @@ expressApp.get('/generateStatic', async (req, res) => {
 
         // Rename title
         let title = document.getElementsByTagName('title')[0];
-        title?.innerHTML = 'Property Search';
+        title.innerHTML = 'Property Search';
 
         // Fix links
         let as = document.getElementsByTagName('a');
@@ -198,13 +199,18 @@ expressApp.get('/generateStatic', async (req, res) => {
         }
 
         let targetElement = getElementForCandidate(target, document);
-        targetElement.innerHTML = "***splithere***";
+        if (target.insertSs) {
+            targetElement.innerHTML = "\n<div id=\"idxStart\"></div>\n<div id=\"idxStop\"></div>\n";
+        } else {
+            targetElement.innerHTML = "***splithere***";
+        }
 
         return document.children[0].innerHTML;
     }, {
         type: targetType,
         name: targetName,
-        removeScripts: targetRemoveScripts
+        removeScripts: targetRemoveScripts,
+        insertSs: targetInsertSs 
     });
     
     // We don't want the output to render.  
@@ -216,7 +222,7 @@ expressApp.get('/generateStatic', async (req, res) => {
 });
 
 expressApp.get('/analyze', async (req, res) => {
-    let url = req.query.url;
+    let url = decodeURIComponent(req.query.url);
 
     res.type('json');
 
@@ -281,7 +287,7 @@ expressApp.get('/analyze', async (req, res) => {
         }, candidate);
 
 
-        let sanitizedUrl = href.replace(/\/|\.|:/g,'');
+        let sanitizedUrl = href.replace(/\/|\.|:|\?/g,'');
         let filename =  `${sanitizedUrl}-${candidate.name}-${candidate.type}.jpg`;
 
         console.log(`saving screenshot: ${filename}`);
