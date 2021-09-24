@@ -123,7 +123,7 @@ expressApp.get('/generateStatic', async (req, res) => {
     let browser = await getBrowser();
     const page = await browser.newPage();
 
-    // Setup console out
+    // Setup console out 
     page.on('console', consoleMessage => console.log(consoleMessage.text()));
     page.on('pageerror', err => console.log(err));
 
@@ -222,7 +222,7 @@ expressApp.get('/generateStatic', async (req, res) => {
 });
 
 expressApp.get('/analyze', async (req, res) => {
-    let url = decodeURIComponent(req.query.url);
+    let url = req.query.url;
 
     res.type('json');
 
