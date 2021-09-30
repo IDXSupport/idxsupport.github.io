@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Shortcode generator</title>
+
+<script src="https://kit.fontawesome.com/4e35c51a72.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<style>
+
+button.generator-target {
+    border: none;
+    padding: 0.5rem;
+}
+
+button.generator-target i.icon {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.shortcode-attribute-name {
+    font-size: 24px;
+}
+
+</style>
+
+</head> 
+<body>
+
+<div id="shortcode-generator-app">
+    <div id="shortcode-generator-target-container">
+        <div v-for="widget,index in widgets">
+            <button class="generator-target" v-on:click="selectWidget(index)"><i class="fas fa-search fa-2x icon"></i> {{ widget.name }}</button>
+        </div>
+    </div>
+    <div id="shortcode-generator-inputs-container">
+        <div v-for="attribute in selectedWidget.attributes">
+            <!-- <input v-model:value="attribute.value" type="text"> -->
+            <div v-if="attribute.type=='bool'">
+                <label>
+                    <span class="shortcode-attribute-name">{{ attribute.name }}</span>
+                    <select v-model:value="attribute.value">
+                        <option value="1">yes (1)</option>
+                        <option value="0">no (0)</option>
+                    </select>
+                </label>
+                <div class="attribute-description">{{ attribute.description }}</div>
+            </div>
+        </div>
+    </div>
+    <div id="shortcode-generator-output">
+        {{ shortcodeOutput }}
+    </div>
+</div>
+
+<script>
+
+
+
+/* Different parameter types for the shortcode:
+
+String dropdown: there are a few specific options available
+String input: the user enters a value like an MLS or agent id  
+bool: 0 for false, 1 for true.
+int: the user enters a number
+
+
+*/
+
+
+
+class Widget {
+    constructor(name, shortcodeName) {
+        this.name = name;
+        this.shortcodeName = shortcodeName;
+        this.attributes = [];
+    }
+
+    addAttribute(name, description, type, defaultValue, mandatory, options) {
+        this.attributes.push(
+            new WidgetAttribute(name, description, type, defaultValue, mandatory, options)
+        );
+        return this;
+    }
+}
+class WidgetAttribute {
+    constructor(name, description, type, defaultValue, mandatory, options) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.defaultValue = defaultValue;
+        this.mandatory = mandatory;
+        this.options = options;
+        this.value = defaultValue;
+    }
+
+    getShortcodeValue() {
+        if (this.type == 'bool') {
+            return this.getValue() == '1' ? '1' : '0';
+        }
+    }
+
+    getValue() {
+        if (this.value) {
+            return this.value;
+        } else {
+            return this.defaultValue;
+        }
+    }
+
+}
+
+let widgets = [
+    new Widget('IMPress Omnibar Search', 'idx-omnibar').addAttribute('styles', "It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the search bar. This controls whether or not the default layout will be applied to the search bar when it's displayed on your page.", 'bool', '1')
+    .addAttribute('extra', "Whether to include baths and bed field options with the search bar.", 'bool', '0', false)
+    .addAttribute('min_price', "Whether to show the price minimum and price maximum fields as part of the search bar.", 'bool', '0', false)
+    ,new Widget('IMPress Showcase', 'impress_property_showcase')
+        .addAttribute('show_image', 'IDK man something', 'bool', '1')
+];
+
+let app = new Vue({
+    el: '#shortcode-generator-app',
+    data: {
+        widgets: widgets,
+        selectedWidget: widgets[0],
+    }, computed: {
+        shortcodeOutput: function () {
+            let attributesString = '';
+            this.selectedWidget.attributes.forEach(attribute => {
+                attributesString += `${attribute.name}="${attribute.getShortcodeValue()}"`
+            });
+            return '[' + 
+                this.selectedWidget.shortcodeName + ' ' +
+                attributesString +
+            ']';
+        }
+    }, methods: {
+        selectWidget(index) {
+            this.selectedWidget = this.widgets[index];
+        }
+    }
+});
+
+</script>
+
+    
+</body>
+</html>
