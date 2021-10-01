@@ -1,149 +1,315 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>Shortcode generator</title>
+    <title>Shortcode generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-<script src="https://kit.fontawesome.com/4e35c51a72.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/4e35c51a72.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
-<style>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
 
-button.generator-target {
-    border: none;
-    padding: 0.5rem;
-}
+        #shortcode-generator-app {
+            width: 60rem;
+            margin: 0 auto;
+        }
 
-button.generator-target i.icon {
-    display: block;
-    margin-bottom: 0.5rem;
-}
+        button.generator-target i.icon {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
 
-.shortcode-attribute-name {
-    font-size: 24px;
-}
+        .shortcode-attribute-name {
+            font-size: 24px;
+        }
 
-</style>
+        .shortcode-generator-target-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: fit-content;
+            margin: 0 auto;
+        }
 
-</head> 
+        .shortcode-generator-target-container .generator-target {
+            display: block;
+            width: 12rem;
+            height: 6rem;
+            border: none;
+            background: none;
+        }
+
+        .generator-target.active {
+            color: white;
+            background: #283c8d;
+        }
+
+        .generator-target:hover {
+            cursor: pointer;
+            color: #8cc640;
+        }
+
+        .generator-target.active:hover {
+            color: white;
+            cursor: default;
+        }
+
+        .shortcode-generator-output {
+            font-family: monospace;
+            padding: 0.5rem;
+            background: #fafafa;
+        }
+
+        .attribute-select,
+        .attribute-int-input {
+            font-size: 18px;
+            border: 0.15rem solid #c1c9da;
+            border-radius: 0.15rem;
+            padding: 0.25rem;
+        }
+
+        .attribute-int-input {
+            width: 6rem;
+        }
+
+        .attribute-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0;
+        }
+
+        .attribute-list li.widget-attribute {
+            margin: 0.5rem;
+        }
+
+        .attribute-description {
+            display: none;
+        }
+
+        .widget-attribute.show-description .attribute-description {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 14px;
+        }
+
+        .help-icon {
+            color: #2668ad;
+            margin: 0 0.25rem;
+        }
+
+        .help-icon:hover {
+            cursor: pointer;
+        }
+
+        .attribute-mandatory-checkbox {
+            margin: 0 0.5rem 0 0;
+        }
+    </style>
+
+</head>
+
 <body>
 
-<div id="shortcode-generator-app">
-    <div id="shortcode-generator-target-container">
-        <div v-for="widget,index in widgets">
-            <button class="generator-target" v-on:click="selectWidget(index)"><i class="fas fa-search fa-2x icon"></i> {{ widget.name }}</button>
+    <div id="shortcode-generator-app">
+        <div class="shortcode-generator-header">
+            <h2>Click on the widget you want to add to a page</h2>
+            <div class="shortcode-generator-target-container">
+                <div v-for="widget,index in widgets">
+                    <button class="generator-target" v-bind:class="{ 'active': selectedWidget.name == widget.name}"
+                        v-on:click="selectWidget(index)"><i class="fas fa-2x icon" v-bind:class="widget.iconName"></i>
+                        {{ widget.name }}</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div id="shortcode-generator-inputs-container">
-        <div v-for="attribute in selectedWidget.attributes">
-            <!-- <input v-model:value="attribute.value" type="text"> -->
-            <div v-if="attribute.type=='bool'">
-                <label>
-                    <span class="shortcode-attribute-name">{{ attribute.name }}</span>
-                    <select v-model:value="attribute.value">
-                        <option value="1">yes (1)</option>
-                        <option value="0">no (0)</option>
-                    </select>
-                </label>
-                <div class="attribute-description">{{ attribute.description }}</div>
+        <div class="shortcode-generator-inputs-container">
+            <h2>Options</h2>
+            <p>Choose the options for the selected widget below. Options with a checkbox next to them are optional;
+                check their checkbox to include them in the generated shortcode.</p>
+            <ul class="attribute-list">
+                <li class="widget-attribute" v-for="attribute,index in selectedWidget.attributes"
+                    v-bind:class="{ 'show-description': attribute.showDescription }">
+                    <label>
+                        <input class="attribute-mandatory-checkbox" v-if="!attribute.mandatory" v-model:checked="attribute.options.checked"
+                            type="checkbox"><span class="shortcode-attribute-name">{{ attribute.name }}</span>
+                    </label>
+                    <i class="fas icon fa-question-circle help-icon"
+                        v-on:click="showAttributeDescription(attribute)"></i>
+                    <span v-if="attribute.type=='bool'">
+                        <select class="attribute-select" v-model:value="attribute.value">
+                            <option value="1">yes (1)</option>
+                            <option value="0">no (0)</option>
+                        </select>
+                    </span>
+                    <span v-if="attribute.type=='select'">
+                        <select class="attribute-select" v-model:value="attribute.value">
+                            <option v-for="option in attribute.options.choices">{{option}}</option>
+                        </select>
+                    </span>
+                    <span v-if="attribute.type=='int'">
+                        <input class="attribute-int-input" type="number" v-model:value="attribute.value">
+                    </span>
+                    <span v-if="attribute.type=='string'">
+                        <input class="attribute-input" type="text" v-model:value="attribute.value">
+                    </span>
+                    <div class="attribute-description">{{ attribute.description }}</div>
+                </li>
+            </ul>
+        </div>
+        <div class="shortcode-generator-output-container">
+            <h2>Shortcode</h2>
+            <p>Copy the below text, including the brackets, and paste it as a shortcode into your WordPress site to
+                insert this widget.</p>
+            <div class="shortcode-generator-output">
+                {{ shortcodeOutput }}
             </div>
         </div>
     </div>
-    <div id="shortcode-generator-output">
-        {{ shortcodeOutput }}
-    </div>
-</div>
 
-<script>
+    <script>
 
 
 
-/* Different parameter types for the shortcode:
+        /* Different parameter types for the shortcode:
+        
+        String dropdown: there are a few specific options available
+        String input: the user enters a value like an MLS or agent id  
+        bool: 0 for false, 1 for true.
+        int: the user enters a number
+        
+        
+        */
 
-String dropdown: there are a few specific options available
-String input: the user enters a value like an MLS or agent id  
-bool: 0 for false, 1 for true.
-int: the user enters a number
 
 
-*/
+        class Widget {
+            constructor(name, shortcodeName, iconName) {
+                this.name = name;
+                this.shortcodeName = shortcodeName;
+                this.iconName = iconName;
+                this.attributes = [];
+            }
 
-
-
-class Widget {
-    constructor(name, shortcodeName) {
-        this.name = name;
-        this.shortcodeName = shortcodeName;
-        this.attributes = [];
-    }
-
-    addAttribute(name, description, type, defaultValue, mandatory, options) {
-        this.attributes.push(
-            new WidgetAttribute(name, description, type, defaultValue, mandatory, options)
-        );
-        return this;
-    }
-}
-class WidgetAttribute {
-    constructor(name, description, type, defaultValue, mandatory, options) {
-        this.name = name;
-        this.type = type;
-        this.description = description;
-        this.defaultValue = defaultValue;
-        this.mandatory = mandatory;
-        this.options = options;
-        this.value = defaultValue;
-    }
-
-    getShortcodeValue() {
-        if (this.type == 'bool') {
-            return this.getValue() == '1' ? '1' : '0';
+            addAttribute(name, description, type, defaultValue, mandatory, options) {
+                this.attributes.push(
+                    new WidgetAttribute(name, description, type, defaultValue, mandatory, options)
+                );
+                return this;
+            }
         }
-    }
+        class WidgetAttribute {
+            constructor(name, description, type, defaultValue, mandatory, options) {
+                this.name = name;
+                this.type = type;
+                this.description = description;
+                this.defaultValue = defaultValue;
+                this.mandatory = mandatory;
+                this.options = options;
+                this.value = defaultValue;
+                this.showDescription = false;
+            }
 
-    getValue() {
-        if (this.value) {
-            return this.value;
-        } else {
-            return this.defaultValue;
+            getShortcodeValue() {
+                if (this.type == 'bool') {
+                    return this.getValue() == '1' ? '1' : '0';
+                }
+                if (this.type == 'select'
+                    || this.type == 'int'
+                    || this.type == 'string') {
+                    return this.getValue();
+                }
+            }
+
+            getValue() {
+                if (this.value) {
+                    return this.value;
+                } else {
+                    return this.defaultValue;
+                }
+            }
+
         }
-    }
 
-}
+        let widgets = [
+            new Widget('IMPress Omnibar Search', 'idx-omnibar', 'fa-search')
+                .addAttribute('styles', "This controls whether or not the default layout will be applied to the search bar when it's displayed on your page. It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the search bar.", 'bool', '1', true)
+                .addAttribute('extra', "Whether to include baths and bed field options with the search bar.", 'bool', '0', false, { checked: true })
+                .addAttribute('min_price', "Whether to show the price minimum and price maximum fields as part of the search bar.", 'bool', '0', false, { checked: true })
+            , new Widget('IMPress Showcase', 'impress_property_showcase', 'fa-home')
+                .addAttribute('property_type', 'What kind of properties should be shown. Choose between featured listings, sold and pending listings, supplemental listings or listings from a saved link.', 'select', 'featured', false, { checked: true, choices: ['featured', 'supplemental', 'soldpending', 'savedlinks'] })
+                .addAttribute('saved_link_id', "If you're pulling listings from a saved link, the ID of the saved link that should be used. You can find the ID for your saved links by navigating to Design > Website > Saved Links and locating the row that corresponds to your saved link.", 'int', 0, false, { checked: false })
+                .addAttribute('agent_id', "Set this if you want to limit the listings shown by the showcase to a specific agent. You can find the ID that should be used here by navigating to Account > Users > Agents and locating the row and ID that corresponds to the your agent user.", 'int', 0, false, { checked: false })
+                .addAttribute('max', 'The maximum number of listings that will be shown. If unset, the default is 4.', 'int', 4, false, { checked: true })
+                .addAttribute('use_rows', "I'm not sure what this does.", 'bool', '1', false, { checked: true })
+                .addAttribute('num_per_row', 'The number of listings to show per row. This defaults to 4.', 'int', 4, false, { checked: true })
+                .addAttribute('order', 'How the listings should be ordered, either from high-to-low listing price or low-to-high.', 'select', 'high-low', false, { checked: true, choices: ['high-low', 'low-high'] })
+                .addAttribute('show_image', "I'm not sure what this does.", 'bool', '1', false, { checked: true })
+            , new Widget('IMPress Carousel', 'impress_property_carousel', 'fa-ellipsis-h')
+                .addAttribute('property_type', 'What kind of properties should be shown. Choose between featured listings, sold and pending listings, supplemental listings or listings from a saved link.', 'select', 'featured', false, { checked: true, choices: ['featured', 'supplemental', 'soldpending', 'savedlinks'] })
+                .addAttribute('saved_link_id', "If you're pulling listings from a saved link, the ID of the saved link that should be used. You can find the ID for your saved links by navigating to Design > Website > Saved Links and locating the row that corresponds to your saved link.", 'int', 0, false, { checked: false })
+                .addAttribute('agent_id', "Set this if you want to limit the listings shown by the showcase to a specific agent. You can find the ID that should be used here by navigating to Account > Users > Agents and locating the row and ID that corresponds to the your agent user.", 'int', 0, false, { checked: false })
+                .addAttribute('max', 'The maximum number of listings that will be shown. If unset, the default is 4.', 'int', 4, false, { checked: true })
+                .addAttribute('display', 'The number of listings to show at a single time. Defaults to 3', 'int', 3, false, { checked: true })
+                .addAttribute('order', 'How the listings should be ordered, either from high-to-low listing price or low-to-high.', 'select', 'high-low', false, { checked: true, choices: ['high-low', 'low-high'] })
+                .addAttribute('autoplay', 'Whether the carousel should automatically scroll through listings or not.', 'bool', '1', false, { checked: true })
+            , new Widget('IMPress City Links', 'impress_city_links', 'fa-link')
+                .addAttribute('city_list', 'The ID of the city list to generate links with.', 'string', '', false, {checked: false})
+                .addAttribute('mls', 'The ID of the MLS feed that should be used for the city list.', 'string', '', false, {checked: false})
+                .addAttribute('use_columns', "I don't know what this does.", 'bool', '1', false, {checked: false})
+                .addAttribute('number_columns', 'How many columns should be used to display the city links.', 'select', '4', false, {checked: false, choices: ['4', '3', '2']})
+                .addAttribute('show_count', "I don't know what this does.", 'bool', '0', false, {checked: false})
+                .addAttribute('new_window', "Whether a new window should open when a city link is clicked.", 'bool', '0', false, {checked: false})
+            , new Widget('IMPress Lead Sign Up', 'impress_lead_signup', 'fa-user-plus')
+                .addAttribute('phone', "Whether the phone input field should appear", 'bool', '0', false, {checked: false})
+                .addAttribute('new_window', "Whether a new window should open when the form is submitted.", 'bool', '0', false, {checked: false})
+                .addAttribute('password_field', "Whether the password field input should appear on the form.", 'bool', '0', false, {checked: false})
+                .addAttribute('agent_id', "Set this if you want to assign leads generated by this form to a specific agent. You can find the ID that should be used here by navigating to Account > Users > Agents and locating the row and ID that corresponds to the your agent user.", 'int', 0, false, { checked: false })
+                .addAttribute('button_text', 'The text that should appear on the submit button for the form.', 'string', '', true)
+                .addAttribute('styles', "This controls whether or not the default layout will be applied to the search bar when it's displayed on your page. It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the signup form.", 'bool', '1', true)
+            , new Widget('IMPress Lead Login', 'impress_lead_login', 'fa-users')
+                .addAttribute('styles', "This controls whether or not the default layout will be applied to the search bar when it's displayed on your page. It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the login form.", 'bool', '1', true)
+                .addAttribute('new_window', "Whether a new window should open when the form is submitted.", 'bool', '0', false, {checked: false})
+                .addAttribute('password_field', "Whether the password field input should appear on the form.", 'bool', '0', false, {checked: false})
 
-let widgets = [
-    new Widget('IMPress Omnibar Search', 'idx-omnibar').addAttribute('styles', "It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the search bar. This controls whether or not the default layout will be applied to the search bar when it's displayed on your page.", 'bool', '1')
-    .addAttribute('extra', "Whether to include baths and bed field options with the search bar.", 'bool', '0', false)
-    .addAttribute('min_price', "Whether to show the price minimum and price maximum fields as part of the search bar.", 'bool', '0', false)
-    ,new Widget('IMPress Showcase', 'impress_property_showcase')
-        .addAttribute('show_image', 'IDK man something', 'bool', '1')
-];
+        ];
 
-let app = new Vue({
-    el: '#shortcode-generator-app',
-    data: {
-        widgets: widgets,
-        selectedWidget: widgets[0],
-    }, computed: {
-        shortcodeOutput: function () {
-            let attributesString = '';
-            this.selectedWidget.attributes.forEach(attribute => {
-                attributesString += `${attribute.name}="${attribute.getShortcodeValue()}"`
-            });
-            return '[' + 
-                this.selectedWidget.shortcodeName + ' ' +
-                attributesString +
-            ']';
-        }
-    }, methods: {
-        selectWidget(index) {
-            this.selectedWidget = this.widgets[index];
-        }
-    }
-});
+        let app = new Vue({
+            el: '#shortcode-generator-app',
+            data: {
+                widgets: widgets,
+                selectedWidget: widgets[0],
+            }, computed: {
+                shortcodeOutput: function () {
+                    let attributesString = '';
+                    this.selectedWidget.attributes.forEach(attribute => {
+                        let nextString = `${attribute.name}="${attribute.getShortcodeValue()}" `;
+                        if (attribute.mandatory
+                            || (!attribute.mandatory && attribute.options.checked)) {
+                            attributesString += nextString
+                        }
+                    });
+                    return '[' +
+                        this.selectedWidget.shortcodeName + ' ' +
+                        attributesString.trim() +
+                        ']';
+                }
+            }, methods: {
+                selectWidget(index) {
+                    this.selectedWidget = this.widgets[index];
+                },
+                showAttributeDescription(attribute) {
+                    attribute.showDescription = !attribute.showDescription;
+                }
+            }
+        });
 
-</script>
+    </script>
 
-    
+
 </body>
+
 </html>
