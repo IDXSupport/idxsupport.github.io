@@ -1,9 +1,15 @@
+// Pull in .env 
+require('dotenv').config()
+
+
 const http = require("http");
-const hostname = "0.0.0.0";
-const port = 5732;
+const hostname = process.env.ANALYZER_PORT;
+const port = process.env.ANALYZER_PORT;
+
 
 const puppeteer = require('puppeteer');
 const express = require('express');
+
 
 const expressApp = express();
 
