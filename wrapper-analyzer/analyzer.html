@@ -27,7 +27,7 @@
 
         <div class="app-intranavigation">
             <a class="intrasite" href="https://idxsupport.github.io/">Endpoint Creator</a>
-            <a class="intrasite current" href="http://54.213.224.126:5732/analyzer.html">Candidate Calculator</a>
+            <a class="intrasite current" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
         </div>
 
         <p class="app-description">
@@ -174,7 +174,8 @@
     </div>
 
     <script>
-        const analysisServerEndpoint = "http://54.213.224.126:5732/analyze?url="
+        const analysisServerHostname = "http://lain.tools:5732";
+        const analysisServerEndpoint = analysisServerHostname + "/analyze?url=";
 
         let app = new Vue({
             el: "#app",
@@ -214,9 +215,8 @@
                     console.log(this.results[index].showAlternatives);
                 }
             },
-            computed: {
-            },
-            preparedResults: function () {
+            computed: {            
+                preparedResults: function () {
                 if (this?.results == null) {
                     return [];
                 }
@@ -257,8 +257,9 @@
 
                 return Array.from(candidateScoreMap.values());
             }
-        }
-})
+
+            },
+        });
     </script>
 
 </body>
