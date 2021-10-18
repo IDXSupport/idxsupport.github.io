@@ -170,15 +170,15 @@ input {
 .app-intranavigation a.intrasite {
   flex: 1;
   padding: 0.5rem;
-  background: white;
+  color: white;
   justify-content: center;
   display: block;
   text-align: center;
   border-radius: 0.25rem;
 }
 .app-intranavigation a.intrasite.current {
-  color: white;
-  background: #283c8d;
+  color: #283c8d;
+  background: white;
   text-decoration: none;
 }
 
