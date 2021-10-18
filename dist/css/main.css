@@ -267,7 +267,7 @@ button:hover {
   margin: 1rem 0 1rem 0;
 }
 
-label {
+label.badge-dark {
   display: inline-block;
   width: 4em;
   text-transform: capitalize;
