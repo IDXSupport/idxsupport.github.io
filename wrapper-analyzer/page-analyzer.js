@@ -3,7 +3,7 @@ require('dotenv').config()
 
 
 const http = require("http");
-const hostname = process.env.ANALYZER_PORT;
+const hostname = process.env.ANALYZER_HOSTNAME;
 const port = process.env.ANALYZER_PORT;
 
 
