@@ -27,6 +27,23 @@
 
         // Otherwise, assuming we're good to go...
 
+        // Add confirm button to clear payment info button
+        idx('#clearPaymentInfo').off('click');
+        idx('#clearPaymentInfo').on('click', () => {
+            if (confirm('Really clear the payment information on this account?')) {
+                // Copied out of billing.js
+                var options = {"action":"clearPaymentInfo","clientPartner":clientPartner,"accountID":accountID};
+
+                idx.getJSON(ajaxURL,options,function(data) {
+                    if (!data.error)
+                    {
+                        idx.jGrowl('Payment information cleared successfully.', { life: 3000, growlClass: 'success' });
+                        window.location.reload();
+                    }
+                });        
+            }
+        });
+
         // A button that lets the user toggle the display of the enhancements enabled by this userscript;
         let plusNavLink = document.createElement('li');
         plusNavLink.className = 'idx-mw-nav-list--iten';
