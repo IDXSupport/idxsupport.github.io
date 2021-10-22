@@ -116,7 +116,18 @@
             return container;
         }
         
+        function createDoraHtmlElement(csvRow) {
+            let container = document.createElement('div');
+            container.className = 'dpb-dora-data-container';
 
+            for (let field in csvRow) {
+                let fieldElement = document.createElement('div');
+                fieldElement.textContent = `${field}: ${csvRow[field]}`;
+                container.append(fieldElement);
+            }
+
+            return container;
+        }
 
         document.getElementById('dbp-aol-search-button').onclick = function() {
             let mlsId = document.getElementById('dbp-aol-search-mls-id-input').value;
@@ -143,6 +154,13 @@
                             }
                         }))
                         document.getElementById("dbp-dora-output").textContent = args.responseText;
+                        let parsedDora = Papa.parse(args.responseText, {
+                            header: true
+                        });
+                        parsedDora.data.forEach(row => {
+                            let rowElement = createDoraHtmlElement(row);
+                            idx("#dbp-dora-output").append(rowElement);
+                        });
                     }
                 });/*
                 jQuery.get(fileUrl, (fileResponse) => {
