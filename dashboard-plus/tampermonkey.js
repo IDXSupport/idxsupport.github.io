@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Lain's Dashboard+ 
+// @name         Lain's Dashboard+
 // @namespace    https://lain.tools/
 // @version      0.1
 // @description  Adds additional functionality to MW for Support purposes.
@@ -17,7 +17,7 @@
     let dbpInterval = setInterval(() => {
         // Should be the main container element for the lefthand navigation when using the Dashboard
         let nav = document.getElementsByClassName('idx-mw-nav-list')[0];
-        
+
         // If we haven't found a nav element yet, the page isn't ready.
         if (!nav) {
             return;
@@ -39,7 +39,7 @@
 
         nav.prepend(plusNavLink);
 
-        // Is it better to just build the HTML like this? 
+        // Is it better to just build the HTML like this?
         let dbpContainerHtml = `<div id="dbp-container" class="tab-content dbp-container dbp-container-hidden">
             This is where some extra cool stuff will happen. <br>
 
@@ -74,6 +74,32 @@
             //jQuery.post('https://middleware.idxbroker.com/mgmt/ajax/listingmgmt.php', {action: 'listingData', mlsID: 'd003', listingID: 'U8139659'}, (response) => {console.log(response)});
         }
 
+        // Returns an HTMLElement that can be appened to a page based on the data retrieved from
+         function createAolHtmlElement(aolData) {
+            let container = document.createElement('div');
+            container.className = 'dbp-aol-data-container';
+            
+            let coreFieldsConatiner = document.createElement('div');
+            let coreFields = aolData.core;
+            for (let field in coreFields) {
+                let fieldElement = document.createElement('div');
+                fieldElement.textContent = `${field}: ${coreFields[field]}`;
+                coreFieldsConatiner.append(fieldElement);
+            }
+            container.append(coreFieldsConatiner);
+
+            let advancedFieldsContainer = document.createElement('div');
+            let advancedFields = aolData.advanced;
+            for (let field in advancedFields) {
+                let fieldElement = document.createElement('div');
+                fieldElement.textContent = `${field}: ${advancedFields[field]}`;
+                advancedFieldsContainer.append(fieldElement);
+            }
+
+            return container;
+        }
+        
+
 
         document.getElementById('dbp-aol-search-button').onclick = function() {
             let mlsId = document.getElementById('dbp-aol-search-mls-id-input').value;
@@ -81,6 +107,8 @@
             aolQuery(mlsId, listingId, function (response) {
                 console.log(response);
                 document.getElementById('dbp-aol-output').textContent = JSON.parse(response).data;
+                let aolElement = createAolHtmlElement(JSON.parse(response).data);
+                document.getElementById('dbp-aol-output').append(aolElement);
             })
         }
 
@@ -105,7 +133,7 @@
             });
         }
 
-        // Setup some listeners...    
+        // Setup some listeners...
         document.getElementById('dbp-dora-search-button').onclick = doraQuery;
 
         // Toggle showingo our content div when the navigation option on the left is clicked.
