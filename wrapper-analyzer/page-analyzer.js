@@ -134,7 +134,7 @@ expressApp.get('/generateStatic', async (req, res) => {
     page.on('pageerror', err => console.log(err));
 
     try {
-        await page.goto(url);
+        await page.goto(url, { waitUntil: 'domcontentloaded'});
     } catch (e) {
         console.log(e);
         res.send({
@@ -224,7 +224,7 @@ expressApp.get('/generateStatic', async (req, res) => {
     processedHTML = `<!DOCTYPE html>${processedHTML}`;
     res.send(processedHTML);
 
-    browser.close();
+    await browser.close();
 });
 
 expressApp.get('/analyze', async (req, res) => {
@@ -256,13 +256,15 @@ expressApp.get('/analyze', async (req, res) => {
     page.on('pageerror', err => console.log(err));
 
     try {
-        await page.goto(url);
+	console.log(`Navigating to ${url}...`);
+        await page.goto(url, { waitUntil: 'domcontentloaded' });
     } catch (e) {
         console.log(e);
         res.send({
             status: RESPONSE_STATUSES.failure,
             message: e.message
         });
+	await browser.close();
         return false;   
     }
 
