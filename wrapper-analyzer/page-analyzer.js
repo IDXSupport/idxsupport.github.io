@@ -295,7 +295,7 @@ expressApp.get('/analyze', async (req, res) => {
         }, candidate);
 
 
-        let sanitizedUrl = href.replace(/\/|\.|:|\?/g,'');
+        let sanitizedUrl = href.replace(/\/|\.|:|\?|#/g,'');
         let filename =  `${sanitizedUrl}-${candidate.name}-${candidate.type}.jpg`;
 
         console.log(`saving screenshot: ${filename}`);
@@ -493,7 +493,7 @@ expressApp.get('/analyze', async (req, res) => {
     let scoreScreenshotSet = new Set();
 
     let startingTime = process.uptime();
-    let maxTime = 45;
+    let maxTime = 25;
 
     for (let i=0; i<scoredCandidates.length/2; i++) {
         let score = scoredCandidates[i].score;
