@@ -200,7 +200,7 @@ main main__paragraph {
 }
 
 .app {
-  background-color: #1e2329;
+  background-color: #31393d;
   max-width: 1200px;
   border: 1px solid #444c56;
   border-radius: 6px;
@@ -282,8 +282,7 @@ label.badge-dark {
   visibility: hidden;
   margin-left: auto;
   margin-right: auto;
-  background-color: #283c8d;
-  color: #fff;
+  background-color: #3ca5d6;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
@@ -292,10 +291,16 @@ label.badge-dark {
   font-size: 18px;
   max-width: 1080px;
   bottom: 30px;
+  color: #fff;
+}
+
+#toast h4 {
+  font-size: 24px;
+  text-decoration: underline;
 }
 
 #toast code {
-  color: #8dc541;
+  color: #fff;
 }
 
 #toast.show {
