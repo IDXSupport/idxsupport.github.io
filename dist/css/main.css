@@ -63,7 +63,8 @@ input {
   padding: 0.4rem;
 }
 #idName {
-  width: 700px;
+  width: auto;
+  min-width: 40%;
 }
 #url,
 #output {
@@ -232,6 +233,22 @@ section {
 .calc-buttons {
   text-align: left;
 }
+
+.ignoreh1{
+  text-decoration:line-through;
+  background: #283c8d !important;
+}
+/* hide the checkbox so the button looks like a checkbox*/
+#h1ignoreCheck {
+  visibility: hidden;
+}
+
+.checked{
+  background: #3ca5d6 !important;
+  text-decoration: unset !important;
+  outline: white 4px solid;
+}
+
 
 .calc-buttons #ClearButton {
   float: right;
