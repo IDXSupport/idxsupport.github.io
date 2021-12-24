@@ -25,12 +25,18 @@ function formatTarget(target) {
 function doMath(choice) {
   //This is the function that adds the query to the URL and the class or ID name. Assigns a value
   //to these vars when any button is clicked
-  let urlSelector, elementSelector, totalSelector, h1yn, c;
+  let urlSelector, elementSelector, totalSelector, h1yn, title, c;
   urlSelector = document.getElementById("url").value; //take the value from the URL field
   elementSelector = formatTarget(document.getElementById("idName").value); //take the value from the class/id/element field
 
   // Might have changed the actual target with formatTarget, so set the idName input to whatever elementSelector is now.
   document.getElementById("idName").value = elementSelector;
+
+  if(document.getElementById("title").value != ''){
+    title = "&title=" + document.getElementById("title").value;
+  } else {
+    title = '';
+  }
 
 
   if (document.getElementById("h1ignoreCheck").checked == 1) {
@@ -71,7 +77,7 @@ function doMath(choice) {
     "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
     urlSelector +
     totalSelector +
-    "&title=Search" +
+    title +
     h1yn;
 
   copy();
