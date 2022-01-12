@@ -37,11 +37,11 @@ function doMath(choice) {
   // switch call for selecting ID or Class input
   switch (c) {
     case "1":
-      urlSelector = "wrapper?site=" + urlSelector;
+      urlSelector = "wrapper-v2?site=" + urlSelector;
       totalSelector = "&target=class&class=" + elementSelector;
       break;
     case "2":
-      urlSelector = "wrapper?site=" + urlSelector;
+      urlSelector = "wrapper-v2?site=" + urlSelector;
       totalSelector = "&target=id&id=" + elementSelector;
       break;
     case "3":
@@ -49,7 +49,7 @@ function doMath(choice) {
       totalSelector = "&target=id&id=" + elementSelector;
       break;
     case "4":
-      urlSelector = "wrapper?site=" + urlSelector;
+      urlSelector = "wrapper-v2?site=" + urlSelector;
       totalSelector = "&target=element&el=" + elementSelector;
       break;
     default:
