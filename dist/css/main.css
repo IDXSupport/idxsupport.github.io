@@ -6,17 +6,17 @@
 }
 
 body {
-  background: #f9fbff;
+  background: #f5f5f5;
   color: white;
   font-family: "Poppins", sans-serif;
 }
 
 a {
-  color: #2668ad;
+  color: #3ca5d6;
 }
 
 a:hover {
-  color: #8cc640;
+  color: #8dc541;
 }
 
 a:visited {
@@ -36,7 +36,7 @@ h1,
 button.action-button {
   color: white;
   background-color: #283c8d;
-  border-color: #2668ad;
+  border-color: #3ca5d6;
 }
 
 button.text-button {
@@ -47,11 +47,11 @@ button.text-button {
 }
 
 button.text-button:hover {
-  color: #8cc640;
+  color: #8dc541;
 }
 
 input {
-  border-color: #2668ad;
+  border-color: #3ca5d6;
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
   text-align: left;
@@ -63,7 +63,8 @@ input {
   padding: 0.4rem;
 }
 #idName {
-  width: 700px;
+  width: auto;
+  min-width: 40%;
 }
 #url,
 #output {
@@ -102,10 +103,10 @@ input {
   color: #283c8d;
 }
 .analyzer-app-header .header-second-part {
-  color: #2668ad;
+  color: #3ca5d6;
 }
 .analyzer-app-header .header-third-part {
-  color: #8cc640;
+  color: #8dc541;
 }
 
 .analysis-result {
@@ -200,7 +201,7 @@ main main__paragraph {
 }
 
 .app {
-  background-color: #1e2329;
+  background-color: #31393d;
   max-width: 1200px;
   border: 1px solid #444c56;
   border-radius: 6px;
@@ -233,6 +234,22 @@ section {
   text-align: left;
 }
 
+.ignoreh1{
+  text-decoration:line-through;
+  background: #283c8d !important;
+}
+/* hide the checkbox so the button looks like a checkbox*/
+#h1ignoreCheck {
+  visibility: hidden;
+}
+
+.checked{
+  background: #3ca5d6 !important;
+  text-decoration: unset !important;
+  outline: white 4px solid;
+}
+
+
 .calc-buttons #ClearButton {
   float: right;
 }
@@ -245,14 +262,14 @@ section {
   padding: 1em;
   border-radius: 6px;
   border: 1px solid #444c56;
-  background-color: #2668ad;
+  background-color: #3ca5d6;
   color: #fff;
   width: 150px;
   margin: 0.5rem 0.1rem 0 0;
 }
 
 button:hover {
-  background-color: #8cc640;
+  background-color: #8dc541;
 }
 .calculator-result {
   background: silver;
@@ -282,8 +299,7 @@ label.badge-dark {
   visibility: hidden;
   margin-left: auto;
   margin-right: auto;
-  background-color: #283c8d;
-  color: #fff;
+  background-color: #3ca5d6;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
@@ -292,10 +308,16 @@ label.badge-dark {
   font-size: 18px;
   max-width: 1080px;
   bottom: 30px;
+  color: #fff;
+}
+
+#toast h4 {
+  font-size: 24px;
+  text-decoration: underline;
 }
 
 #toast code {
-  color: #8cc640;
+  color: #fff;
 }
 
 #toast.show {

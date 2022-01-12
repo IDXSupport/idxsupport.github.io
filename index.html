@@ -17,7 +17,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
 
+
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 
@@ -30,7 +32,7 @@
 
     <div class="app-intranavigation">
       <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
-      <a class="intrasite" href="http://54.213.224.126:5732/analyzer.html">Candidate Calculator</a>
+      <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
     </div>
   </div>
 
@@ -40,21 +42,31 @@
       <h1>Wrapper endpoint creator</h1>
       <div class="inputs">
         <div class="row input-fields">
-          <label class="badge-dark col-1">URL</label>
-          <input class="col-11" type="url" name="url" id="url" placeholder="http://example.com" />
+          <label class="badge-dark">URL</label>
+          <input class="" type="url" name="url" id="url" placeholder="http://example.com" />
+        </div>
+        <div class="input-fields" style="float:right;">
+          <label id="h1label" for="h1ignoreCheck" class="calc-button ignoreh1 checked">Ignore h1 elements</label>
+          <input type="checkbox" name="h1ignoreCheck" id="h1ignoreCheck" style="height:40px" checked>
         </div>
         <div class="row input-fields">
-          <label for="idName" class="badge-dark col-1">target</label>
-          <input class="col-6" type="text" name="idName" id="idName" placeholder="Class(es)/ID/Element Name" />
+          <label for="idName" class="badge-dark">target</label>
+          <input class="" type="text" name="idName" id="idName" placeholder="Class(es)/ID/Element Name" />
         </div>
+
+        <div class="row input-fields">
+          <label for="title" class="badge-dark">Title</label>
+          <input type="text" name="title" id="title" class="col-1" value="Search">
+        </div>
+
         <div class="row calc-buttons">
           <div class="col">
-            <button class="calc-button" id="classButton" onclick="doMath('1')">Class(es)</button>
-            <button class="calc-button" id="idButton" onclick="doMath('2')">ID</button>
-            <button class="calc-button" id="elementButton" onclick="doMath('4')">Element</button>
+            <button class="calc-button" id="classButton" onclick="doMath('class')">Class(es)</button>
+            <button class="calc-button" id="idButton" onclick="doMath('id')">ID</button>
+            <button class="calc-button" id="elementButton" onclick="doMath('element')">Element</button>
             <button class="calc-button" id="ClearButton" onclick="cleary()">Clear</button>
             <br>
-            <button class="calc-button" id="DudaButton" onclick="doMath('3')">Duda ID</button>
+            <button class="calc-button" id="DudaButton" onclick="doMath('duda')">Duda ID</button>
           </div>
         </div>
         <div class="row">
@@ -73,6 +85,18 @@
       <code id="copyUrl"></code>
     </div>
   </section>
+
+  <script>
+    $('#h1ignoreCheck').change(function () {
+      if ($(this).is(":checked")) {
+        $('.ignoreh1').addClass('checked');
+      } else {
+        $('.ignoreh1').removeClass('checked');
+      }
+    });
+
+  </script>
 </body>
+
 
 </html>

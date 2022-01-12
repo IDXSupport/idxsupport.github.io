@@ -25,42 +25,60 @@ function formatTarget(target) {
 function doMath(choice) {
   //This is the function that adds the query to the URL and the class or ID name. Assigns a value
   //to these vars when any button is clicked
-  var urlSelector, elementSelector, totalSelector, c;
+  let urlSelector, elementSelector, totalSelector, h1yn, title, c;
   urlSelector = document.getElementById("url").value; //take the value from the URL field
   elementSelector = formatTarget(document.getElementById("idName").value); //take the value from the class/id/element field
 
   // Might have changed the actual target with formatTarget, so set the idName input to whatever elementSelector is now.
   document.getElementById("idName").value = elementSelector;
 
+  if(document.getElementById("title").value != ''){
+    title = "&title=" + document.getElementById("title").value;
+  } else {
+    title = '';
+  }
+
+
+  if (document.getElementById("h1ignoreCheck").checked == 1) {
+    h1yn = "&h1Ignore=Y";
+  } else {
+    h1yn = "&h1Ignore=N";
+  };
+
+
   c = choice;
 
   // switch call for selecting ID or Class input
   switch (c) {
-    case "1":
+    case "class":
       urlSelector = "wrapper-v2?site=" + urlSelector;
       totalSelector = "&target=class&class=" + elementSelector;
       break;
-    case "2":
+    case "id":
       urlSelector = "wrapper-v2?site=" + urlSelector;
       totalSelector = "&target=id&id=" + elementSelector;
       break;
-    case "3":
+    case "duda":
       urlSelector = "duda?site=" + urlSelector;
       totalSelector = "&target=id&id=" + elementSelector;
       break;
-    case "4":
+    case "element":
       urlSelector = "wrapper-v2?site=" + urlSelector;
       totalSelector = "&target=element&el=" + elementSelector;
       break;
     default:
       break;
   }
+
+
+
   //displays wrapper endpoint url
   document.getElementById("output").value =
     "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
     urlSelector +
     totalSelector +
-    "&title=Search&h1Ignore=Y";
+    title +
+    h1yn;
 
   copy();
   toasterNoti();
@@ -71,5 +89,6 @@ function doMath(choice) {
 function cleary() {
   //Clears out the page values
   document.getElementById("url").value = "";
-  document.getElementById("idName").value = "";
+  document.getElementById("idName").value = ""; 
+  document.getElementById("output").value = ""; 
 }
