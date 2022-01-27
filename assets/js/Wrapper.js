@@ -22,6 +22,9 @@ function formatTarget(target) {
   return target.trim().replaceAll(" ", ",");
 }
 
+let collection = [];
+
+
 function doMath(choice) {
   //This is the function that adds the query to the URL and the class or ID name. Assigns a value
   //to these vars when any button is clicked
@@ -79,11 +82,24 @@ function doMath(choice) {
     totalSelector +
     title +
     h1yn;
-
   copy();
+
+
   toasterNoti();
-  //adds submissions in the console
-  console.log(document.getElementById("output").value);
+  
+  
+  //Keeps a record of the console.logs you've made during this session
+  //Made it a checkbox so you can 'favorite' the ones you like
+  let li = document.createElement("input");
+  let label = document.createElement("label")
+
+  collection.unshift(
+    document.getElementById("output").value)
+  
+  label.innerHTML = collection[0] + `<br>`
+  li.type = 'checkbox'
+  document.getElementById("list").prepend(label)
+  document.getElementById("list").prepend(li)
 }
 
 function cleary() {

@@ -294,6 +294,10 @@ label.badge-dark {
   color: #222;
 }
 
+#list{
+  font-size: 12px;
+}
+
 /*Toast Notifications*/
 #toast {
   visibility: hidden;
