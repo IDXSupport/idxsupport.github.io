@@ -10,6 +10,7 @@
 
 
   <link rel="stylesheet" href="/dist/css/main.css" class="rel" />
+  <link rel="stylesheet" href="/dist/css/delete.css">
   <script src="/assets/js/Wrapper.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,6 +77,24 @@
           </input>
         </div>
       </div>
+
+      <button class="calc-button" onclick="document.getElementById('id01').style.display='block'">Clear storage</button>
+      <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+        <form class="modal-content" action="/action_page.php">
+          <div class="container">
+            <h1 style="color:black">Delete Storage</h1>
+            <p style="color:black">Are you sure you want to delete all that history?</p>
+
+            <div class=" clearfix">
+              <button type="button" id="cancelbtn" class="cancelbtn">Cancel</button>
+              <button type="button" id="deletebtn" class="deletebtn" onclick="clearStorage()">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
       <div id="list">
 
       </div>
@@ -99,6 +118,18 @@
     });
 
   </script>
+  <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    let cancelButton = document.getElementById('cancelbtn')
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal || event.target == cancelbtn) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 
 

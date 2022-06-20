@@ -73,10 +73,11 @@ function doMath(choice) {
       break;
   }
 
+  const outPut = document.getElementById("output")
 
 
   //displays wrapper endpoint url
-  document.getElementById("output").value =
+  outPut.value =
     "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
     urlSelector +
     totalSelector +
@@ -92,14 +93,17 @@ function doMath(choice) {
   //Made it a checkbox so you can 'favorite' the ones you like
   let li = document.createElement("input");
   let label = document.createElement("label")
-
+  
   collection.unshift(
-    document.getElementById("output").value)
+    outPut.value)
   
   label.innerHTML = collection[0] + `<br>`
   li.type = 'checkbox'
   document.getElementById("list").prepend(label)
   document.getElementById("list").prepend(li)
+
+  // Add the data to local storage for react to pull
+  localStorage.setItem(Date.now(), outPut.value);
 }
 
 function cleary() {
@@ -107,4 +111,13 @@ function cleary() {
   document.getElementById("url").value = "";
   document.getElementById("idName").value = ""; 
   document.getElementById("output").value = ""; 
+}
+
+function clearStorage() {
+  localStorage.clear();
+  let outputtedList = document.getElementById("list")
+  outputtedList.innerHTML = '';
+  // Get the modal
+  var modal = document.getElementById('id01');
+  modal.style.display = "none";
 }
