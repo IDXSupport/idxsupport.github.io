@@ -1,6 +1,7 @@
+
 function toasterNoti() {
   //popup alert unhidden with CSS
-  document.getElementById("copyUrl").innerHTML = output.value;
+  document.getElementById("copyUrl").innerHTML = "for " + document.getElementById("url").value;
   toaster = document.getElementById("toast");
   toaster.className = "show";
   setTimeout(function () {
@@ -22,7 +23,27 @@ function formatTarget(target) {
   return target.trim().replaceAll(" ", ",");
 }
 
+
+let storageValue = localStorage.length
 let collection = [];
+
+function displayStorage(input) {
+    //Keeps a record of the console.logs you've made during this session
+  //Made it a checkbox so you can 'favorite' the ones you like
+  let li = document.createElement("li")
+  let copyButton = document.createElement("button")
+  let label = document.createElement("label")
+  collection.unshift(
+    input)
+  label.innerHTML = collection[0]
+  copyButton.type = 'button'
+  copyButton.className = 'copyButton calc-button'
+
+  li.id= storageValue
+  document.getElementById("list").prepend(li)
+  document.getElementById(storageValue).prepend(label)
+  document.getElementById(storageValue).prepend(copyButton)
+}
 
 
 function doMath(choice) {
@@ -73,6 +94,7 @@ function doMath(choice) {
       break;
   }
 
+  const inputUrl = document.getElementById("url")
   const outPut = document.getElementById("output")
 
 
@@ -89,21 +111,11 @@ function doMath(choice) {
   toasterNoti();
   
   
-  //Keeps a record of the console.logs you've made during this session
-  //Made it a checkbox so you can 'favorite' the ones you like
-  let li = document.createElement("input");
-  let label = document.createElement("label")
-  
-  collection.unshift(
-    outPut.value)
-  
-  label.innerHTML = collection[0] + `<br>`
-  li.type = 'checkbox'
-  document.getElementById("list").prepend(label)
-  document.getElementById("list").prepend(li)
+  displayStorage(outPut.value);
 
   // Add the data to local storage for react to pull
-  localStorage.setItem(Date.now(), outPut.value);
+  localStorage.setItem(storageValue, outPut.value)
+  storageValue++
 }
 
 function cleary() {
@@ -120,4 +132,12 @@ function clearStorage() {
   // Get the modal
   var modal = document.getElementById('id01');
   modal.style.display = "none";
+  storageValue = 1
+}
+
+function loadStorage() {
+  let storageCount = storageValue
+  for (let i = storageCount; i > 0; i--){
+    displayStorage(localStorage.getItem(i))
+  }
 }
