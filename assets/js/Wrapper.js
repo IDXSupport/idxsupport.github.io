@@ -1,7 +1,7 @@
 
-function toasterNoti() {
+function toasterNoti(displayText) {
   //popup alert unhidden with CSS
-  document.getElementById("copyUrl").innerHTML = "for " + document.getElementById("url").value;
+  document.getElementById("copyUrl").innerHTML = displayText;
   toaster = document.getElementById("toast");
   toaster.className = "show";
   setTimeout(function () {
@@ -15,7 +15,6 @@ function copyNew() {
   copyText = document.getElementById("output");
   copyText.select();
   document.execCommand("copy");
-  toasterNoti();
 }
 
 // Removes any surrounding whitespace and Replaces any spaces with commas for use with the wrapper endpoint.
@@ -25,7 +24,6 @@ function formatTarget(target) {
 
 
 let storageValue = localStorage.length
-let collection = [];
 
 function displayStorage(idName) {
     //Keeps a record of the console.logs you've made during this session
@@ -38,14 +36,23 @@ function displayStorage(idName) {
   li.id = idName
   
   copyButton.onclick = function(){
-    alert('here be dragons');return false;
+    copyDivToClipboard(idName)
+    toasterNoti(label.innerHTML)
   };
   document.getElementById("list").prepend(li)
   document.getElementById(idName).prepend(label)
   document.getElementById(idName).prepend(copyButton)
-
 }
 
+function copyDivToClipboard(elementId) {
+  var range = document.createRange();
+  range.selectNode(document.getElementById(elementId));
+  console.log(elementId)
+  window.getSelection().removeAllRanges(); // clear current selection
+  window.getSelection().addRange(range); // to select text
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();// to deselect
+}
 
 function doMath(choice) {
   //This is the function that adds the query to the URL and the class or ID name. Assigns a value
@@ -107,12 +114,13 @@ function doMath(choice) {
   title +
   h1yn;
   copyNew();
-  
+
+  let text = document.getElementById("url")
+  toasterNoti(c + " ----- " + text.value )
   // Add the data to local storage for react to pull
   localStorage.setItem(storageValue, outPut.value)
 
 
-  toasterNoti();
   
   displayStorage(storageValue);
   storageValue++
