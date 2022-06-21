@@ -10,6 +10,7 @@
 
 
   <link rel="stylesheet" href="/dist/css/main.css" class="rel" />
+  <link rel="stylesheet" href="/dist/css/delete.css">
   <script src="/assets/js/Wrapper.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +24,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 
-<body>
+<body onload="loadStorage()">
   <div id="app" class="analyzer-app">
     <h1 class="analyzer-app-header">
       <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span
@@ -70,24 +71,45 @@
           </div>
         </div>
         <div class="row">
+          <div style="position: absolute; font-size: 12px">
+            <div id="toast" style="display:block">
+              <h6 style="text-align:left">
+                Copied to your clipboard
+              </h6>
+              <h6 id="copyUrl"></h6>
+            </div>
+          </div>
           <label for="output" class="badge-dark col-4">Output</label>
           <input class="text-black-50 calculator-result" type="text" value="" name="output" id="output"
             onclick="copy()">
           </input>
         </div>
       </div>
-      <div id="list">
 
+      <button class="calc-button" style="float:right"
+        onclick="document.getElementById('id01').style.display='block'">Clear
+        storage</button>
+      <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+        <form class="modal-content" action="/action_page.php">
+          <div class="container">
+            <h1 style="color:black">Delete Storage</h1>
+            <p style="color:black">Are you sure you want to delete all that history?</p>
+
+            <div class=" clearfix">
+              <button type="button" id="cancelbtn" class="cancelbtn">Cancel</button>
+              <button type="button" id="deletebtn" class="deletebtn" onclick="clearStorage()">Delete</button>
+            </div>
+          </div>
+        </form>
       </div>
+
+      <ol reversed  id="list">
+
+      </ol>
   </section>
-  <section>
-    <div id="toast">
-      <h4>
-        Copied to your clipboard
-      </h4>
-      <code id="copyUrl"></code>
-    </div>
-  </section>
+
 
   <script>
     $('#h1ignoreCheck').change(function () {
@@ -99,6 +121,18 @@
     });
 
   </script>
+  <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    let cancelButton = document.getElementById('cancelbtn')
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal || event.target == cancelbtn) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 
 

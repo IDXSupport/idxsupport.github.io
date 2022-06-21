@@ -1,6 +1,7 @@
-function toasterNoti() {
+
+function toasterNoti(displayText) {
   //popup alert unhidden with CSS
-  document.getElementById("copyUrl").innerHTML = output.value;
+  document.getElementById("copyUrl").innerHTML = displayText;
   toaster = document.getElementById("toast");
   toaster.className = "show";
   setTimeout(function () {
@@ -8,13 +9,12 @@ function toasterNoti() {
   }, 5000);
 }
 
-function copy() {
+function copyNew() {
   //add output field to clipboard +
   //display toast notification
   copyText = document.getElementById("output");
   copyText.select();
   document.execCommand("copy");
-  toasterNoti();
 }
 
 // Removes any surrounding whitespace and Replaces any spaces with commas for use with the wrapper endpoint.
@@ -22,8 +22,37 @@ function formatTarget(target) {
   return target.trim().replaceAll(" ", ",");
 }
 
-let collection = [];
 
+let storageValue = localStorage.length
+
+function displayStorage(idName) {
+    //Keeps a record of the console.logs you've made during this session
+  //Made it a checkbox so you can 'favorite' the ones you like
+  let li = document.createElement("li")
+  let copyButton = document.createElement("button")
+  let label = document.createElement("label")
+  label.innerHTML = localStorage.getItem(idName)
+  copyButton.className = 'copyButton calc-button'
+  li.id = idName
+  
+  copyButton.onclick = function(){
+    copyDivToClipboard(idName)
+    toasterNoti(label.innerHTML)
+  };
+  document.getElementById("list").prepend(li)
+  document.getElementById(idName).prepend(label)
+  document.getElementById(idName).prepend(copyButton)
+}
+
+function copyDivToClipboard(elementId) {
+  var range = document.createRange();
+  range.selectNode(document.getElementById(elementId));
+  console.log(elementId)
+  window.getSelection().removeAllRanges(); // clear current selection
+  window.getSelection().addRange(range); // to select text
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();// to deselect
+}
 
 function doMath(choice) {
   //This is the function that adds the query to the URL and the class or ID name. Assigns a value
@@ -73,33 +102,29 @@ function doMath(choice) {
       break;
   }
 
-
-
+  const outPut = document.getElementById("output")
+  
+  
+  
   //displays wrapper endpoint url
-  document.getElementById("output").value =
-    "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
-    urlSelector +
-    totalSelector +
-    title +
-    h1yn;
-  copy();
+  outPut.value =
+  "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
+  urlSelector +
+  totalSelector +
+  title +
+  h1yn;
+  copyNew();
+
+  let text = document.getElementById("url")
+  toasterNoti(c + " ----- " + text.value )
+  // Add the data to local storage for react to pull
+  localStorage.setItem(storageValue, outPut.value)
 
 
-  toasterNoti();
   
+  displayStorage(storageValue);
+  storageValue++
   
-  //Keeps a record of the console.logs you've made during this session
-  //Made it a checkbox so you can 'favorite' the ones you like
-  let li = document.createElement("input");
-  let label = document.createElement("label")
-
-  collection.unshift(
-    document.getElementById("output").value)
-  
-  label.innerHTML = collection[0] + `<br>`
-  li.type = 'checkbox'
-  document.getElementById("list").prepend(label)
-  document.getElementById("list").prepend(li)
 }
 
 function cleary() {
@@ -107,4 +132,27 @@ function cleary() {
   document.getElementById("url").value = "";
   document.getElementById("idName").value = ""; 
   document.getElementById("output").value = ""; 
+}
+
+function clearStorage() {
+  localStorage.clear();
+  let outputtedList = document.getElementById("list")
+  outputtedList.innerHTML = '';
+  // Get the modal
+  var modal = document.getElementById('id01');
+  modal.style.display = "none";
+  storageValue = 1
+}
+
+// Run on load to grab old endpoints from storage
+function loadStorage() {
+  for (let i = storageValue - 1; i >= 0; i--){
+    displayStorage(localStorage.key(i))
+  }
+  storageValue = localStorage.length + 1
+}
+
+function copyFromStorage(target) {
+  copyTarget = document.getElementById(target).innerHTML
+  console.log(localStorage.getItem(target))
 }
