@@ -9,7 +9,7 @@ function toasterNoti() {
   }, 5000);
 }
 
-function copy() {
+function copyNew() {
   //add output field to clipboard +
   //display toast notification
   copyText = document.getElementById("output");
@@ -27,22 +27,23 @@ function formatTarget(target) {
 let storageValue = localStorage.length
 let collection = [];
 
-function displayStorage(input) {
+function displayStorage(idName) {
     //Keeps a record of the console.logs you've made during this session
   //Made it a checkbox so you can 'favorite' the ones you like
   let li = document.createElement("li")
   let copyButton = document.createElement("button")
   let label = document.createElement("label")
-  collection.unshift(
-    input)
-  label.innerHTML = collection[0]
-  copyButton.type = 'button'
+  label.innerHTML = localStorage.getItem(idName)
   copyButton.className = 'copyButton calc-button'
-
-  li.id= storageValue
+  li.id = idName
+  
+  copyButton.onclick = function(){
+    alert('here be dragons');return false;
+  };
   document.getElementById("list").prepend(li)
-  document.getElementById(storageValue).prepend(label)
-  document.getElementById(storageValue).prepend(copyButton)
+  document.getElementById(idName).prepend(label)
+  document.getElementById(idName).prepend(copyButton)
+
 }
 
 
@@ -94,28 +95,28 @@ function doMath(choice) {
       break;
   }
 
-  const inputUrl = document.getElementById("url")
   const outPut = document.getElementById("output")
-
-
+  
+  
+  
   //displays wrapper endpoint url
   outPut.value =
-    "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
-    urlSelector +
-    totalSelector +
-    title +
-    h1yn;
-  copy();
+  "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/" +
+  urlSelector +
+  totalSelector +
+  title +
+  h1yn;
+  copyNew();
+  
+  // Add the data to local storage for react to pull
+  localStorage.setItem(storageValue, outPut.value)
 
 
   toasterNoti();
   
-  
-  displayStorage(outPut.value);
-
-  // Add the data to local storage for react to pull
-  localStorage.setItem(storageValue, outPut.value)
+  displayStorage(storageValue);
   storageValue++
+  
 }
 
 function cleary() {
@@ -135,9 +136,15 @@ function clearStorage() {
   storageValue = 1
 }
 
+// Run on load to grab old endpoints from storage
 function loadStorage() {
-  let storageCount = storageValue
-  for (let i = storageCount; i > 0; i--){
-    displayStorage(localStorage.getItem(i))
+  for (let i = storageValue - 1; i >= 0; i--){
+    displayStorage(localStorage.key(i))
   }
+  storageValue = localStorage.length + 1
+}
+
+function copyFromStorage(target) {
+  copyTarget = document.getElementById(target).innerHTML
+  console.log(localStorage.getItem(target))
 }
