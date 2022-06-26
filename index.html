@@ -22,26 +22,30 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 
 <body>
-  <div id="app" class="analyzer-app">
-    <h1 class="analyzer-app-header">
-      <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span
-        class="header-third-part">Calculator</span>
-    </h1>
+  <div id="topNav"><span style="color:black; position:absolute"> Looks like React isn't working right now </span>
+    <div id="" class="analyzer-app">
+      <h1 class="analyzer-app-header">
+        <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span
+          class="header-third-part">Calculator</span>
+      </h1>
 
-    <div class="app-intranavigation">
-      <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
-      <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
+      <div class="app-intranavigation">
+        <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
+        <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
+      </div>
     </div>
   </div>
 
-
   <section id="calculator">
-    <div class="app calculator">
+    <div id="appCalculator" class="app calculator">
       <h1>Wrapper endpoint creator</h1>
-      <div class="inputs">
+      <div id="inputs" class="inputs">
         <div class="row input-fields">
           <label class="badge-dark">URL</label>
           <input class="" type="url" name="url" id="url" placeholder="http://example.com" />
@@ -129,7 +133,7 @@
       }
     }
   </script>
-
+  <script type="text/babel" src="/src/app.js"></script>
 </body>
 
 
