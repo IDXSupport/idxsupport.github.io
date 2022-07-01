@@ -322,6 +322,9 @@ label.badge-dark {
 #toast code {
   color: #fff;
 }
+#toast.fail{
+  background-color: red;
+}
 
 #toast.show {
   visibility: visible;
