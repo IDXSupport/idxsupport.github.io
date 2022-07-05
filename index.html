@@ -28,89 +28,92 @@
 </head>
 
 <body>
-  <div id="topNav"><span style="color:black; position:absolute"> Looks like React isn't working right now </span>
-    <div id="" class="analyzer-app">
-      <h1 class="analyzer-app-header">
-        <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span
-          class="header-third-part">Calculator</span>
-      </h1>
+  <div id="root">
+    <div id="topNav"><span style="color:black; position:absolute"> Looks like React isn't working right now </span>
+      <div id="" class="analyzer-app">
+        <h1 class="analyzer-app-header">
+          <span class="header-first-part">Candi</span><span class="header-second-part">date</span> <span
+            class="header-third-part">Calculator</span>
+        </h1>
 
-      <div class="app-intranavigation">
-        <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
-        <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
+        <div class="app-intranavigation">
+          <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
+          <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <section id="calculator">
-    <div id="appCalculator" class="app calculator">
-      <h1>Wrapper endpoint creator</h1>
-      <div id="inputs" class="inputs">
-        <div class="row input-fields">
-          <label class="badge-dark">URL</label>
-          <input class="" type="url" name="url" id="url" placeholder="http://example.com" />
-        </div>
-        <div class="input-fields" style="float:right;">
-          <label id="h1label" for="h1ignoreCheck" class="calc-button ignoreh1 checked">Ignore h1 elements</label>
-          <input type="checkbox" name="h1ignoreCheck" id="h1ignoreCheck" style="height:40px" checked>
-        </div>
-        <div class="row input-fields">
-          <label for="idName" class="badge-dark">target</label>
-          <input class="" type="text" name="idName" id="idName" placeholder="Class(es)/ID/Element Name" />
-        </div>
-
-        <div class="row input-fields">
-          <label for="title" class="badge-dark">Title</label>
-          <input type="text" name="title" id="title" class="col-1" value="Search">
-        </div>
-
-        <div class="row calc-buttons">
-          <div class="col">
-            <button class="calc-button" id="classButton" onclick="doMath('class')">Class(es)</button>
-            <button class="calc-button" id="idButton" onclick="doMath('id')">ID</button>
-            <button class="calc-button" id="elementButton" onclick="doMath('element')">Element</button>
-            <button class="calc-button" id="ClearButton" onclick="cleary()">Clear</button>
-            <br>
-            <button class="calc-button" id="DudaButton" onclick="doMath('duda')">Duda ID</button>
+    <section id="calculator">
+      <div id="appCalculator" class="app calculator">
+        <h1>Wrapper endpoint creator</h1>
+        <div id="inputs" class="inputs">
+          <div class="row input-fields">
+            <label class="badge-dark">URL</label>
+            <input class="" type="url" name="url" id="url" placeholder="http://example.com" />
           </div>
-        </div>
-        <div class="row">
-          <label for="output" class="badge-dark col-4">Output</label>
-          <input class="text-black-50 calculator-result" type="text" value="" name="output" id="output"
-            onclick="copy()">
-          </input>
-        </div>
-      </div>
+          <div class="input-fields" style="float:right;">
+            <label id="h1label" for="h1ignoreCheck" class="calc-button ignoreh1 checked">Ignore h1 elements</label>
+            <input type="checkbox" name="h1ignoreCheck" id="h1ignoreCheck" style="height:40px" checked>
+          </div>
+          <div class="row input-fields">
+            <label for="idName" class="badge-dark">target</label>
+            <input class="" type="text" name="idName" id="idName" placeholder="Class(es)/ID/Element Name" />
+          </div>
 
-      <button class="calc-button" onclick="document.getElementById('id01').style.display='block'">Clear storage</button>
-      <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close"
-          title="Close Modal">&times;</span>
-        <form class="modal-content" action="/action_page.php">
-          <div class="container">
-            <h1 style="color:black">Delete Storage</h1>
-            <p style="color:black">Are you sure you want to delete all that history?</p>
+          <div class="row input-fields">
+            <label for="title" class="badge-dark">Title</label>
+            <input type="text" name="title" id="title" class="col-1" value="Search">
+          </div>
 
-            <div class=" clearfix">
-              <button type="button" id="cancelbtn" class="cancelbtn">Cancel</button>
-              <button type="button" id="deletebtn" class="deletebtn" onclick="clearStorage()">Delete</button>
+          <div class="row calc-buttons">
+            <div class="col">
+              <button class="calc-button" id="classButton" onclick="doMath('class')">Class(es)</button>
+              <button class="calc-button" id="idButton" onclick="doMath('id')">ID</button>
+              <button class="calc-button" id="elementButton" onclick="doMath('element')">Element</button>
+              <button class="calc-button" id="ClearButton" onclick="cleary()">Clear</button>
+              <br>
+              <button class="calc-button" id="DudaButton" onclick="doMath('duda')">Duda ID</button>
             </div>
           </div>
-        </form>
-      </div>
+          <div class="row">
+            <label for="output" class="badge-dark col-4">Output</label>
+            <input class="text-black-50 calculator-result" type="text" value="" name="output" id="output"
+              onclick="copy()">
+            </input>
+          </div>
+        </div>
 
-      <div id="list">
+        <button class="calc-button" onclick="document.getElementById('id01').style.display='block'">Clear
+          storage</button>
+        <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close"
+            title="Close Modal">&times;</span>
+          <form class="modal-content" action="/action_page.php">
+            <div class="container">
+              <h1 style="color:black">Delete Storage</h1>
+              <p style="color:black">Are you sure you want to delete all that history?</p>
 
+              <div class=" clearfix">
+                <button type="button" id="cancelbtn" class="cancelbtn">Cancel</button>
+                <button type="button" id="deletebtn" class="deletebtn" onclick="clearStorage()">Delete</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="list">
+
+        </div>
+    </section>
+    <section>
+      <div id="toast">
+        <h4>
+          Copied to your clipboard
+        </h4>
+        <code id="copyUrl"></code>
       </div>
-  </section>
-  <section>
-    <div id="toast">
-      <h4>
-        Copied to your clipboard
-      </h4>
-      <code id="copyUrl"></code>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <script>
     $('#h1ignoreCheck').change(function () {
