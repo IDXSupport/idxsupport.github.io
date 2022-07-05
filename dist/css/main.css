@@ -303,7 +303,7 @@ label.badge-dark {
   visibility: hidden;
   margin-left: auto;
   margin-right: auto;
-  background-color: #3ca5d6;
+  background-color: #8dc541;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
@@ -315,13 +315,15 @@ label.badge-dark {
   color: #fff;
 }
 
-#toast h4 {
-  font-size: 24px;
+#h6:first-child {
   text-decoration: underline;
 }
 
 #toast code {
   color: #fff;
+}
+#toast.fail{
+  background-color: red;
 }
 
 #toast.show {
@@ -335,4 +337,12 @@ label.badge-dark {
   to {
     opacity: 1;
   }
+}
+
+.copyButton{
+  width: 3em;
+  position: relative;
+  left: -2em;
+  height: 10px;
+  font-size: 10px;
 }
