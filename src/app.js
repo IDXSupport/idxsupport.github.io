@@ -1,5 +1,3 @@
-import { SiteTop } from './siteTop'
-
 class InputLabels extends React.Component {
     render() {
         const inputFields = [
@@ -89,12 +87,8 @@ class CalculatorButtons extends React.Component {
     doMath(choice) {
       //This is the function that adds the query to the URL and the class or ID name. Assigns a value
       //to these vars when any button is clicked
-      let urlSelector, elementSelector, totalSelector, h1yn, title, c;
-      urlSelector = document.getElementById("url").value; //take the value from the URL field
-      elementSelector = formatTarget(document.getElementById("idName").value); //take the value from the class/id/element field
-    
-      // Might have changed the actual target with formatTarget, so set the idName input to whatever elementSelector is now.
-      document.getElementById("idName").value = elementSelector;
+      
+      
       
       if (urlSelector == '') {
         toasterNoti(false, "You should probably enter a URL")
@@ -187,7 +181,7 @@ class CalculatorButtons extends React.Component {
     
     // Run on load to grab old endpoints from storage
     loadStorage() {
-      for (let i = storageValue - 1; i >= 0; i--){
+      for (let ]i = storageValue - 1; i >= 0; i--){
         displayStorage(localStorage.key(i))
       }
       storageValue = localStorage.length + 1

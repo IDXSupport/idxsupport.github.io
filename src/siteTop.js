@@ -1,4 +1,4 @@
-export class SiteTop extends React.Component {
+class SiteTop extends React.Component {
     render() {
         return (
             <div id="" className="analyzer-app">

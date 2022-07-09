@@ -136,6 +136,7 @@ function doMath(choice) {
     // Add the data to local storage for react to pull
     localStorage.setItem(storageValue, outPut.value)
 
+      
 
     
     displayStorage(storageValue);
