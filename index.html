@@ -51,8 +51,8 @@
           <input type="checkbox" name="h1ignoreCheck" id="h1ignoreCheck" style="height:40px" checked>
         </div>
         <div class="row input-fields">
-          <label for="idName" class="badge-dark">target</label>
-          <input class="" type="text" name="idName" id="idName" placeholder="Class(es)/ID/Element Name" />
+          <label for="elementName" class="badge-dark">target</label>
+          <input class="" type="text" name="elementName" id="elementName" placeholder="Class(es)/ID/Element Name" />
         </div>
 
         <div class="row input-fields">
@@ -62,27 +62,29 @@
 
         <div class="row calc-buttons">
           <div class="col">
-            <button class="calc-button" id="classButton" onclick="doMath('class')">Class(es)</button>
-            <button class="calc-button" id="idButton" onclick="doMath('id')">ID</button>
-            <button class="calc-button" id="elementButton" onclick="doMath('element')">Element</button>
-            <button class="calc-button" id="ClearButton" onclick="cleary()">Clear</button>
+            <button class="calc-button" id="classButton" onclick="constructEndpoint('class')">Class(es)</button>
+            <button class="calc-button" id="idButton" onclick="constructEndpoint('id')">ID</button>
+            <button class="calc-button" id="elementButton" onclick="constructEndpoint('element')">Element</button>
+            <button class="calc-button" id="ClearButton" onclick="clearForm()">Clear</button>
             <br>
-            <button class="calc-button" id="DudaButton" onclick="doMath('duda')">Duda ID</button>
+            <button class="calc-button" id="DudaButton" onclick="constructEndpoint('duda')">Duda ID</button>
           </div>
         </div>
         <div class="row">
-          <div style="position: absolute; font-size: 12px">
-            <div id="toast" style="display:block">
-              <h6 style="text-align:left">
-                Copied to your clipboard
-              </h6>
-              <h6 id="copyUrl"></h6>
-            </div>
-          </div>
           <label for="output" class="badge-dark col-4">Output</label>
-          <input class="text-black-50 calculator-result" type="text" value="" name="output" id="output"
-            onclick="copy()">
+          <input class="text-black-50 calculator-result" type="text" value="" name="output" id="output" onclick="navigator.clipboard.writeText(value); toasterNotification(
+              true,
+              `Copied to your clipboard`
+            )">
           </input>
+        </div>
+      </div>
+      <div style="position: absolute">
+        <div id="toast" style="display:block">
+          <span id="toastMessage" style="text-align:left">
+            Copied to your clipboard
+          </span>
+          <p id="copyUrl"></p>
         </div>
       </div>
 
