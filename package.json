@@ -1,0 +1,22 @@
+{
+	"name": "idxsupport.github.io",
+	"version": "1.0.0",
+	"description": "Need to wrap up a site? Visit https://idxsupport.github.io/  \r Shortcode Generator? Gotchu https://idxsupport.github.io/shortcode-generator/index.html",
+	"main": "index.js",
+	"scripts": {
+		"test": "npx cypress run"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IDXSupport/idxsupport.github.io.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/IDXSupport/idxsupport.github.io/issues"
+	},
+	"homepage": "https://github.com/IDXSupport/idxsupport.github.io#readme",
+	"devDependencies": {
+		"cypress": "^10.10.0"
+	}
+}

@@ -78,6 +78,10 @@ function constructEndpoint(elementType) {
 			}
 
 			output.value = buildEndpoint(elementType, urlValue, element, title, h1yn)
+			output.setAttribute(
+				'value',
+				buildEndpoint(elementType, urlValue, element, title, h1yn)
+			)
 			navigator.clipboard.writeText(output.value)
 
 			toasterNotification(

@@ -9,3 +9,5 @@ node_modules/
 
 .prettierrc
 .vscode
+cypress/videos/*
+cypress/screenshots/*
