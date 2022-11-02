@@ -1,12 +1,9 @@
-/****
- *
- * 	File is deprecated in favor of index.ts/index.js,
- *	Make Changes to index.ts and use `npm start` to compile changes
- *	This file is kept here for git history
- *
- ****/
-function toasterNotification(success, message, endpointUrl) {
-	toaster = document.getElementById('toast')
+function toasterNotification(
+	success: boolean,
+	message: string,
+	endpointUrl?: string
+): void {
+	let toaster = document.querySelector('#toast')
 	document.getElementById('toastMessage').innerHTML = message
 	if (endpointUrl) {
 		document.getElementById('copyUrl').innerHTML = endpointUrl
@@ -17,24 +14,24 @@ function toasterNotification(success, message, endpointUrl) {
 	if (success == true) {
 		toaster.className = 'success show'
 		setTimeout(function () {
-			toaster.className = toast.className.replace('success show', '')
+			toaster.className = toaster.className.replace('success show', '')
 		}, 5000)
 	} else {
 		toaster.className = 'fail show'
 		setTimeout(function () {
-			toaster.className = toast.className.replace('fail show', '')
+			toaster.className = toaster.className.replace('fail show', '')
 		}, 5000)
 	}
 }
 
 // Removes any surrounding whitespace and Replaces any spaces with commas for use with the wrapper endpoint.
-function formatTarget(target) {
+function formatTarget<HTMLFormElement>(target: any): string {
 	return target.trim().replaceAll(' ', ',')
 }
 
 let storageValue = localStorage.length
 
-function displayStorage(idName) {
+function displayStorage(idName: string) {
 	//Keeps a record of the endpoints you've made in the past
 	let li = document.createElement('li')
 	let copyButton = document.createElement('button')
@@ -52,13 +49,15 @@ function displayStorage(idName) {
 	document.getElementById(idName).prepend(copyButton)
 }
 
-function constructEndpoint(elementType) {
-	const urlSelector = document.getElementById('url')
-	const elementName = document.getElementById('elementName')
-	const output = document.getElementById('output')
-	let h1yn, title
+function constructEndpoint(elementType: string) {
+	const urlSelector = document.getElementById('url') as HTMLFormElement | null
+	const elementName = document.getElementById(
+		'elementName'
+	) as HTMLFormElement | null
+	const output = document.getElementById('output') as HTMLFormElement | null
+	let h1yn: boolean, title: string
 	let urlValue = urlSelector.value
-	let element = formatTarget(elementName.value)
+	let element = elementName.value
 	elementName.value = element
 
 	if (urlValue == '') {
@@ -72,18 +71,21 @@ function constructEndpoint(elementType) {
 		if (element == '') {
 			toasterNotification(false, 'You must choose a page element')
 		} else {
-			if (document.getElementById('title').value != '') {
-				title = '&title=' + document.getElementById('title').value
+			let title = document.querySelector('#title').nodeValue
+			if (title != '') {
+				title = '&title=' + title
 			} else {
 				title = ''
 			}
-
-			if (document.getElementById('h1ignoreCheck').checked == 1) {
+			let h1yn: any
+			if (
+				document.querySelector<HTMLFormElement>('#h1ignoreCheck').checked ==
+				true
+			) {
 				h1yn = '&h1Ignore=Y'
 			} else {
 				h1yn = '&h1Ignore=N'
 			}
-
 			output.value = buildEndpoint(elementType, urlValue, element, title, h1yn)
 			output.setAttribute(
 				'value',
@@ -103,7 +105,14 @@ function constructEndpoint(elementType) {
 	}
 }
 
-function buildEndpoint(elementType, urlValue, element, title, h1yn) {
+function buildEndpoint(
+	elementType: string,
+	urlValue: string,
+	element: string,
+	title: string,
+	h1yn: string
+): string {
+	let totalSelector: string
 	switch (elementType) {
 		case 'class':
 			urlValue = 'wrapper-v2?site=' + urlValue
@@ -134,15 +143,15 @@ function buildEndpoint(elementType, urlValue, element, title, h1yn) {
 		h1yn
 	)
 }
-function addToLocalStorage(storageValue, output) {
-	localStorage.setItem(storageValue, output.value)
-	displayStorage(storageValue)
+function addToLocalStorage(storageValue: number, output: HTMLFormElement) {
+	localStorage.setItem(storageValue.toString(), output.value)
+	displayStorage(storageValue.toString())
 	storageValue++
 }
 function clearForm() {
-	document.getElementById('url').value = ''
-	document.getElementById('elementName').value = ''
-	document.getElementById('output').value = ''
+	document.querySelector<HTMLFormElement>('#url').value = ''
+	document.querySelector<HTMLFormElement>('#elementName').value = ''
+	document.querySelector<HTMLFormElement>('#output').value = ''
 }
 
 function clearStorage() {
@@ -163,12 +172,12 @@ function loadStorage() {
 	storageValue = localStorage.length + 1
 }
 
-function copyFromStorage(target) {
+function copyFromStorage(target: string) {
 	navigator.clipboard.writeText(localStorage.getItem(target))
 }
 
-function isValidHttpUrl(string) {
-	let url
+function isValidHttpUrl(string: string): boolean {
+	let url: URL
 
 	try {
 		url = new URL(string)
