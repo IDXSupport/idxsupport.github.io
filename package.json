@@ -4,7 +4,8 @@
 	"description": "Need to wrap up a site? Visit https://idxsupport.github.io/  \r Shortcode Generator? Gotchu https://idxsupport.github.io/shortcode-generator/index.html",
 	"main": "index.js",
 	"scripts": {
-		"test": "npx cypress run"
+		"test": "npx cypress run",
+		"start": "npx tsc --watch"
 	},
 	"repository": {
 		"type": "git",
@@ -17,6 +18,8 @@
 	},
 	"homepage": "https://github.com/IDXSupport/idxsupport.github.io#readme",
 	"devDependencies": {
-		"cypress": "^10.10.0"
-	}
+		"cypress": "^10.10.0",
+		"typescript": "^4.8.4"
+	},
+	"dependencies": {}
 }
