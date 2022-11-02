@@ -1,14 +1,12 @@
-const site = 'http://localhost:3069/'
-
 describe('The correct URL is here', () => {
 	it('has the right correct url', () => {
-		cy.visit(site)
+		cy.visit('/')
 	})
 })
 
 describe('With invalid input the page shows a fail toast message', () => {
 	it('when not including any url or element', () => {
-		cy.visit(site)
+		cy.visit('/')
 		cy.get('#classButton').click()
 		cy.get('#toast').should('have.class', 'fail show')
 		cy.log('when using an invalid url')
@@ -17,14 +15,14 @@ describe('With invalid input the page shows a fail toast message', () => {
 		cy.get('#toast').should('have.class', 'fail show')
 	})
 	it('when not including an element', () => {
-		cy.visit(site)
+		cy.visit('/')
 		cy.get('#url').type('http://google.com')
 		cy.get('#elementName').type(' ')
 		cy.get('#classButton').click()
 		cy.get('#toast').should('have.class', 'fail show')
 	})
 	it('when not including a url', () => {
-		cy.visit(site)
+		cy.visit('/')
 		cy.get('#elementName').type('something')
 		cy.get('#classButton').click()
 		cy.get('#toast').should('have.class', 'fail show')
@@ -35,7 +33,7 @@ describe('A good growler shows while using valid inputs', () => {
 		cy.get('#toast').should('have.class', 'success show')
 	})
 	it('when all fields are inputted with good info', () => {
-		cy.visit(site)
+		cy.visit('/')
 		cy.get('#url').type('http://google.com')
 		cy.get('#elementName').type('whatsup')
 		cy.get('#classButton').click()
