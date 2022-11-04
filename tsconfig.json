@@ -3,7 +3,10 @@
 		"target": "ES5",
 		"watch": true,
 		"lib": ["dom", "ES5"],
-		"types": ["cypress", "node"]
+		"types": ["cypress", "node"],
+		"esModuleInterop": true,
+		"moduleResolution": "Node"
 	},
-	"include": ["**/*.ts"]
+	"include": ["**/*.ts"],
+	"exclude": ["**/*.cy.ts"]
 }

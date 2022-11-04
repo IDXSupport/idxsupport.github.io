@@ -25,7 +25,7 @@ function toasterNotification(
 }
 
 // Removes any surrounding whitespace and Replaces any spaces with commas for use with the wrapper endpoint.
-function formatTarget<HTMLFormElement>(target: any): string {
+function formatTarget(target: any) {
 	return target.trim().replaceAll(' ', ',')
 }
 
@@ -57,7 +57,7 @@ function constructEndpoint(elementType: string) {
 	const output = document.getElementById('output') as HTMLFormElement | null
 	let h1yn: boolean, title: string
 	let urlValue = urlSelector.value
-	let element = elementName.value
+	let element = formatTarget(elementName.value)
 	elementName.value = element
 
 	if (urlValue == '') {
@@ -71,7 +71,7 @@ function constructEndpoint(elementType: string) {
 		if (element == '') {
 			toasterNotification(false, 'You must choose a page element')
 		} else {
-			let title = document.querySelector('#title').nodeValue
+			let title = document.querySelector<HTMLInputElement>('#title').value
 			if (title != '') {
 				title = '&title=' + title
 			} else {

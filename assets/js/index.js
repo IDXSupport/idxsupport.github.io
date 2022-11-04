@@ -47,7 +47,7 @@ function constructEndpoint(elementType) {
     var output = document.getElementById('output');
     var h1yn, title;
     var urlValue = urlSelector.value;
-    var element = elementName.value;
+    var element = formatTarget(elementName.value);
     elementName.value = element;
     if (urlValue == '') {
         toasterNotification(false, 'You must enter a URL');
@@ -60,7 +60,7 @@ function constructEndpoint(elementType) {
             toasterNotification(false, 'You must choose a page element');
         }
         else {
-            var title_1 = document.querySelector('#title').nodeValue;
+            var title_1 = document.querySelector('#title').value;
             if (title_1 != '') {
                 title_1 = '&title=' + title_1;
             }
