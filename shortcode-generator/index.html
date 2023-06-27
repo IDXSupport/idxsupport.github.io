@@ -4,7 +4,8 @@
 <head>
 
     <title>Shortcode generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/4e35c51a72.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -114,7 +115,18 @@
 </head>
 
 <body>
+    <div id="app" class="analyzer-app">
+        <h1 class="analyzer-app-header">
+            <span class="header-first-part">Short</span><span class="header-second-part">code</span> <span
+                class="header-third-part">Generator</span>
+        </h1>
 
+        <div class="app-intranavigation">
+            <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
+            <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
+            <a class="intrasite" href="https://idxsupport.github.io/shortcode-generator">Shorcode Generator</a>
+        </div>
+    </div>
     <div id="shortcode-generator-app">
         <div class="shortcode-generator-header">
             <h2>Click on the widget you want to add to a page</h2>
@@ -134,8 +146,9 @@
                 <li class="widget-attribute" v-for="attribute,index in selectedWidget.attributes"
                     v-bind:class="{ 'show-description': attribute.showDescription }">
                     <label>
-                        <input class="attribute-mandatory-checkbox" v-if="!attribute.mandatory" v-model:checked="attribute.options.checked"
-                            type="checkbox"><span class="shortcode-attribute-name">{{ attribute.name }}</span>
+                        <input class="attribute-mandatory-checkbox" v-if="!attribute.mandatory"
+                            v-model:checked="attribute.options.checked" type="checkbox"><span
+                            class="shortcode-attribute-name">{{ attribute.name }}</span>
                     </label>
                     <i class="fas icon fa-question-circle help-icon"
                         v-on:click="showAttributeDescription(attribute)"></i>
@@ -244,10 +257,10 @@
                 .addAttribute('saved_link_id', "If you're pulling listings from a saved link, the ID of the saved link that should be used. You can find the ID for your saved links by navigating to Design > Website > Saved Links and locating the row that corresponds to your saved link.", 'int', 0, false, { checked: false })
                 .addAttribute('agent_id', "Set this if you want to limit the listings shown by the showcase to a specific agent. You can find the ID that should be used here by navigating to Account > Users > Agents and locating the row and ID that corresponds to the your agent user.", 'int', 0, false, { checked: false })
                 .addAttribute('max', 'The maximum number of listings that will be shown. If unset, the default is 4.', 'int', 4, false, { checked: true })
-                .addAttribute('use_rows', "I'm not sure what this does.", 'bool', '1', false, { checked: true })
+                .addAttribute('use_rows', "Allows user to set the number of listings per row.", 'bool', '1', false, { checked: true })
                 .addAttribute('num_per_row', 'The number of listings to show per row. This defaults to 4.', 'int', 4, false, { checked: true })
                 .addAttribute('order', 'How the listings should be ordered, either from high-to-low listing price or low-to-high.', 'select', 'high-low', false, { checked: true, choices: ['high-low', 'low-high'] })
-                .addAttribute('show_image', "I'm not sure what this does.", 'bool', '1', false, { checked: true })
+                .addAttribute('show_image', "Displays the primary image of a property.", 'bool', '1', false, { checked: true })
             , new Widget('IMPress Carousel', 'impress_property_carousel', 'fa-ellipsis-h')
                 .addAttribute('property_type', 'What kind of properties should be shown. Choose between featured listings, sold and pending listings, supplemental listings or listings from a saved link.', 'select', 'featured', false, { checked: true, choices: ['featured', 'supplemental', 'soldpending', 'savedlinks'] })
                 .addAttribute('saved_link_id', "If you're pulling listings from a saved link, the ID of the saved link that should be used. You can find the ID for your saved links by navigating to Design > Website > Saved Links and locating the row that corresponds to your saved link.", 'int', 0, false, { checked: false })
@@ -257,23 +270,23 @@
                 .addAttribute('order', 'How the listings should be ordered, either from high-to-low listing price or low-to-high.', 'select', 'high-low', false, { checked: true, choices: ['high-low', 'low-high'] })
                 .addAttribute('autoplay', 'Whether the carousel should automatically scroll through listings or not.', 'bool', '1', false, { checked: true })
             , new Widget('IMPress City Links', 'impress_city_links', 'fa-link')
-                .addAttribute('city_list', 'The ID of the city list to generate links with.', 'string', '', false, {checked: false})
-                .addAttribute('mls', 'The ID of the MLS feed that should be used for the city list.', 'string', '', false, {checked: false})
-                .addAttribute('use_columns', "I don't know what this does.", 'bool', '1', false, {checked: false})
-                .addAttribute('number_columns', 'How many columns should be used to display the city links.', 'select', '4', false, {checked: false, choices: ['4', '3', '2']})
-                .addAttribute('show_count', "I don't know what this does.", 'bool', '0', false, {checked: false})
-                .addAttribute('new_window', "Whether a new window should open when a city link is clicked.", 'bool', '0', false, {checked: false})
+                .addAttribute('city_list', 'The ID of the city list to generate links with.', 'string', '', false, { checked: false })
+                .addAttribute('mls', 'The ID of the MLS feed that should be used for the city list.', 'string', 'b001', true, { checked: true })
+                .addAttribute('use_columns', "The number of columns the widget display links in.", 'bool', '1', false, { checked: false })
+                .addAttribute('number_columns', 'How many columns should be used to display the city links.', 'select', '4', false, { checked: false, choices: ['4', '3', '2'] })
+                .addAttribute('show_count', "Displays the number of properties are within the link.", 'bool', '0', false, { checked: false })
+                .addAttribute('new_window', "Whether a new window should open when a city link is clicked.", 'bool', '0', false, { checked: false })
             , new Widget('IMPress Lead Sign Up', 'impress_lead_signup', 'fa-user-plus')
-                .addAttribute('phone', "Whether the phone input field should appear", 'bool', '0', false, {checked: false})
-                .addAttribute('new_window', "Whether a new window should open when the form is submitted.", 'bool', '0', false, {checked: false})
-                .addAttribute('password_field', "Whether the password field input should appear on the form.", 'bool', '0', false, {checked: false})
+                .addAttribute('phone', "Whether the phone input field should appear", 'bool', '0', false, { checked: false })
+                .addAttribute('new_window', "Whether a new window should open when the form is submitted.", 'bool', '0', false, { checked: false })
+                .addAttribute('password_field', "Whether the password field input should appear on the form.", 'bool', '0', false, { checked: false })
                 .addAttribute('agent_id', "Set this if you want to assign leads generated by this form to a specific agent. You can find the ID that should be used here by navigating to Account > Users > Agents and locating the row and ID that corresponds to the your agent user.", 'int', 0, false, { checked: false })
                 .addAttribute('button_text', 'The text that should appear on the submit button for the form.', 'string', '', true)
                 .addAttribute('styles', "This controls whether or not the default layout will be applied to the search bar when it's displayed on your page. It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the signup form.", 'bool', '1', true)
             , new Widget('IMPress Lead Login', 'impress_lead_login', 'fa-users')
                 .addAttribute('styles', "This controls whether or not the default layout will be applied to the search bar when it's displayed on your page. It's best to keep this set to 1 unless you or your designer or developer are planning on applying custom CSS to the login form.", 'bool', '1', true)
-                .addAttribute('new_window', "Whether a new window should open when the form is submitted.", 'bool', '0', false, {checked: false})
-                .addAttribute('password_field', "Whether the password field input should appear on the form.", 'bool', '0', false, {checked: false})
+                .addAttribute('new_window', "Whether a new window should open when the form is submitted.", 'bool', '0', false, { checked: false })
+                .addAttribute('password_field', "Whether the password field input should appear on the form.", 'bool', '0', false, { checked: false })
 
         ];
 
