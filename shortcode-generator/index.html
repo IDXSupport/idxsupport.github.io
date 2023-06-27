@@ -6,6 +6,7 @@
     <title>Shortcode generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
+    <link href="../dist/css/main.css" rel="stylesheet"> 
 
     <script src="https://kit.fontawesome.com/4e35c51a72.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -34,6 +35,7 @@
             grid-template-columns: repeat(3, 1fr);
             width: fit-content;
             margin: 0 auto;
+            background-color: #3ca5d6;
         }
 
         .shortcode-generator-target-container .generator-target {
@@ -62,7 +64,7 @@
         .shortcode-generator-output {
             font-family: monospace;
             padding: 0.5rem;
-            background: #fafafa;
+            background: #8dc541;
         }
 
         .attribute-select,
@@ -110,6 +112,12 @@
         .attribute-mandatory-checkbox {
             margin: 0 0.5rem 0 0;
         }
+        .shortcode-generator-copy-tooltip{
+            display: none;
+        }
+        .shortcode-generator-copy-tooltip--visible{
+            display: block;
+        }
     </style>
 
 </head>
@@ -122,28 +130,29 @@
         </h1>
 
         <div class="app-intranavigation">
-            <a class="intrasite current" href="https://idxsupport.github.io/">Endpoint Creator</a>
+            <a class="intrasite" href="/">Endpoint Creator</a>
             <a class="intrasite" href="http://lain.tools:5732/analyzer.html">Candidate Calculator</a>
-            <a class="intrasite" href="https://idxsupport.github.io/shortcode-generator">Shorcode Generator</a>
+            <a class="intrasite current" href="/shortcode-generator">Shortcode Generator</a>
         </div>
     </div>
-    <div id="shortcode-generator-app">
-        <div class="shortcode-generator-header">
-            <h2>Click on the widget you want to add to a page</h2>
-            <div class="shortcode-generator-target-container">
-                <div v-for="widget,index in widgets">
-                    <button class="generator-target" v-bind:class="{ 'active': selectedWidget.name == widget.name}"
+    <div class="shortcode-generator-header app">
+        <div id="shortcode-generator-app">
+            <div class="shortcode-generator-header">
+                <h2>Click on the widget you want to add to a page</h2>
+                <div class="shortcode-generator-target-container">
+                    <div v-for="widget,index in widgets">
+                        <button class="generator-target" v-bind:class="{ 'active': selectedWidget.name == widget.name}"
                         v-on:click="selectWidget(index)"><i class="fas fa-2x icon" v-bind:class="widget.iconName"></i>
                         {{ widget.name }}</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="shortcode-generator-inputs-container">
-            <h2>Options</h2>
-            <p>Choose the options for the selected widget below. Options with a checkbox next to them are optional;
-                check their checkbox to include them in the generated shortcode.</p>
-            <ul class="attribute-list">
-                <li class="widget-attribute" v-for="attribute,index in selectedWidget.attributes"
+            <div class="shortcode-generator-inputs-container">
+                <h2>Options</h2>
+                <p>Choose the options for the selected widget below. Options with a checkbox next to them are optional;
+                    check their checkbox to include them in the generated shortcode.</p>
+                    <ul class="attribute-list">
+                        <li class="widget-attribute" v-for="attribute,index in selectedWidget.attributes"
                     v-bind:class="{ 'show-description': attribute.showDescription }">
                     <label>
                         <input class="attribute-mandatory-checkbox" v-if="!attribute.mandatory"
@@ -173,7 +182,7 @@
                 </li>
             </ul>
         </div>
-        <div class="shortcode-generator-output-container">
+        <div class="shortcode-generator-output-container" >
             <h2>Shortcode</h2>
             <p>Copy the below text, including the brackets, and paste it as a shortcode into your WordPress site to
                 insert this widget.</p>
@@ -181,6 +190,10 @@
                 {{ shortcodeOutput }}
             </div>
         </div>
+    </div>
+    <div class="shortcode-generator-copy-tooltip">
+        <i class="fas fa-clipboard"></i>
+        <span class="tooltip-text">Copied!</span>
     </div>
 
     <script>
@@ -320,6 +333,35 @@
             }
         });
 
+    </script>
+    <script>
+         // when clicking .shortcode-generator-output, select all text inside it
+         document.querySelector('.shortcode-generator-output').addEventListener('click', function (e) {
+            var range = document.createRange();
+            range.selectNodeContents(e.target);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        });
+
+        //copy the text within .shortcode-generator-output to the clipboard when clicked
+        document.querySelector('.shortcode-generator-output').addEventListener('click', function (e) {
+            var range = document.createRange();
+            range.selectNodeContents(e.target);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            document.execCommand('copy');
+        });
+
+        // change the class of .shortcode-generator-copy-tooltip to .shortcode-generator-copy-tooltip--visible when the shortcode-generator-output is clicked for just like 2 secconds
+        // also display the actual text copied
+        document.querySelector('.shortcode-generator-output').addEventListener('click', function (e) {
+            document.querySelector('.shortcode-generator-copy-tooltip').classList.add('shortcode-generator-copy-tooltip--visible');
+            setTimeout(function () {
+                document.querySelector('.shortcode-generator-copy-tooltip').classList.remove('shortcode-generator-copy-tooltip--visible');
+            }, 2000);
+        });
     </script>
 
 
